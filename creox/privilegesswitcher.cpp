@@ -40,7 +40,7 @@ void PrivilegesSwitcher::releasePrivileges() throw(Cr::CrException_runtimeError 
 	status = setreuid(m_euid, m_ruid);
 #endif
 	if(status < 0){
-		throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
+          //throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
 	}
 }
 
@@ -53,6 +53,6 @@ void PrivilegesSwitcher::getPrivileges() throw(Cr::CrException_runtimeError)
 	status = setreuid(m_ruid, m_euid);
 #endif
 	if(status < 0){
-		throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
+          //throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
 	}
 }

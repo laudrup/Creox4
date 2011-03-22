@@ -71,17 +71,18 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 	m_effectFrameLayout->addWidget( m_line1 );
 
 	// ------------------ effects ---------------------------
-	m_effectLayout = new Q3GridLayout;
+	m_effectLayout = new Q3GridLayout(this);
 	m_effectLayout->setSpacing( 5 );
 	m_effectLayout->setMargin( 0 );
 
 	// create  effect QCheckBoxes
 	int activeEffectsCount = 0;
 	int xPos=0, yPos=0;
-	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList()) ; effectIterator.current(); ++effectIterator ){
-		CrCheckBox_private* const effectCheckBox = new CrCheckBox_private(effectIterator.current()->getProcessor()->getId(), m_effectFrame);
-		effectCheckBox->setText(effectIterator.current()->effectName());
-		if(effectIterator.current()->getProcessor()->mode() == SoundProcessor::enabled){
+	for(QListIterator<CrEffectGui*> effectIterator(m_effectKeeper->effectList()) ; effectIterator.hasNext();){
+          CrEffectGui* effect = effectIterator.next();
+		CrCheckBox_private* const effectCheckBox = new CrCheckBox_private(effect->getProcessor()->getId(), m_effectFrame);
+		effectCheckBox->setText(effect->effectName());
+		if(effect->getProcessor()->mode() == SoundProcessor::enabled){
 			effectCheckBox->setChecked(true);
 			activeEffectsCount++;
 		}

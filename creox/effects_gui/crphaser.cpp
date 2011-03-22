@@ -29,6 +29,7 @@
 #include "crvalidator.h"
 #include "crsliderarray.h"
 
+#include <KConfigGroup>
 
 CrPhaser::CrPhaser(QWidget *parent, const char *name )
 		: CrEffectGui(parent,name)
@@ -90,26 +91,24 @@ CrPhaser::~CrPhaser()
 
 void CrPhaser::restoreParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Phaser");
-	m_ppar->inputGain = conf->readDoubleNumEntry("inputGain", -5.0);
-	m_ppar->sweepGain = conf->readDoubleNumEntry("sweepGain", 10.0);
-	m_ppar->dryMix = conf->readDoubleNumEntry("dryMix", 80.0);
-	m_ppar->centerFrequency = conf->readDoubleNumEntry("centerFrequency", 900.0);
-	m_ppar->depth = conf->readDoubleNumEntry("depth", 3.0);
-	m_ppar->resonance = conf->readDoubleNumEntry("resonance", 1.7);
-	m_ppar->sweepFrequency = conf->readDoubleNumEntry("sweepFrequency", 0.75);
+	KConfigGroup conf = KGlobal::config()->group("Phaser");
+	m_ppar->inputGain = conf.readEntry("inputGain", -5.0);
+	m_ppar->sweepGain = conf.readEntry("sweepGain", 10.0);
+	m_ppar->dryMix = conf.readEntry("dryMix", 80.0);
+	m_ppar->centerFrequency = conf.readEntry("centerFrequency", 900.0);
+	m_ppar->depth = conf.readEntry("depth", 3.0);
+	m_ppar->resonance = conf.readEntry("resonance", 1.7);
+	m_ppar->sweepFrequency = conf.readEntry("sweepFrequency", 0.75);
 }
 
 void CrPhaser::saveParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Phaser");
-	conf->writeEntry("inputGain", m_ppar->inputGain);
-	conf->writeEntry("sweepGain", m_ppar->sweepGain);
-	conf->writeEntry("dryMix", m_ppar->dryMix);
-	conf->writeEntry("centerFrequency", m_ppar->centerFrequency);
-	conf->writeEntry("depth", m_ppar->depth);
-	conf->writeEntry("resonance", m_ppar->resonance);
-	conf->writeEntry("sweepFrequency", m_ppar->sweepFrequency);
+	KConfigGroup conf = KGlobal::config()->group("Phaser");
+	conf.writeEntry("inputGain", m_ppar->inputGain);
+	conf.writeEntry("sweepGain", m_ppar->sweepGain);
+	conf.writeEntry("dryMix", m_ppar->dryMix);
+	conf.writeEntry("centerFrequency", m_ppar->centerFrequency);
+	conf.writeEntry("depth", m_ppar->depth);
+	conf.writeEntry("resonance", m_ppar->resonance);
+	conf.writeEntry("sweepFrequency", m_ppar->sweepFrequency);
 }

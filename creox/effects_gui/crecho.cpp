@@ -35,6 +35,8 @@
 #include "crecho.h"
 #include "crechotapsview.h"
 
+#include <KConfigGroup>
+
 CrEcho::CrEcho(QWidget *parent, const char *name )
 		: CrEffectGui(parent,name)
 {
@@ -203,20 +205,19 @@ CrEcho::~CrEcho()
 
 void CrEcho::restoreParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Echo");
-	m_epar->inputGain = conf->readDoubleNumEntry("inputGain", 0.0);
-	m_epar->wetMix = conf->readDoubleNumEntry("wetMix", 30.0);
-	m_epar->dryMix = conf->readDoubleNumEntry("dryMix", 70.0);
-	m_epar->finalFeedback = conf->readDoubleNumEntry("finalFeedback", 30.0);
-	m_epar->finalDelay = conf->readDoubleNumEntry("finalDelay", 350.0);
-	m_epar->parallelEchoCount = conf->readNumEntry("parallelEchoCount", 0);
+	KConfigGroup conf = KGlobal::config()->group("Echo");
+	m_epar->inputGain = conf.readEntry("inputGain", 0.0);
+	m_epar->wetMix = conf.readEntry("wetMix", 30.0);
+	m_epar->dryMix = conf.readEntry("dryMix", 70.0);
+	m_epar->finalFeedback = conf.readEntry("finalFeedback", 30.0);
+	m_epar->finalDelay = conf.readEntry("finalDelay", 350.0);
+	m_epar->parallelEchoCount = conf.readEntry("parallelEchoCount", 0);
 	for(int count=0; count<10; count++){
-		m_epar->parallelEcho[count].delay = conf->readDoubleNumEntry(QString("parallelEcho%1_delay").arg(count), 100.0*static_cast<double>(count)+100.0);
-		m_epar->parallelEcho[count].decay = conf->readDoubleNumEntry(QString("parallelEcho%1_decay").arg(count), 50.0/(static_cast<double>(count)+1.0));
-		m_epar->parallelEcho[count].feedback = conf->readDoubleNumEntry(QString("parallelEcho%1_feedback").arg(count), 0.0);
+		m_epar->parallelEcho[count].delay = conf.readEntry(QString("parallelEcho%1_delay").arg(count), 100.0*static_cast<double>(count)+100.0);
+		m_epar->parallelEcho[count].decay = conf.readEntry(QString("parallelEcho%1_decay").arg(count), 50.0/(static_cast<double>(count)+1.0));
+		m_epar->parallelEcho[count].feedback = conf.readEntry(QString("parallelEcho%1_feedback").arg(count), 0.0);
 	}
-	m_visibleVoice = conf->readNumEntry("visibleVoice", 0);
+	m_visibleVoice = conf.readEntry("visibleVoice", 0);
 	if(m_visibleVoice > m_epar->parallelEchoCount){
 		m_visibleVoice = m_epar->parallelEchoCount;
 	}
@@ -224,18 +225,17 @@ void CrEcho::restoreParameters()
 
 void CrEcho::saveParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Echo");
-	conf->writeEntry("inputGain", m_epar->inputGain);
-	conf->writeEntry("wetMix", m_epar->wetMix);
-	conf->writeEntry("dryMix", m_epar->dryMix);
-	conf->writeEntry("finalFeedback", m_epar->finalFeedback);
-	conf->writeEntry("finalDelay", m_epar->finalDelay);
-	conf->writeEntry("parallelEchoCount", m_epar->parallelEchoCount);
+	KConfigGroup conf = KGlobal::config()->group("Echo");
+	conf.writeEntry("inputGain", m_epar->inputGain);
+	conf.writeEntry("wetMix", m_epar->wetMix);
+	conf.writeEntry("dryMix", m_epar->dryMix);
+	conf.writeEntry("finalFeedback", m_epar->finalFeedback);
+	conf.writeEntry("finalDelay", m_epar->finalDelay);
+	conf.writeEntry("parallelEchoCount", m_epar->parallelEchoCount);
 	for(int count=0; count<10; count++){
-		conf->writeEntry(QString("parallelEcho%1_delay").arg(count), m_epar->parallelEcho[count].delay);
-		conf->writeEntry(QString("parallelEcho%1_decay").arg(count), m_epar->parallelEcho[count].decay);
-		conf->writeEntry(QString("parallelEcho%1_feedback").arg(count), m_epar->parallelEcho[count].feedback);
+		conf.writeEntry(QString("parallelEcho%1_delay").arg(count), m_epar->parallelEcho[count].delay);
+		conf.writeEntry(QString("parallelEcho%1_decay").arg(count), m_epar->parallelEcho[count].decay);
+		conf.writeEntry(QString("parallelEcho%1_feedback").arg(count), m_epar->parallelEcho[count].feedback);
 	}
-	conf->writeEntry("visibleVoice", m_visibleVoice);
+	conf.writeEntry("visibleVoice", m_visibleVoice);
 }

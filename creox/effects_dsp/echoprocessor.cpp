@@ -20,6 +20,7 @@
 #include "control.h"
 #include <cassert>
 #include <cmath>
+#include <cerrno>
 #include <cstring>
 #include <iostream>
 #include "crdatastream.h"

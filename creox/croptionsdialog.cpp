@@ -39,18 +39,25 @@
 #include <kiconloader.h>
 #include "croptionsdialog.h"
 
+#include <KConfigGroup>
+
 const char* const CrOptionsDialog::DEFAULT_LEFT_INPUT_PORT = "alsa_pcm:playback_1";
 const char* const CrOptionsDialog::DEFAULT_RIGHT_INPUT_PORT = "alsa_pcm:playback_2";
 const char* const CrOptionsDialog::DEFAULT_LEFT_OUTPUT_PORT = "alsa_pcm:capture_1";
 const char* const CrOptionsDialog::DEFAULT_RIGHT_OUTPUT_PORT = "alsa_pcm:capture_2";
 
 CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
-	: KDialogBase(IconList, i18n("Options"), Ok | Cancel, Ok, parent, name, true, true)
+  : KPageDialog(parent)
 {
+
+  // XXX!
+  // KPageDialog(KPageDialog::List, i18n("Options"), Ok | Cancel, Ok, parent, name, true, true)
 	/* page 1 */
+  // XXX!
+  /*
 	Q3Frame* const page1 = addPage(i18n("Jack"),
 								  i18n("Jack audio configuration:"),
-								  BarIcon("sound_card_properties", KIcon::SizeLarge ));
+                                       BarIcon("sound_card_properties"), KIcon::SizeLarge ));
 	Q3GridLayout* const page1Layout = new Q3GridLayout(page1, 6, 4, 0,
 													 spacingHint());
 
@@ -62,7 +69,8 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
     Q3GridLayout* const inputGroupBoxHelperLayout = new Q3GridLayout(inputGroupBoxHelper,
     														       2, 2, 0, spacingHint());
 	QLabel* const leftInputChannelLabel = new QLabel(i18n("Left:"), inputGroupBoxHelper);
-	leftInputChannelLabel->setAlignment(AlignVCenter | AlignRight);
+        // XXX!
+	//leftInputChannelLabel->setAlignment(AlignVCenter | AlignRight);
 	leftInputChannelLabel->setMinimumWidth(leftInputChannelLabel->sizeHint().width() * 2);
 	inputGroupBoxHelperLayout->addWidget(leftInputChannelLabel, 0, 0);
 	m_pLeftInputPort = new QComboBox(false, inputGroupBoxHelper);
@@ -156,7 +164,7 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
 	page1Layout->setColStretch(3, 2);
 
 	page1Layout->setRowStretch(5, 10);
-
+  */
 	loadSettings();
 }
 
@@ -212,16 +220,15 @@ void CrOptionsDialog::loadSettings()
 	}
 
 	// get the pointer to the config object
-	KConfig* const conf = KGlobal::config();
-	conf->setGroup(QString::fromLatin1("Jack_Options"));
+	KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Jack_Options"));
 
-    m_disconnectedInputCheckBox->setChecked(conf->readBoolEntry("DisconnectedInput", false));
-    m_disconnectedOutputCheckBox->setChecked(conf->readBoolEntry("DisconnectedOutput", false));
+    m_disconnectedInputCheckBox->setChecked(conf.readEntry("DisconnectedInput", false));
+    m_disconnectedOutputCheckBox->setChecked(conf.readEntry("DisconnectedOutput", false));
     
 	/* input channels */
 
 	// read the left input port name from the config
-	const QString sConfigLeftInputPort = conf->readEntry("LeftOutputPort");
+	const QString sConfigLeftInputPort = conf.readEntry("LeftOutputPort");
 	int iConfigLeftInputPortNumber = 0;
 
 	// if there is a value which is not in the list already; add it
@@ -255,7 +262,7 @@ void CrOptionsDialog::loadSettings()
 	}
 
 	// read the right input port name from the config
-	const QString sConfigRightInputPort = conf->readEntry("RightOutputPort");
+	const QString sConfigRightInputPort = conf.readEntry("RightOutputPort");
 	int iConfigRightInputPortNumber = 0;
 
 	// if there is a value which is not in the list already; add it
@@ -314,7 +321,7 @@ void CrOptionsDialog::loadSettings()
 	/* output channels */
 
 	// read the left output port name from the config
-	const QString sConfigLeftOutputPort = conf->readEntry("LeftInputPort");
+	const QString sConfigLeftOutputPort = conf.readEntry("LeftInputPort");
 	int iConfigLeftOutputPortNumber = 0;
 
 	// if there is a value which is not in the list already; add it
@@ -348,7 +355,7 @@ void CrOptionsDialog::loadSettings()
 	}
 
 	// read the right output port name from the config
-	const QString sConfigRightOutputPort = conf->readEntry("RightInputPort");
+	const QString sConfigRightOutputPort = conf.readEntry("RightInputPort");
 	int iConfigRightOutputPortNumber = 0;
 
 	// if there is a value which is not in the list already; add it
@@ -408,15 +415,14 @@ void CrOptionsDialog::loadSettings()
 
 void CrOptionsDialog::slotOk()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup(QString::fromLatin1("Jack_Options"));
+	KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Jack_Options"));
 
-	conf->writeEntry("LeftInputPort", m_pLeftInputPort->currentText());
-	conf->writeEntry("RightInputPort", m_pRightInputPort->currentText());
-	conf->writeEntry("LeftOutputPort", m_pLeftOutputPort->currentText());
-	conf->writeEntry("RightOutputPort", m_pRightOutputPort->currentText());
-    conf->writeEntry("DisconnectedInput", m_disconnectedInputCheckBox->isChecked());
-    conf->writeEntry("DisconnectedOutput", m_disconnectedOutputCheckBox->isChecked());
+	conf.writeEntry("LeftInputPort", m_pLeftInputPort->currentText());
+	conf.writeEntry("RightInputPort", m_pRightInputPort->currentText());
+	conf.writeEntry("LeftOutputPort", m_pLeftOutputPort->currentText());
+	conf.writeEntry("RightOutputPort", m_pRightOutputPort->currentText());
+        conf.writeEntry("DisconnectedInput", m_disconnectedInputCheckBox->isChecked());
+        conf.writeEntry("DisconnectedOutput", m_disconnectedOutputCheckBox->isChecked());
 
 	accept();
 }

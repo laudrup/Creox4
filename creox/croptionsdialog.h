@@ -18,7 +18,7 @@
 #define CROPTIONSDIALOG_H
 
 #include <qwidget.h>
-#include <kdialogbase.h>
+#include <kpagedialog.h>
 
 class QComboBox;
 class QCheckBox;
@@ -26,7 +26,7 @@ class QCheckBox;
 /**	Creox Options dialog.
  *	@author	Jozef Kosoru
  */
-class CrOptionsDialog : public KDialogBase
+class CrOptionsDialog : public KPageDialog
 {
 	 Q_OBJECT
 

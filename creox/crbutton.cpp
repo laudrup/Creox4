@@ -37,10 +37,11 @@
 #define TEXT_HOFFSET 5
 
 CrButton::CrButton(QWidget *parent, const char *name ) :
-	QButton(parent ,name, Qt::WResizeNoErase|Qt::WNoAutoErase), m_heightSizeHint(25), m_iconWidth(0),
+	QAbstractButton(parent ,name, Qt::WResizeNoErase|Qt::WNoAutoErase), m_heightSizeHint(25), m_iconWidth(0),
 	m_intermediateState(false)
 {
-	setToggleType(QButton::Toggle);
+  // XXX!
+  //setToggleType(QButton::Toggle);
 	setBackgroundMode(Qt::NoBackground);
 	setFocusPolicy(Qt::NoFocus);
 }
@@ -134,7 +135,9 @@ void CrButton::drawButton(QPainter* painter)
 
 	const QRect newDrawRect = rect();
 	//QApplication::style().drawToolButton(painter, newDrawRect.x(), newDrawRect.y(), newDrawRect.width(), newDrawRect.height(), buttonColorGroup);
-	QApplication::style().drawPrimitive(QStyle::PE_ButtonBevel, painter, newDrawRect, buttonColorGroup);
+
+        // XXX!
+	//QApplication::style().drawPrimitive(QStyle::PE_ButtonBevel, painter, newDrawRect, buttonColorGroup);
 
 	drawButtonLabel(painter);
 }
@@ -143,11 +146,14 @@ void CrButton::drawButtonLabel(QPainter* painter)
 {
 	//drawIcon
 	if(!m_iconName.isNull()){
-		KIconLoader* const iconLoader = KGlobal::iconLoader();
+          KIconLoader* const iconLoader = KIconLoader::global();
+          // XXX!
+          /*
 		const int state = (isOn()) ? KIcon::DefaultState : KIcon::DisabledState;
 		const QPixmap icon = iconLoader->loadIcon(m_iconName, KIcon::Small, 0, state);
 		const QPoint point(ICON_HOFFSET, (height() - icon.height())/2);
 		painter->drawPixmap(point, icon);
+          */
 	}
 	if(!text().isNull()){
 		const int hOffset = ICON_HOFFSET + m_iconWidth + TEXT_HOFFSET ;
@@ -161,10 +167,13 @@ void CrButton::setIcon(const QString& iconName)
 {
 	m_iconName = iconName;
 	if(!m_iconName.isNull()){
-		KIconLoader* const iconLoader = KGlobal::iconLoader();
+          KIconLoader* const iconLoader = KIconLoader::global();
+          // XXX!
+          /*
 		const QPixmap icon = iconLoader->loadIcon(m_iconName, KIcon::Small, 0, KIcon::DefaultState);
 		m_heightSizeHint = icon.height()+(ICON_VOFFSET*2);
 		m_iconWidth = icon.width();
+          */
 	}
 }
 

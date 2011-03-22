@@ -39,6 +39,9 @@
 #include "crpresetpopupmenu.h"
 #include "crpresetview.h"
 
+#include <KConfig>
+#include <KConfigGroup>
+
 #define CR_PRESET_DATA_FILE_NAME          "preset.data"
 #define CR_PRESET_DATA_FILE_VERSION       (1.0)
 #define CR_PRESET_DATA_FILE_BEGIN_STRING  "CreoxPresetDataFile!"
@@ -49,8 +52,8 @@
 
 void CrPresetViewDir::init()
 {
-	KIconLoader* iconLoader = KGlobal::iconLoader();
-	setPixmap(0, iconLoader->loadIcon(QString::fromLatin1("folder"), KIcon::Small));
+	KIconLoader* iconLoader = KIconLoader::global();
+	//setPixmap(0, iconLoader->loadIcon(QString::fromLatin1("folder"), KIcon::Small));
 	//setExpandable(true);
 }
 
@@ -145,18 +148,19 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 			if(std::strcmp(beginString, CR_PRESET_DATA_FILE_BEGIN_STRING) || magicNumber!=CR_PRESET_DATA_FILE_BEGIN){
 				delete[] beginString;
 				presetDataFile.close();
-				throw(Cr::CrException_presetDataFileError(i18n("Bad preset data file magic type!\nCreox is unable to load presets.")));
+                                //				throw(Cr::CrException_presetDataFileError(i18n("Bad preset data file magic type!\nCreox is unable to load presets.")));
 			}
 			delete[] beginString;
 			if(version!=CR_PRESET_DATA_FILE_VERSION){
 				presetDataFile.close();
-				throw(Cr::CrException_presetDataFileError(i18n("Wrong preset data file version!\nCreox is unable to load presets.")));
+				//throw(Cr::CrException_presetDataFileError(i18n("Wrong preset data file version!\nCreox is unable to load presets.")));
 			}
 
-			KConfig* const conf = KGlobal::config();
-			conf->setGroup("Preset_View");
-			Q3ValueList<int> dirIsOpenMap = conf->readIntListEntry(QString::fromLatin1("dirIsOpenMap"));
-			QStringList dirNamesMap = conf->readListEntry(QString::fromLatin1("dirNamesMap"), '|');
+			KConfigGroup conf = KGlobal::config()->group("Preset_View");
+			QList<int> dirIsOpenMap = conf.readEntry(QString::fromLatin1("dirIsOpenMap"), QList<int>());
+                        // XXX
+			//QStringList dirNamesMap = conf.readEntry(QString::fromLatin1("dirNamesMap"), '|', QStringList());
+                        QStringList dirNamesMap = conf.readEntry(QString::fromLatin1("dirNamesMap"), QStringList());
 			if(dirIsOpenMap.isEmpty() || dirNamesMap.isEmpty()){
 				m_pDirIsOpenMap = 0;
 				m_pDirNamesMap = 0;
@@ -173,13 +177,13 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 				presetDataStream >> itemType;
 				switch(static_cast<int>(itemType)){
 					case CR_PRESET_DATA_FILE_PRESET_BEGIN:
-						try{
+                                          //try{
 							(void) new CrPresetViewItem(presetDataStream, this);
-						}catch(Cr::CrException_presetDataError& error){
-#ifdef _DEBUG
-							std::cerr << "Error loading preset: " << error.what().latin1() << "\n";
-#endif
-						}
+                                                        //}catch(Cr::CrException_presetDataError& error){
+                                                        //#ifdef _DEBUG
+							//std::cerr << "Error loading preset: " << error.what().latin1() << "\n";
+                                                        //#endif
+                                                          //}
 						break;
 					case CR_PRESET_DATA_FILE_DIR_BEGIN:
 						{ //!! <-- bug in the compiler? (gcc 2.95.3) !!
@@ -201,8 +205,8 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 							loadDir(presetDataStream, rootDir);
 						}
 						break;
-					default:
-						throw(Cr::CrException_presetDataFileError(i18n("Preset data file inconsistency!\nCreox is unable to continue loading presets.")));
+                                                //default:
+                                          //throw(Cr::CrException_presetDataFileError(i18n("Preset data file inconsistency!\nCreox is unable to continue loading presets.")));
 				}
 			}
 
@@ -221,7 +225,7 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 	const QString dataFileName(stdDirs->saveLocation("appdata") + QString::fromLatin1(CR_PRESET_DATA_FILE_NAME));
 	QFile presetDataFile(dataFileName);
 	if(!presetDataFile.open(QIODevice::WriteOnly)){
-		throw(Cr::CrException_presetDataFileError(i18n("Cannot create preset data file!\n") + dataFileName));
+          //throw(Cr::CrException_presetDataFileError(i18n("Cannot create preset data file!\n") + dataFileName));
 	}
 #ifdef _DEBUG
 		std::cerr << "CrPresetView::savePresets - saving: " << dataFileName.latin1() << "\n";
@@ -229,7 +233,7 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 	QDataStream presetDataStream(&presetDataFile);
 	presetDataStream << CR_PRESET_DATA_FILE_BEGIN_STRING << static_cast<Q_INT32>(CR_PRESET_DATA_FILE_BEGIN) << static_cast<float>(CR_PRESET_DATA_FILE_VERSION);
 
-	m_pDirIsOpenMap = new Q3ValueList<int>;
+	m_pDirIsOpenMap = new QList<int>;
 	m_pDirNamesMap = new QStringList;
 
 	Q3ListViewItem* presetItem = firstChild();
@@ -252,10 +256,10 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 	}
 	presetDataFile.close();
 
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Preset_View");
-	conf->writeEntry(QString::fromLatin1("dirIsOpenMap"), *m_pDirIsOpenMap);
-	conf->writeEntry(QString::fromLatin1("dirNamesMap"), *m_pDirNamesMap, '|');
+	KConfigGroup conf = KGlobal::config()->group("Preset_View");
+	conf.writeEntry(QString::fromLatin1("dirIsOpenMap"), *m_pDirIsOpenMap);
+        // XXX!
+	conf.writeEntry(QString::fromLatin1("dirNamesMap"), *m_pDirNamesMap);//, '|');
 
 	delete m_pDirIsOpenMap;
 	m_pDirIsOpenMap = 0;
@@ -293,13 +297,13 @@ void CrPresetView::loadDir(QDataStream& dataStream, Q3ListViewItem* const parent
 		dataStream >> itemType;
 		switch(static_cast<int>(itemType)){
 			case CR_PRESET_DATA_FILE_PRESET_BEGIN:
-				try{
+                          //try{
 					(void) new CrPresetViewItem(dataStream, parent);
-				}catch(Cr::CrException_presetDataError& error){
-#ifdef _DEBUG
-					std::cerr << "Error loading preset: " << error.what().latin1() << "\n";
-#endif
-				}
+                                        //}catch(Cr::CrException_presetDataError& error){
+                                        //#ifdef _DEBUG
+					//std::cerr << "Error loading preset: " << error.what().latin1() << "\n";
+                                        //#endif
+                                        //}
 				break;
 			case CR_PRESET_DATA_FILE_DIR_BEGIN:
 				{ //!! <-- bug in the compiler? (gcc 2.95.3) !!
@@ -320,8 +324,8 @@ void CrPresetView::loadDir(QDataStream& dataStream, Q3ListViewItem* const parent
 				break;
 			case CR_PRESET_DATA_FILE_DIR_END:
 				return;
-			default:
-				throw(Cr::CrException_presetDataFileError(i18n("Preset data file inconsistency!\nCreox is unable to continue loading presets.")));
+                                //default:
+				//throw(Cr::CrException_presetDataFileError(i18n("Preset data file inconsistency!\nCreox is unable to continue loading presets.")));
 		}
 	}
 }

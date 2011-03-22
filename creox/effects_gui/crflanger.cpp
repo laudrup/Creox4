@@ -34,6 +34,8 @@
 #include "crsliderarray.h"
 #include "crflanger.h"
 
+#include <KConfigGroup>
+
 CrFlanger::CrFlanger(QWidget *parent, const char *name )
 	: CrEffectGui(parent,name)
 {
@@ -134,30 +136,28 @@ CrFlanger::~CrFlanger()
 
 void CrFlanger::restoreParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Flanger");
-	m_fpar->inputGain = conf->readDoubleNumEntry("inputGain", 0.0);
-	m_fpar->crossfade = conf->readDoubleNumEntry("crossfade", 0.0);
-	m_fpar->feedback = conf->readDoubleNumEntry("feedback", 60.0);
-	m_fpar->frequency = conf->readDoubleNumEntry("frequency", 0.5);
-	m_fpar->modulationDepth = conf->readDoubleNumEntry("modulationDepth", 1.0);
-	m_fpar->delay = conf->readDoubleNumEntry("delay", 1.53);
-	m_fpar->waveform = conf->readNumEntry("waveform", FlangerProcessor::sine);
-	m_fpar->inverted = conf->readBoolEntry("inverted", false);
+	KConfigGroup conf = KGlobal::config()->group("Flanger");
+	m_fpar->inputGain = conf.readEntry("inputGain", 0.0);
+	m_fpar->crossfade = conf.readEntry("crossfade", 0.0);
+	m_fpar->feedback = conf.readEntry("feedback", 60.0);
+	m_fpar->frequency = conf.readEntry("frequency", 0.5);
+	m_fpar->modulationDepth = conf.readEntry("modulationDepth", 1.0);
+	m_fpar->delay = conf.readEntry("delay", 1.53);
+	m_fpar->waveform = conf.readEntry("waveform", int(FlangerProcessor::sine));
+	m_fpar->inverted = conf.readEntry("inverted", false);
 }
 
 void CrFlanger::saveParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Flanger");
-	conf->writeEntry("inputGain", m_fpar->inputGain);
-	conf->writeEntry("crossfade", m_fpar->crossfade);
-	conf->writeEntry("feedback", m_fpar->feedback);
-	conf->writeEntry("frequency", m_fpar->frequency);
-	conf->writeEntry("modulationDepth", m_fpar->modulationDepth);
-	conf->writeEntry("delay", m_fpar->delay);
-	conf->writeEntry("waveform", m_fpar->waveform);
-	conf->writeEntry("inverted", m_fpar->inverted);
+	KConfigGroup conf = KGlobal::config()->group("Flanger");
+	conf.writeEntry("inputGain", m_fpar->inputGain);
+	conf.writeEntry("crossfade", m_fpar->crossfade);
+	conf.writeEntry("feedback", m_fpar->feedback);
+	conf.writeEntry("frequency", m_fpar->frequency);
+	conf.writeEntry("modulationDepth", m_fpar->modulationDepth);
+	conf.writeEntry("delay", m_fpar->delay);
+	conf.writeEntry("waveform", m_fpar->waveform);
+	conf.writeEntry("inverted", m_fpar->inverted);
 }
 
 void CrFlanger::slotChangeLfoType(int type)

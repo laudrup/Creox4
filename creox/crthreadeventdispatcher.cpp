@@ -31,7 +31,7 @@ CrThreadEventDispatcher::CrThreadEventDispatcher(QApplication* app, const char* 
 	: QObject(app, name), m_ptrApp(app)
 {
 	if(::pipe(m_fds) == -1){
-		throw(Cr::CrException_runtimeError(i18n("Unable to create pipes!")));
+          //throw(Cr::CrException_runtimeError(i18n("Unable to create pipes!")));
 	}
 	m_notifier = new QSocketNotifier( m_fds[0], QSocketNotifier::Read);
 	connect(m_notifier, SIGNAL(activated(int)), SLOT(eventHandler()));
@@ -69,7 +69,7 @@ void CrThreadEventDispatcher::eventHandler()
 {
 	static char buf;
 	if(::read(m_fds[0], &buf, 1) == -1){
-		throw(Cr::CrException_runtimeError(i18n("Unable to read from pipe!")));
+          //throw(Cr::CrException_runtimeError(i18n("Unable to read from pipe!")));
 	}
 
 	pthread_mutex_lock(&m_eventLock);

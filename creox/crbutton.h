@@ -18,7 +18,7 @@
 #define CRBUTTON_H
 
 #include <qwidget.h>
-#include <qbutton.h>
+#include <QAbstractButton>
 #include <qsizepolicy.h>
 
 class QPainter;
@@ -28,7 +28,7 @@ class QString;
 /**A special button used inside CrChainView.
 	*@author Jozef Kosoru
 	*/
-class CrButton : public QButton  {
+class CrButton : public QAbstractButton  {
 	 Q_OBJECT
 public:
 	CrButton(QWidget *parent=0, const char *name=0);

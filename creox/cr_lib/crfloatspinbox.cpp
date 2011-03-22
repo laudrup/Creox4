@@ -23,9 +23,9 @@
 #include "crfloatspinbox.h"
 
 CrFloatSpinBox::CrFloatSpinBox(CrValidator* validator, QWidget* parent, const char* name)
-	: QSpinBox(CrValidator::minValue(), CrValidator::maxValue(), 1, parent, name), m_validator(validator)
+  : QSpinBox(CrValidator::minValue(), CrValidator::maxValue(), 1, parent, name), m_validator(validator)
 {
-	setValidator(validator);
+  //setValidator(validator);
 	setLineStep(validator->getStep());
 }
 

@@ -20,6 +20,7 @@
 #include "control.h"
 #include <cstring>
 #include <cmath>
+#include <cerrno>
 #include <iostream>
 #include "crdatastream.h"
 #include "flangerprocessor.h"

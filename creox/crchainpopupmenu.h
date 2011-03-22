@@ -18,14 +18,14 @@
 #define CRCHAINPOPUPMENU_H
 
 #include <qwidget.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 class CrChainButton;
 
 /**
 	*@author Jozef Kosoru
 	*/
-class CrChainPopupMenu : public KPopupMenu  {
+class CrChainPopupMenu : public KMenu  {
 	 Q_OBJECT
 public:
 	CrChainPopupMenu(CrChainButton *parent=0, const char *name=0);

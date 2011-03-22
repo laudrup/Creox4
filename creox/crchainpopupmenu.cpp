@@ -28,12 +28,15 @@
 #include "crchainpopupmenu.h"
 
 CrChainPopupMenu::CrChainPopupMenu(CrChainButton* parent, const char* name )
-	: KPopupMenu(parent,name), m_parent(parent)
+  : KMenu(name, parent), m_parent(parent)
 {
-	KIconLoader* const iconLoader = KGlobal::iconLoader();
+	KIconLoader* const iconLoader = KIconLoader::global();
+        // XXX!
+        /*
 	insertTitle(iconLoader->loadIcon(QString::fromLatin1(m_parent->getEffect()->getProcessor()->getName()), KIcon::Small), m_parent->getEffect()->effectName());
 	insertItem(iconLoader->loadIcon("up", KIcon::Small), i18n("Move Up"), this, SLOT(slotMoveUp()), 0, 0);
 	insertItem(iconLoader->loadIcon("down", KIcon::Small), i18n("Move Down"), this, SLOT(slotMoveDown()), 0, 1);
+        */
 	if(m_parent->getParentChainView()->isFirstButton(m_parent)){
 		setItemEnabled(0, false);
 	}

@@ -77,11 +77,11 @@ private:
 
 	EffectKeeper* m_effectKeeper;
 
-	Q3ValueList<int>* m_pDirIsOpenMap;
+	QList<int>* m_pDirIsOpenMap;
 	QStringList* m_pDirNamesMap;
 
-	Q3ValueListConstIterator<int> m_dirIsOpenIterator;
-	Q3ValueListConstIterator<QString> m_dirNamesIterator;
+	QList<int>::const_iterator m_dirIsOpenIterator;
+        QStringList::const_iterator m_dirNamesIterator;
 
 };
 

@@ -22,6 +22,8 @@
 #include <kiconloader.h>
 #include "crpresetviewitem.h"
 
+#include <kicon.h>
+
 CrPresetViewItem::CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, Q3ListView *parent)
 	: Q3ListViewItem(parent), EffectPreset(saveRequest, effectKeeper)
 {
@@ -55,7 +57,7 @@ CrPresetViewItem::~CrPresetViewItem()
 
 void CrPresetViewItem::init()
 {
-	KIconLoader* iconLoader = KGlobal::iconLoader();
-	setPixmap(0, iconLoader->loadIcon(QString::fromLatin1((m_saveChain)? "preset_chain" : "preset_nochain"), KIcon::Small));
+	KIconLoader* iconLoader = KIconLoader::global();
+	//setPixmap(0, iconLoader->loadIcon(QString::fromLatin1((m_saveChain)? "preset_chain" : "preset_nochain"), KIcon::Small));
 	setText(0, m_presetName);
 }

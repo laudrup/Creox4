@@ -25,7 +25,7 @@ set(creox_SRCS
 
 kde4_add_executable(creox ${creox_SRCS})
 
-target_link_libraries(creox ${KDE4_KDECORE_LIBS} effects_gui effects_dsp dsp_flow cr_lib preset pthread m kdeui)
+target_link_libraries(creox ${KDE4_KDECORE_LIBS} ${QT_QT3SUPPORT_LIBRARIES} effects_gui effects_dsp dsp_flow cr_lib preset pthread jack m kdeui)
 
 install(TARGETS creox ${INSTALL_TARGETS_DEFAULT_ARGS})
 

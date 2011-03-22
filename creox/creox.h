@@ -27,7 +27,7 @@
 #include <QCustomEvent>
 #include <QTimerEvent>
 #include <kmainwindow.h>
-#include <kdockwidget.h>
+#include <ksystemtrayicon.h>
 
 class QString;
 class QTimerEvent;
@@ -57,7 +57,10 @@ class CrMessageEvent : public QCustomEvent {
 /**
 	*@author Jozef Kosoru
 	*/
-class Creox : public KDockMainWindow  {
+class Creox : public KMainWindow {
+
+  // KDocMainWindow
+
 		Q_OBJECT
 	public:
 		Creox(QWidget *parent=0, const char *name=0);

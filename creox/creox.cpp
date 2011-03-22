@@ -54,12 +54,16 @@ const int g_iSplashScreenTimeOut = 1000; //ms
 }
 
 Creox::Creox(QWidget *parent, const char *name)
-	: KDockMainWindow(parent, name)
+  : KMainWindow(parent)
 {
-	setAutoSaveSettings();
+  // XXX: set name
 
-	// create actions
-	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection());
+  // XXX!
+  setAutoSaveSettings();
+
+  // create actions
+  /*
+	KStandardAction::quit(kapp, SLOT(closeAllWindows()), actionCollection());
 	m_playAction = new KToggleAction(i18n("&Play"), QString::fromLatin1("run"),
 									 Qt::Key_Space, this,
 									 SLOT(slotStartStopEffector()),
@@ -88,8 +92,8 @@ Creox::Creox(QWidget *parent, const char *name)
 	presetActionMenu->insert(m_newPresetFolderAction);
 	connect(presetActionMenu, SIGNAL(activated()), this,
 					SLOT(slotSaveNewPreset()));
-
 	createGUI();
+
 	menuBar()->insertItem(i18n("&View"), dockHideShowMenu(), -1, 1);
 
 	m_effectKeeper = new EffectKeeper(this, "m_effectKeeper");
@@ -118,11 +122,13 @@ Creox::Creox(QWidget *parent, const char *name)
 	startTimer(g_iSplashScreenTimeOut);
 
 	readDockConfig();
+  */
 }
 
 Creox::~Creox()
 {
-	try {
+  //try {
+#if 0
 
 		if (m_effectKeeper->threadEffector()->getStatus() ==
 													 ThreadEffector::status_Run)
@@ -132,18 +138,19 @@ Creox::~Creox()
 
 		m_presetView->savePresets();
 		m_effectKeeper->shutdown();
-
-	}
+#endif
+                /*	}
 	catch(Cr::CrException_presetDataFileError& error){
 		KMessageBox::error(0, error.what());
 #ifdef _DEBUG
 		std::cerr << error.what().latin1() << "\n";
 #endif
-	}
+} */
 
 	// there are so many bugs in the kdelibs dock implementation,
 	// that I can't set this option on
-	writeDockConfig();
+                // XXX!
+	//writeDockConfig();
 #ifdef _DEBUG
 	std::cerr << "Creox deleted..." << "\n";
 #endif
@@ -151,14 +158,16 @@ Creox::~Creox()
 
 void Creox::timerEvent(QTimerEvent*)
 {
-	killTimers();
+  // XXX!
+  //killTimers();
 	CrSplashScreen::removeSplashScreen();
 }
 
 /** Creates the effects widgets. */
 void Creox::initEffectsGui()
 {
-	KIconLoader* iconLoader = KGlobal::iconLoader();
+  KIconLoader* iconLoader = KIconLoader::global();
+#if 0
 
 	/* docking */
 	KDockWidget* mainDock = 0L;
@@ -272,11 +281,13 @@ void Creox::initEffectsGui()
 
 	//register chainView
 	m_effectKeeper->registerChainView(m_chainView);
+#endif
 }
 
 /** start / stop the effector engine */
 void Creox::slotStartStopEffector()
 {
+  /*
 	if(m_playAction->isChecked()){
 		m_optionsAction->setEnabled(false);
 		m_effectKeeper->start();
@@ -285,6 +296,7 @@ void Creox::slotStartStopEffector()
 		m_effectKeeper->stop();
 		m_optionsAction->setEnabled(true);
 	}
+  */
 }
 
 /** save a new preset */
@@ -310,6 +322,7 @@ void Creox::slotNewPresetFolder()
 /** An ugly fix for min effects width */
 void Creox::fixEffectsWidth()
 {
+  /*
 	int minWidth = 0;
 	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
 	effectIterator.current(); ++effectIterator){
@@ -322,16 +335,19 @@ void Creox::fixEffectsWidth()
 	effectIterator.current(); ++effectIterator){
 		effectIterator.current()->setMinimumWidth(minWidth);
 	}
+  */
 }
 
 void Creox::customEvent(QCustomEvent* event)
 {
+  /*
 	if(static_cast<int>(event->type()) == CrMessageEvent::ErrorMessageEvent) {
 		KMessageBox::error(0, static_cast<CrMessageEvent*>(event)->messageText());
 		m_effectKeeper->stop();
 		m_playAction->setChecked(false);
 		m_optionsAction->setEnabled(true);
 	}
+  */
 }
 
 /** Options action. */

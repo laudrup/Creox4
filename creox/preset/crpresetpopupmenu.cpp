@@ -32,20 +32,22 @@
 #include "crpresetpopupmenu.h"
 
 CrPresetPopupMenu::CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget* const parent, const char* const name)
-	: KPopupMenu(parent,name), m_selectedItem(selectedItem)
+	: KMenu(parent), m_selectedItem(selectedItem)
 {
+  //XXX!! Set name
 	Creox* const creox = dynamic_cast<Creox*>(kapp->mainWidget());
-	KIconLoader* const iconLoader = KGlobal::iconLoader();
+	KIconLoader* const iconLoader = KIconLoader::global();
 
-	insertTitle(*(selectedItem->pixmap(0)), selectedItem->text(0));
+        // XXX!
+	//insertTitle(*(selectedItem->pixmap(0)), selectedItem->text(0));
 	if(typeid(*selectedItem) == typeid(CrPresetViewItem)){
 		insertItem(*(selectedItem->pixmap(0)), i18n("&Load Preset"), this, SLOT(slotLoadPreset()));
 		insertSeparator();
 	}
-	insertItem(iconLoader->loadIcon(creox->m_savePresetAction->icon(), KIcon::Small), creox->m_savePresetAction->text(), creox, SLOT(slotSaveNewPreset()));
-	insertItem(iconLoader->loadIcon(creox->m_newPresetFolderAction->icon(), KIcon::Small), creox->m_newPresetFolderAction->text(), creox, SLOT(slotNewPresetFolder()));
-	insertSeparator();
-	insertItem(iconLoader->loadIcon(QString::fromLatin1("remove"), KIcon::Small), i18n("&Delete"), this, SLOT(slotDeleteItem()));
+	//insertItem(iconLoader->loadIcon(creox->m_savePresetAction->icon(), KIcon::Small), creox->m_savePresetAction->text(), creox, SLOT(slotSaveNewPreset()));
+	//insertItem(iconLoader->loadIcon(creox->m_newPresetFolderAction->icon(), KIcon::Small), creox->m_newPresetFolderAction->text(), creox, SLOT(slotNewPresetFolder()));
+	//insertSeparator();
+	//insertItem(iconLoader->loadIcon(QString::fromLatin1("remove"), KIcon::Small), i18n("&Delete"), this, SLOT(slotDeleteItem()));
 }
 
 void CrPresetPopupMenu::slotLoadPreset()
@@ -55,6 +57,9 @@ void CrPresetPopupMenu::slotLoadPreset()
 
 void CrPresetPopupMenu::slotDeleteItem()
 {
+
+  //XXX!
+  /*
 	if(typeid(*m_selectedItem) == typeid(CrPresetViewItem) || m_selectedItem->childCount()>0){
 		const int answer =
 			KMessageBox::warningContinueCancel(dynamic_cast<QWidget*>(parent()),
@@ -68,6 +73,7 @@ void CrPresetPopupMenu::slotDeleteItem()
 	}
 	delete m_selectedItem;
 	m_selectedItem = 0;
+  */
 }
 
 CrPresetPopupMenu::~CrPresetPopupMenu()

@@ -26,6 +26,9 @@
 #include <kstandarddirs.h>
 #include "crsplashscreen.h"
 
+#include <KConfig>
+#include <KConfigGroup>
+
 CrSplashScreen* CrSplashScreen::s_this = 0;
 
 CrSplashScreen::CrSplashScreen(const QString& strPixmapName, const char *name )
@@ -34,22 +37,23 @@ CrSplashScreen::CrSplashScreen(const QString& strPixmapName, const char *name )
 {
 	setBackgroundMode(Qt::NoBackground);
 
-	KConfig* const conf = KGlobal::config();
-	conf->setGroup(QString::fromLatin1("Splash_Screen"));
-	m_bLoadOnStartup = conf->readBoolEntry("loadOnStartup", true);
+	KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Splash_Screen"));
+	m_bLoadOnStartup = conf.readEntry("loadOnStartup", true);
 
 	if(m_bLoadOnStartup){
 		const KStandardDirs* const stdDirs = KGlobal::dirs();
 		const QString strFileName(stdDirs->findResource("appdata", QString::fromLatin1("pics/") + strPixmapName));
 
 		QPixmap pixmap(strFileName, "PNG");
-		pixmap.setOptimization(QPixmap::NoOptim);
+                // XXX!
+		//pixmap.setOptimization(QPixmap::NoOptim);
 
 		setPixmap(pixmap);
 		adjustSize();
 
-		const QWidget* const desktop = QApplication::desktop();
-		move((desktop->width() - width())/2, (desktop->height() - height())/2);
+                // XXX!
+		//const QWidget* const desktop = QApplication::desktop();
+		//move((desktop->width() - width())/2, (desktop->height() - height())/2);
 	}
 
 	if(!s_this){
@@ -75,7 +79,6 @@ void CrSplashScreen::show()
 
 void CrSplashScreen::setLoadOnStartup(const bool bLoad)
 {
-	KConfig* const conf = KGlobal::config();
-	conf->setGroup(QString::fromLatin1("Splash_Screen"));
-	conf->writeEntry("loadOnStartup", bLoad);
+	KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Splash_Screen"));
+	conf.writeEntry("loadOnStartup", bLoad);
 }

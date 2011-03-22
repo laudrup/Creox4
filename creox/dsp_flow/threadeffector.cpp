@@ -32,6 +32,8 @@
 #include "croptionsdialog.h"
 #include "creox.h"
 
+#include <cerrno>
+
 const int ThreadEffector::s_maxProcessors;
 std::string ThreadEffector::s_sErrorMessageString;
 
@@ -58,11 +60,13 @@ ThreadEffector::ThreadEffector(const int processorsNumber)
 ThreadEffector::~ThreadEffector()
 {
 	if(m_status == status_Run){
+#if 0
 		try{
 			stop();
 		}catch(Cr::CrException_runtimeError &error){
 			std::cerr << error.what().latin1() << "\n";
 		}
+#endif
 	}
 	(void)pthread_mutex_destroy(&m_mutex);
 	delete[] m_ppOutsideProcessorChain;
@@ -85,7 +89,7 @@ void ThreadEffector::updateProcessorChain()
 
 int ThreadEffector::process(jack_nframes_t nframes)
 {
-	try {
+  //	try {
 		if (mw_newParameters != mr_newParameters)
 		{
 			mw_newParameters = !mw_newParameters;
@@ -141,6 +145,7 @@ int ThreadEffector::process(jack_nframes_t nframes)
 										m_pAudioBuffer_f[iCount] * m_outputGain;
 		}
 
+                /*
 	}
 	catch(Cr::CrException_runtimeError &error)
 	{
@@ -150,6 +155,7 @@ int ThreadEffector::process(jack_nframes_t nframes)
 												postEvent(kapp->mainWidget(),
 														  errorEvent);
 	}
+                */
 	return 0;
 }
 
@@ -183,26 +189,25 @@ int ThreadEffector::srate(jack_nframes_t /*nframes*/)
 	return 0;
 }
 
-void ThreadEffector::run() throw(Cr::CrException_runtimeError)
+void ThreadEffector::run() //throw(Cr::CrException_runtimeError)
 {
 	// get the pointer to the config object
-	KConfig* const conf = KGlobal::config();
-	conf->setGroup(QString::fromLatin1("Jack_Options"));
+        KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Jack_Options"));
 
-	m_sLeftInputPortName = conf->readEntry("LeftOutputPort",
+	m_sLeftInputPortName = conf.readEntry("LeftOutputPort",
 											QString::fromLatin1(CrOptionsDialog::
 																	DEFAULT_LEFT_INPUT_PORT)).
 																						latin1();
-	m_sRightInputPortName = conf->readEntry("RightOutputPort",
+	m_sRightInputPortName = conf.readEntry("RightOutputPort",
 											QString::fromLatin1(CrOptionsDialog::
 																	DEFAULT_RIGHT_INPUT_PORT)).
 																						 latin1();
 
-	m_sLeftOutputPortName = conf->readEntry("LeftInputPort",
+	m_sLeftOutputPortName = conf.readEntry("LeftInputPort",
 											 QString::fromLatin1(CrOptionsDialog::
 											 						DEFAULT_LEFT_OUTPUT_PORT)).
 											 											  latin1();
-	m_sRightOutputPortName = conf->readEntry("RightInputPort",
+	m_sRightOutputPortName = conf.readEntry("RightInputPort",
 											 QString::fromLatin1(CrOptionsDialog::
 											 						 DEFAULT_RIGHT_OUTPUT_PORT)).
 											 											  latin1();
@@ -214,6 +219,8 @@ void ThreadEffector::run() throw(Cr::CrException_runtimeError)
 	jack_set_error_function(errorCallback);
 
 	// connect to JACK server
+        //XXX
+#if 0
 	if ((m_pJackClient = jack_client_new("creox")) == 0)
 	{
 		CrMessageEvent* errorEvent =
@@ -227,6 +234,7 @@ void ThreadEffector::run() throw(Cr::CrException_runtimeError)
 														  errorEvent);
 		return;
 	}
+#endif
 
 	// register callbacks
 	jack_set_process_callback(m_pJackClient, processCallback, this);
@@ -281,6 +289,8 @@ void ThreadEffector::run() throw(Cr::CrException_runtimeError)
 	}
 
 	// activate jack processing thread
+        // XXX!
+        /*
 	if (jack_activate(m_pJackClient))
 	{
 		CrMessageEvent* errorEvent =
@@ -293,13 +303,16 @@ void ThreadEffector::run() throw(Cr::CrException_runtimeError)
 														  errorEvent);
 		return;
 	}
+        */
 
 	m_ppChainEnd = m_ppInsideProcessorChain + m_processorChainSize;
 
 	/* connect ports */
 	// input ports
-    if (!conf->readBoolEntry("DisconnectedInput", false))
+    if (!conf.readEntry("DisconnectedInput", false))
     {
+      // XXX!
+      /*
     	if (jack_connect(m_pJackClient, m_sLeftOutputPortName.c_str(),
     					 jack_port_name(m_pInputPort1)))
     	{
@@ -329,7 +342,7 @@ void ThreadEffector::run() throw(Cr::CrException_runtimeError)
 	}
 
 	// output ports
-    if (!conf->readBoolEntry("DisconnectedOutput", false))
+    if (!conf.readEntry("DisconnectedOutput", false))
     {
     	if (jack_connect(m_pJackClient, jack_port_name(m_pOutputPort1),
     					 m_sLeftInputPortName.c_str()))
@@ -357,6 +370,7 @@ void ThreadEffector::run() throw(Cr::CrException_runtimeError)
     														  errorEvent);
     		return;
     	}
+      */
 	}
 
 	m_status = status_Run;

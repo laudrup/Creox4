@@ -26,6 +26,7 @@
 #include <cstring>
 #include <cmath>
 #include <iostream>
+#include <cerrno>
 #include "crdatastream.h"
 #include "phaserprocessor.h"
 

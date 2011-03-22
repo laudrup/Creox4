@@ -53,7 +53,8 @@ CrNewPresetFolderDialog::CrNewPresetFolderDialog(QWidget* parent,
 	m_folderNameLineEdit->setMaximumSize( QSize( 32767, 32767 ) );
 	m_folderNameLineEdit->setMouseTracking( false );
 	m_folderNameLineEdit->setFocusPolicy( Qt::StrongFocus );
-	m_folderNameLineEdit->setAutoMask( false );
+        // XXX!
+	//m_folderNameLineEdit->setAutoMask( false );
 	m_folderNameLineEdit->setText( i18n( "New Folder" ) );
 	m_folderNameLineEdit->setCursorPosition( 0 );
 	m_folderNameLineEdit->setEdited( false );

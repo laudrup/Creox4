@@ -41,6 +41,10 @@ protected:
 	virtual void mouseMoveEvent(QMouseEvent* mouseEvent);
 	virtual void mousePressEvent(QMouseEvent* mouseEvent);
 	virtual void mouseReleaseEvent(QMouseEvent* mouseEvent);
+
+        // XXX!
+        virtual void paintEvent(QPaintEvent*) {}
+
 private:
 	CrEffectGui* m_effect;
 	CrChainView* m_parentChainView;

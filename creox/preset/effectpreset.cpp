@@ -56,7 +56,7 @@ EffectPreset::EffectPreset(QDataStream& dataStream) throw(Cr::CrException_preset
 	Q_UINT32 magic;
 	dataStream >> magic;
 	if(magic != EFFECT_PRESET_START){
-		throw(Cr::CrException_presetDataError(i18n("Error loading preset!")));
+          //throw(Cr::CrException_presetDataError(i18n("Error loading preset!")));
 	}
 	Q_INT8 tmpVar;
 	Q_INT32 chainSize;
@@ -167,15 +167,16 @@ void EffectPreset::loadEffect(EffectKeeper* effectKeeper)
 	effectKeeper->chainView()->synchronize();
 
 	//synchronize an effect GUI
-	for( Q3PtrListIterator<CrEffectGui> effectIterator(effectKeeper->effectList());
-				effectIterator.current(); ++effectIterator ){
-		for(std::vector<SoundProcessor*>::const_iterator activeIterator = activeProcessors.begin();
-				activeIterator != activeProcessors.end(); activeIterator++){
-			if(effectIterator.current()->getProcessor()->getId() == (*activeIterator)->getId()){
-				effectIterator.current()->synchronize();
-				break;
-			}
-		}
+	for( QListIterator<CrEffectGui*> effectIterator(effectKeeper->effectList());
+             effectIterator.hasNext();){
+          for(std::vector<SoundProcessor*>::const_iterator activeIterator = activeProcessors.begin();
+              activeIterator != activeProcessors.end(); activeIterator++){
+            CrEffectGui* effect = effectIterator.next();
+            if(effect->getProcessor()->getId() == (*activeIterator)->getId()){
+              effect->synchronize();
+              break;
+            }
+          }
 	}
 
 }
@@ -214,7 +215,7 @@ EffectPreset::EffectPresetUnit::EffectPresetUnit(QDataStream& dataStream) throw(
 	Q_UINT32 magic;
 	dataStream >> magic;
 	if(magic != EFFECT_PRESET_UNIT_START){
-		throw(Cr::CrException_presetDataError(i18n("Error loading preset unit!")));
+          //throw(Cr::CrException_presetDataError(i18n("Error loading preset unit!")));
 	}
 
 	Q_INT32 tmpVar;

@@ -21,7 +21,7 @@
 #include <qstring.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
-#include <kaboutdata.h>
+#include <KAboutData>
 #include <klocale.h>
 #include "creox.h"
 #include "privilegesswitcher.h"
@@ -32,43 +32,39 @@ namespace Cr {
 	void fatalMessage(int argc, char *argv[], const QString& strErrorText);
 }
 
-static const char *description =
-	I18N_NOOP("<b>creox</b> - The Realtime Sound Effector");
+static const char *description = "<b>creox</b> - The Realtime Sound Effector";
 
+/*
 static KCmdLineOptions options[] =
 {
 	{ 0, 0, 0 }
 	// INSERT YOUR COMMANDLINE OPTIONS HERE
 };
+*/
 
 int main(int argc, char *argv[])
 {
-	try{
+  //try{
 		PrivilegesSwitcher privilegesSwitcher;
 		privilegesSwitcher.releasePrivileges();
 
-		KAboutData aboutData("creox",
-							 I18N_NOOP("creox"),
-							 VERSION,
-							 description,
-							 KAboutData::License_GPL,
-							 "(c) 2003, Jozef Kosoru",
-							 0,
-							 "http://www.uid0.sk/zyzstar/?creox",
-							 "jozef.kosoru@pobox.sk");
+		KAboutData aboutData("creox", 0, ki18n("creox"),
+                                     QByteArray("0.3"), //VERSION, // XXX!
+                                     ki18n(description),
+                                     KAboutData::License_GPL,
+                                     ki18n("(c) 2003, Jozef Kosoru"));
 
-		aboutData.addAuthor("Jozef Kosoru",0, "jozef.kosoru@pobox.sk");
-		aboutData.addCredit("Claus Bjerre Pedersen",I18N_NOOP("tester, bug-reporter"),
-							"claus.bjerre@altavista.net");
- 		aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"),
- 								I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
+		aboutData.addAuthor(ki18n("Jozef Kosoru"), ki18n("Original author"), "jozef.kosoru@pobox.sk");
+		aboutData.addCredit(ki18n("Claus Bjerre Pedersen"), ki18n("Tester, bug-reporter"), "claus.bjerre@altavista.net");
+ 		//aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"),
+ 		//						I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
 		KCmdLineArgs::init( argc, argv, &aboutData );
-		KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
+		//KCmdLineArgs::addCmdLineOptions( options ); // Add our own options.
 
 		KApplication a;
 
-		CrSplashScreen* const splashScreen = new CrSplashScreen(QString::fromLatin1("crsplash.png"));
-		splashScreen->show();
+		//CrSplashScreen* const splashScreen = new CrSplashScreen(QString::fromLatin1("crsplash.png"));
+		//splashScreen->show();
 
 		Creox *creox = new Creox();
 		a.setMainWidget(creox);
@@ -79,6 +75,7 @@ int main(int argc, char *argv[])
 	// As far I know, each KDE distribution is compiled with
 	// no exception support, so catching exceptions in this manner
 	// doesn't work for now.
+                /*
 	}catch(Cr::CrException& exceptError){
 		Cr::fatalMessage(argc, argv, exceptError.what());
 		return -1;
@@ -86,6 +83,7 @@ int main(int argc, char *argv[])
 		Cr::fatalMessage(argc, argv, QString::fromLatin1(stdExceptError.what()));
 		return -1;
 	}
+                */
 }
 
 void Cr::fatalMessage(int argc, char *argv[], const QString& strErrorText)

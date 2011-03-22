@@ -32,6 +32,8 @@
 #include "crsliderarray.h"
 #include "crdistortion.h"
 
+#include <KConfigGroup>
+
 CrDistortion::CrDistortion(QWidget *parent, const char *name )
 	: CrEffectGui(parent,name)
 {
@@ -159,52 +161,50 @@ CrDistortion::~CrDistortion()
 
 void CrDistortion::restoreParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Distortion");
-	m_dpar->inputGain = conf->readDoubleNumEntry("inputGain", 0.0f);
-	m_dpar->wetMix = conf->readDoubleNumEntry("wetMix", 100.0f);
-	m_dpar->dryMix = conf->readDoubleNumEntry("dryMix", 0.0f);
-	m_dpar->inBass_frequency = conf->readDoubleNumEntry("inBass_frequency", 200.0f);
-	m_dpar->inBass_gain = conf->readDoubleNumEntry("inBass_gain", -10.0f);
-	m_dpar->inBass_slope = conf->readDoubleNumEntry("inBass_slope", 1.0f);
-	m_dpar->outBass_frequency = conf->readDoubleNumEntry("outBass_frequency", 240.0f);
-	m_dpar->outBass_gain = conf->readDoubleNumEntry("outBass_gain", 15.0f);
-	m_dpar->outBass_slope = conf->readDoubleNumEntry("outBass_slope", 1.0f);
-	m_dpar->accent_frequency = conf->readDoubleNumEntry("accent_frequency", 799.0f);
-	m_dpar->accent_bandwidth = conf->readDoubleNumEntry("accent_bandwidth", 0.3f);
-	m_dpar->accent_drive = conf->readDoubleNumEntry("accent_drive", 38.0f);
-	m_dpar->accent_gain = conf->readDoubleNumEntry("accent_gain", 0.0f);
-	m_dpar->main_drive = conf->readDoubleNumEntry("main_drive", 0.0f);
-	m_dpar->main_gain = conf->readDoubleNumEntry("main_gain", -9.0f);
-	m_dpar->accent_distortFunction = conf->readNumEntry("accent_distortFunction", 1);
-	m_dpar->main_distortFunction = conf->readNumEntry("main_distortFunction", 3);
-	m_dpar->lowPass_cutoffFrequency = conf->readDoubleNumEntry("lowPass_cutoffFrequency", 13000.0f);
-	m_dpar->lowPass_Q = conf->readDoubleNumEntry("lowPass_Q", 2.0f);
+	KConfigGroup conf = KGlobal::config()->group("Distortion");
+	m_dpar->inputGain = conf.readEntry("inputGain", 0.0f);
+	m_dpar->wetMix = conf.readEntry("wetMix", 100.0f);
+	m_dpar->dryMix = conf.readEntry("dryMix", 0.0f);
+	m_dpar->inBass_frequency = conf.readEntry("inBass_frequency", 200.0f);
+	m_dpar->inBass_gain = conf.readEntry("inBass_gain", -10.0f);
+	m_dpar->inBass_slope = conf.readEntry("inBass_slope", 1.0f);
+	m_dpar->outBass_frequency = conf.readEntry("outBass_frequency", 240.0f);
+	m_dpar->outBass_gain = conf.readEntry("outBass_gain", 15.0f);
+	m_dpar->outBass_slope = conf.readEntry("outBass_slope", 1.0f);
+	m_dpar->accent_frequency = conf.readEntry("accent_frequency", 799.0f);
+	m_dpar->accent_bandwidth = conf.readEntry("accent_bandwidth", 0.3f);
+	m_dpar->accent_drive = conf.readEntry("accent_drive", 38.0f);
+	m_dpar->accent_gain = conf.readEntry("accent_gain", 0.0f);
+	m_dpar->main_drive = conf.readEntry("main_drive", 0.0f);
+	m_dpar->main_gain = conf.readEntry("main_gain", -9.0f);
+	m_dpar->accent_distortFunction = conf.readEntry("accent_distortFunction", 1);
+	m_dpar->main_distortFunction = conf.readEntry("main_distortFunction", 3);
+	m_dpar->lowPass_cutoffFrequency = conf.readEntry("lowPass_cutoffFrequency", 13000.0f);
+	m_dpar->lowPass_Q = conf.readEntry("lowPass_Q", 2.0f);
 }
 
 void CrDistortion::saveParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Distortion");
-	conf->writeEntry("inputGain", m_dpar->inputGain);
-	conf->writeEntry("wetMix", m_dpar->wetMix);
-	conf->writeEntry("dryMix", m_dpar->dryMix);
-	conf->writeEntry("inBass_frequency", m_dpar->inBass_frequency);
-	conf->writeEntry("inBass_gain", m_dpar->inBass_gain);
-	conf->writeEntry("inBass_slope", m_dpar->inBass_slope);
-	conf->writeEntry("outBass_frequency", m_dpar->outBass_frequency);
-	conf->writeEntry("outBass_gain", m_dpar->outBass_gain);
-	conf->writeEntry("outBass_slope", m_dpar->outBass_slope);
-	conf->writeEntry("accent_frequency", m_dpar->accent_frequency);
-	conf->writeEntry("accent_bandwidth", m_dpar->accent_bandwidth);
-	conf->writeEntry("accent_drive", m_dpar->accent_drive);
-	conf->writeEntry("accent_gain", m_dpar->accent_gain);
-	conf->writeEntry("main_drive", m_dpar->main_drive);
-	conf->writeEntry("main_gain", m_dpar->main_gain);
-	conf->writeEntry("accent_distortFunction", m_dpar->accent_distortFunction);
-	conf->writeEntry("main_distortFunction", m_dpar->main_distortFunction);
-	conf->writeEntry("lowPass_cutoffFrequency", m_dpar->lowPass_cutoffFrequency);
-	conf->writeEntry("lowPass_Q", m_dpar->lowPass_Q);
+	KConfigGroup conf = KGlobal::config()->group("Distortion");
+	conf.writeEntry("inputGain", m_dpar->inputGain);
+	conf.writeEntry("wetMix", m_dpar->wetMix);
+	conf.writeEntry("dryMix", m_dpar->dryMix);
+	conf.writeEntry("inBass_frequency", m_dpar->inBass_frequency);
+	conf.writeEntry("inBass_gain", m_dpar->inBass_gain);
+	conf.writeEntry("inBass_slope", m_dpar->inBass_slope);
+	conf.writeEntry("outBass_frequency", m_dpar->outBass_frequency);
+	conf.writeEntry("outBass_gain", m_dpar->outBass_gain);
+	conf.writeEntry("outBass_slope", m_dpar->outBass_slope);
+	conf.writeEntry("accent_frequency", m_dpar->accent_frequency);
+	conf.writeEntry("accent_bandwidth", m_dpar->accent_bandwidth);
+	conf.writeEntry("accent_drive", m_dpar->accent_drive);
+	conf.writeEntry("accent_gain", m_dpar->accent_gain);
+	conf.writeEntry("main_drive", m_dpar->main_drive);
+	conf.writeEntry("main_gain", m_dpar->main_gain);
+	conf.writeEntry("accent_distortFunction", m_dpar->accent_distortFunction);
+	conf.writeEntry("main_distortFunction", m_dpar->main_distortFunction);
+	conf.writeEntry("lowPass_cutoffFrequency", m_dpar->lowPass_cutoffFrequency);
+	conf.writeEntry("lowPass_Q", m_dpar->lowPass_Q);
 }
 
 void CrDistortion::slotChangeAccentFreqMode(int mode)

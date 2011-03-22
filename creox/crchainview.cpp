@@ -59,8 +59,8 @@ void CrChainView::activate()
 
 	//create chainButtons
 	int maxWidth = 0, maxHeight = 2*frameWidth();
-	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList()) ; effectIterator.current(); ++effectIterator ){
-		CrChainButton* chainButton = new CrChainButton(effectIterator.current(), this);
+	for(QListIterator<CrEffectGui*> effectIterator(m_effectKeeper->effectList()) ; effectIterator.hasNext();){
+		CrChainButton* chainButton = new CrChainButton(effectIterator.next(), this);
 		m_chainButtonList.append(chainButton);
 		//compute sizeHint
 		const QSize buttonSize = chainButton->sizeHint();

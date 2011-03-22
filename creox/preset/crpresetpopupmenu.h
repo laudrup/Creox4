@@ -18,14 +18,14 @@
 #define CRPRESETPOPUPMENU_H
 
 #include <qwidget.h>
-#include <kpopupmenu.h>
+#include <kmenu.h>
 
 class Q3ListViewItem;
 
 /**
 	*@author Jozef Kosoru
 	*/
-class CrPresetPopupMenu : public KPopupMenu  {
+class CrPresetPopupMenu : public KMenu  {
 	 Q_OBJECT
 public:
 	CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget* const parent=0, const char* const name=0);

@@ -32,6 +32,8 @@
 #include "crsliderarray.h"
 #include "crtremolo.h"
 
+#include <KConfigGroup>
+
 CrTremolo::CrTremolo(QWidget *parent, const char *name )
 		: CrEffectGui(parent,name)
 {
@@ -115,26 +117,24 @@ CrTremolo::~CrTremolo()
 
 void CrTremolo::restoreParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Tremolo");
-	m_tpar->inputGain = conf->readDoubleNumEntry("inputGain", -5.0);
-	m_tpar->wetMix = conf->readDoubleNumEntry("wetMix", 100.0);
-	m_tpar->dryMix = conf->readDoubleNumEntry("dryMix", 0.0);
-	m_tpar->frequency = conf->readDoubleNumEntry("frequency", 9.0);
-	m_tpar->depth = conf->readDoubleNumEntry("depth", 25.0);
-	m_tpar->waveform = conf->readNumEntry("waveform", TremoloProcessor::sine);
+	KConfigGroup conf = KGlobal::config()->group("Tremolo");
+	m_tpar->inputGain = conf.readEntry("inputGain", -5.0);
+	m_tpar->wetMix = conf.readEntry("wetMix", 100.0);
+	m_tpar->dryMix = conf.readEntry("dryMix", 0.0);
+	m_tpar->frequency = conf.readEntry("frequency", 9.0);
+	m_tpar->depth = conf.readEntry("depth", 25.0);
+	m_tpar->waveform = conf.readEntry("waveform", int(TremoloProcessor::sine));
 }
 
 void CrTremolo::saveParameters()
 {
-	KConfig* conf = KGlobal::config();
-	conf->setGroup("Tremolo");
-	conf->writeEntry("inputGain", m_tpar->inputGain);
-	conf->writeEntry("wetMix", m_tpar->wetMix);
-	conf->writeEntry("dryMix", m_tpar->dryMix);
-	conf->writeEntry("frequency", m_tpar->frequency);
-	conf->writeEntry("depth", m_tpar->depth);
-	conf->writeEntry("waveform", m_tpar->waveform);
+	KConfigGroup conf = KGlobal::config()->group("Tremolo");
+	conf.writeEntry("inputGain", m_tpar->inputGain);
+	conf.writeEntry("wetMix", m_tpar->wetMix);
+	conf.writeEntry("dryMix", m_tpar->dryMix);
+	conf.writeEntry("frequency", m_tpar->frequency);
+	conf.writeEntry("depth", m_tpar->depth);
+	conf.writeEntry("waveform", m_tpar->waveform);
 }
 
 void CrTremolo::slotChangeLfoType(int type)
