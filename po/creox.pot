@@ -1,0 +1,467 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-04-03 01:45+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main.cpp:36
+msgid "<b>creox</b> - The Realtime Sound Effector"
+msgstr ""
+
+#: main.cpp:51
+msgid "creox"
+msgstr ""
+
+#: main.cpp:61
+msgid "tester, bug-reporter"
+msgstr ""
+
+#: main.cpp:91
+msgid "creox - Fatal Error!"
+msgstr ""
+
+#: creox.cpp:60
+msgid "&Play"
+msgstr ""
+
+#: creox.cpp:64
+msgid "&Options..."
+msgstr ""
+
+#: creox.cpp:69
+msgid "&Save New Preset..."
+msgstr ""
+
+#: creox.cpp:79
+msgid "&New Preset Folder..."
+msgstr ""
+
+#: creox.cpp:170 effects_gui/crdistortion.cpp:35
+msgid "Distortion"
+msgstr ""
+
+#: creox.cpp:188 effects_gui/crphaser.cpp:34
+msgid "Phaser"
+msgstr ""
+
+#: creox.cpp:208 effects_gui/crflanger.cpp:37
+msgid "Flanger"
+msgstr ""
+
+#: creox.cpp:221 effects_gui/crtremolo.cpp:35
+msgid "Tremolo"
+msgstr ""
+
+#: creox.cpp:234 effects_gui/crecho.cpp:38
+msgid "Echo"
+msgstr ""
+
+#: creox.cpp:247
+msgid "ChainView"
+msgstr ""
+
+#: creox.cpp:258
+msgid "PresetView"
+msgstr ""
+
+#: crchainpopupmenu.cpp:35
+msgid "Move Up"
+msgstr ""
+
+#: crchainpopupmenu.cpp:36
+msgid "Move Down"
+msgstr ""
+
+#: croptionsdialog.cpp:48
+msgid "Jack"
+msgstr ""
+
+#: croptionsdialog.cpp:49
+msgid "Jack audio configuration:"
+msgstr ""
+
+#: croptionsdialog.cpp:55
+msgid "Input Channel Connection"
+msgstr ""
+
+#: croptionsdialog.cpp:61 croptionsdialog.cpp:95
+msgid "Left:"
+msgstr ""
+
+#: croptionsdialog.cpp:68 croptionsdialog.cpp:102
+msgid "Right:"
+msgstr ""
+
+#: croptionsdialog.cpp:75 croptionsdialog.cpp:109
+msgid "Leave disconnected"
+msgstr ""
+
+#: croptionsdialog.cpp:89
+msgid "Output Channel Connection"
+msgstr ""
+
+#: croptionsdialog.cpp:125
+msgid "Sampling Rate:"
+msgstr ""
+
+#: croptionsdialog.cpp:133 effects_gui/crdistortion.cpp:62
+#: effects_gui/crdistortion.cpp:102 effects_gui/crdistortion.cpp:108
+#: effects_gui/crdistortion.cpp:115 effects_gui/crflanger.cpp:63
+#: effects_gui/crphaser.cpp:60 effects_gui/crphaser.cpp:63
+#: effects_gui/crtremolo.cpp:57
+msgid "Hz"
+msgstr ""
+
+#: croptionsdialog.cpp:138
+msgid "Resolution:"
+msgstr ""
+
+#: croptionsdialog.cpp:146
+msgid "bit"
+msgstr ""
+
+#: crthreadeventdispatcher.cpp:32
+msgid "Unable to create pipes!"
+msgstr ""
+
+#: crthreadeventdispatcher.cpp:70
+msgid "Unable to read from pipe!"
+msgstr ""
+
+#: privilegesswitcher.cpp:43 privilegesswitcher.cpp:56
+msgid "Couldn't set uid!"
+msgstr ""
+
+#: cr_lib/creffectgui.cpp:23
+msgid "unknown effect"
+msgstr ""
+
+#: dsp_flow/threadeffector.cpp:176
+msgid ""
+"The JACK sample rate has changed to %1 Hz. Restart the sound processing."
+msgstr ""
+
+#: dsp_flow/threadeffector.cpp:220 dsp_flow/threadeffector.cpp:287
+msgid "Error: %1"
+msgstr ""
+
+#: dsp_flow/threadeffector.cpp:307 dsp_flow/threadeffector.cpp:320
+msgid "Error! Cannot connect input port: %1\n"
+msgstr ""
+
+#: dsp_flow/threadeffector.cpp:338 dsp_flow/threadeffector.cpp:351
+msgid "Error! Cannot connect output port: %1"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:53 effects_gui/crecho.cpp:55
+#: effects_gui/crflanger.cpp:52 effects_gui/crphaser.cpp:50
+#: effects_gui/crtremolo.cpp:48
+msgid "Mix"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:55 effects_gui/crecho.cpp:57
+#: effects_gui/crflanger.cpp:54 effects_gui/crphaser.cpp:52
+#: effects_gui/crtremolo.cpp:50
+msgid "Input Gain"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:55 effects_gui/crdistortion.cpp:64
+#: effects_gui/crdistortion.cpp:65 effects_gui/crdistortion.cpp:84
+#: effects_gui/crdistortion.cpp:85 effects_gui/crdistortion.cpp:109
+#: effects_gui/crdistortion.cpp:116 effects_gui/crecho.cpp:57
+#: effects_gui/crflanger.cpp:54 effects_gui/crphaser.cpp:52
+#: effects_gui/crphaser.cpp:54 effects_gui/crtremolo.cpp:50
+#: effects_gui/crtremolo.cpp:58
+msgid "dB"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:56 effects_gui/crecho.cpp:59
+#: effects_gui/crtremolo.cpp:52
+msgid "Wet Mix"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:57 effects_gui/crecho.cpp:58
+#: effects_gui/crphaser.cpp:53 effects_gui/crtremolo.cpp:51
+msgid "Dry Mix"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:60
+msgid "Accent Frequency"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:62 effects_gui/crdistortion.cpp:108
+#: effects_gui/crdistortion.cpp:115 effects_gui/crflanger.cpp:63
+#: effects_gui/crtremolo.cpp:57
+msgid "Frequency"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:63
+msgid "Bandwidth"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:63
+msgid "oct"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:64 effects_gui/crdistortion.cpp:84
+msgid "Drive"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:65 effects_gui/crdistortion.cpp:85
+#: effects_gui/crdistortion.cpp:109 effects_gui/crdistortion.cpp:116
+msgid "Gain"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:68 effects_gui/crdistortion.cpp:88
+msgid "Mode"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Clean"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Soft"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Hard"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Extra Hard"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:82
+msgid "Main Drive"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:100
+msgid "Low Pass Filter"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:102
+msgid "Cutoff Freq"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:103 effects_gui/crdistortion.cpp:110
+#: effects_gui/crdistortion.cpp:117
+msgid "Slope"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:103 effects_gui/crdistortion.cpp:110
+#: effects_gui/crdistortion.cpp:117 effects_gui/crphaser.cpp:62
+msgid "Q"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:106
+msgid "Input Bass"
+msgstr ""
+
+#: effects_gui/crdistortion.cpp:113
+msgid "Output Bass"
+msgstr ""
+
+#: effects_gui/crecho.cpp:49 effects_gui/crecho.cpp:90
+#: effects_gui/crecho.cpp:171
+msgid "Voice %1"
+msgstr ""
+
+#: effects_gui/crecho.cpp:64
+msgid "Final Delay"
+msgstr ""
+
+#: effects_gui/crecho.cpp:64 effects_gui/crecho.cpp:92
+#: effects_gui/crflanger.cpp:61 effects_gui/crflanger.cpp:62
+msgid "ms"
+msgstr ""
+
+#: effects_gui/crecho.cpp:65
+msgid "Final Feedback"
+msgstr ""
+
+#: effects_gui/crecho.cpp:67
+msgid "Number of Voices"
+msgstr ""
+
+#: effects_gui/crecho.cpp:92 effects_gui/crflanger.cpp:61
+msgid "Delay"
+msgstr ""
+
+#: effects_gui/crecho.cpp:93
+msgid "Decay"
+msgstr ""
+
+#: effects_gui/crecho.cpp:94 effects_gui/crflanger.cpp:60
+msgid "Feedback"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:55
+msgid "Dry"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:55
+msgid "Wet"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:62 effects_gui/crphaser.cpp:61
+#: effects_gui/crtremolo.cpp:58
+msgid "Depth"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:67 effects_gui/crtremolo.cpp:62
+msgid "LFO Type"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:68 effects_gui/crtremolo.cpp:63
+msgid "Sine"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:69 effects_gui/crtremolo.cpp:64
+msgid "Triangle"
+msgstr ""
+
+#: effects_gui/crflanger.cpp:78
+msgid "Inverted"
+msgstr ""
+
+#: effects_gui/crphaser.cpp:54
+msgid "Sweep Gain"
+msgstr ""
+
+#: effects_gui/crphaser.cpp:60
+msgid "Center Freq"
+msgstr ""
+
+#: effects_gui/crphaser.cpp:61
+msgid "/Q"
+msgstr ""
+
+#: effects_gui/crphaser.cpp:62
+msgid "Resonance"
+msgstr ""
+
+#: effects_gui/crphaser.cpp:63
+msgid "Sweep Freq"
+msgstr ""
+
+#: preset/crnewpresetfolderdialog.cpp:28
+msgid "New Preset Folder"
+msgstr ""
+
+#: preset/crnewpresetfolderdialog.cpp:46
+msgid "<b>New Preset Folder Name:</b>"
+msgstr ""
+
+#: preset/crnewpresetfolderdialog.cpp:54
+msgid "New Folder"
+msgstr ""
+
+#: preset/crnewpresetfolderdialog.cpp:60
+msgid "Root Folder"
+msgstr ""
+
+#: preset/crnewpresetfolderdialog.cpp:73
+msgid "Create"
+msgstr ""
+
+#: preset/crnewpresetfolderdialogimpl.cpp:52
+msgid "You have to specify a folder name!"
+msgstr ""
+
+#: preset/crpresetpopupmenu.cpp:42
+msgid "&Load Preset"
+msgstr ""
+
+#: preset/crpresetpopupmenu.cpp:61
+msgid "<p>Do you really want to delete <b>%1</b>?<p>"
+msgstr ""
+
+#: preset/crpresetpopupmenu.cpp:63
+msgid "Delete Item"
+msgstr ""
+
+#: preset/crpresetview.cpp:59
+msgid "<p>A preset item named <b>%1</b> already exists!</p>"
+msgstr ""
+
+#: preset/crpresetview.cpp:145
+msgid ""
+"Bad preset data file magic type!\n"
+"Creox is unable to load presets."
+msgstr ""
+
+#: preset/crpresetview.cpp:150
+msgid ""
+"Wrong preset data file version!\n"
+"Creox is unable to load presets."
+msgstr ""
+
+#: preset/crpresetview.cpp:202 preset/crpresetview.cpp:321
+msgid ""
+"Preset data file inconsistency!\n"
+"Creox is unable to continue loading presets."
+msgstr ""
+
+#: preset/crpresetview.cpp:221
+msgid "Cannot create preset data file!\n"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:45
+msgid "Save New Preset"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:62
+msgid "<b>Select effects to save:</b>"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:103
+msgid "Save chain (Effects order)"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:120
+msgid "<b>New Preset Name:</b>"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:125
+msgid "New Preset"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:132
+msgid "Root Preset"
+msgstr ""
+
+#: preset/crsavenewpresetdialog.cpp:182
+msgid "You have to specify a preset name!"
+msgstr ""
+
+#: preset/effectpreset.cpp:59
+msgid "Error loading preset!"
+msgstr ""
+
+#: preset/effectpreset.cpp:217
+msgid "Error loading preset unit!"
+msgstr ""
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr ""
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr ""

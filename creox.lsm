@@ -1,0 +1,14 @@
+Begin3
+Title:          creox
+Version:        0.2.2rc2
+Entered-date:   
+Description:    The Realtime Sound Effector
+Keywords:       creox, DSP, sound processor, JACK, KDE, audio, effects, fx
+Author:         Jozef Kosoru <jozef.kosoru@pobox.sk> 
+Maintained-by:  Jozef Kosoru <jozef.kosoru@pobox.sk> 
+Primary-site:   	        
+Home-page:      http://www.uid0.sk/zyzstar/?creox
+Original-site:  
+Platforms:      Linux
+Copying-policy: GNU Public License version 2
+End

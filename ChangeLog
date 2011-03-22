@@ -1,0 +1,45 @@
+0.2.1 -> 0.2.2rc2
+* fixed problems with Qt-3.2.x
+
+* fixed compilation problems with GCC-3.3.x
+
+* fixed echo taps redrawing problem
+
+
+0.2.0 -> 0.2.1
+* fixed linking problems with JACK >= 0.66
+	(the configure script now uses PKG_CONFIG for jack detection)
+
+* added Russian translation
+	Alexandre Prokoudine <avp@altlinux.ru>
+
+* small bug fixes
+
+
+0.1.4 -> 0.2.0
+* port to KDE 3.1.x
+
+* JACK support
+
+
+0.1.3 -> 0.1.4
+* important bug fix: now creox works with all fast PCI sound cards
+	(thanx to bugreports from claus.bjarrne@altavista.net)
+
+
+0.1.2 -> 0.1.3
+* small compilation fixes
+
+* open all root preset folders on startup
+
+* minor changes in sources to better satisfy the ISO C++ standard
+
+* better error handling
+
+* 'Options' dialog for a sound card configuration
+
+* bugfixes
+
+
+0.1.2
+* the first public release

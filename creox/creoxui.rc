@@ -1,0 +1,19 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="creox">
+<MenuBar>
+  <Menu name="Effector"><text>&amp;Effector</text>
+    <Action name="playAction"/>
+    <Separator/>
+    <Action name="optionsAction"/>
+  </Menu>
+  <Menu name="Preset"><text>&amp;Preset</text>
+    <Action name="saveNewPresetAction"/>
+    <Action name="newPresetFolderAction"/>
+  </Menu>
+</MenuBar>
+<Toolbar name="mainToolBar">
+  <Action name="playAction"/>
+  <Separator/>
+  <Action name="presetActionMenu"/>
+</Toolbar>
+</kpartgui>

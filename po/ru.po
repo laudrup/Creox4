@@ -1,0 +1,476 @@
+# translation of ru.po to Russian
+# translation of creox.po to Russian
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Alexandre Prokoudine <avp@altlinux.ru>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ru\n"
+"POT-Creation-Date: 2003-04-03 01:45+0200\n"
+"PO-Revision-Date: 2003-04-04 11:29+0400\n"
+"Last-Translator: Alexandre Prokoudine <avp@altlinux.ru>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
+
+#: main.cpp:36
+msgid "<b>creox</b> - The Realtime Sound Effector"
+msgstr "<b>creox</b> - эффект-процессор реального времени"
+
+#: main.cpp:51
+msgid "creox"
+msgstr "creox"
+
+#: main.cpp:61
+msgid "tester, bug-reporter"
+msgstr "тестировщик, сообщающий об ошибках"
+
+#: main.cpp:91
+msgid "creox - Fatal Error!"
+msgstr "creox - критическая ошибка!"
+
+#: creox.cpp:60
+msgid "&Play"
+msgstr "&Воспроизвести"
+
+#: creox.cpp:64
+msgid "&Options..."
+msgstr "&Настройки..."
+
+#: creox.cpp:69
+msgid "&Save New Preset..."
+msgstr "&Сохранить новую предустановку..."
+
+#: creox.cpp:79
+msgid "&New Preset Folder..."
+msgstr "&Новый каталог с предустановками..."
+
+#: creox.cpp:170 effects_gui/crdistortion.cpp:35
+msgid "Distortion"
+msgstr "Искажение"
+
+#: creox.cpp:188 effects_gui/crphaser.cpp:34
+msgid "Phaser"
+msgstr "Фазер"
+
+#: creox.cpp:208 effects_gui/crflanger.cpp:37
+msgid "Flanger"
+msgstr "Фленджер"
+
+#: creox.cpp:221 effects_gui/crtremolo.cpp:35
+msgid "Tremolo"
+msgstr "Тремоло"
+
+#: creox.cpp:234 effects_gui/crecho.cpp:38
+msgid "Echo"
+msgstr "Эхо"
+
+#: creox.cpp:247
+msgid "ChainView"
+msgstr "Просмотр цепи"
+
+#: creox.cpp:258
+msgid "PresetView"
+msgstr "Просмотр предустановок"
+
+#: crchainpopupmenu.cpp:35
+msgid "Move Up"
+msgstr "Переместить вверх"
+
+#: crchainpopupmenu.cpp:36
+msgid "Move Down"
+msgstr "Переместить вниз"
+
+#: croptionsdialog.cpp:48
+msgid "Jack"
+msgstr "JACK"
+
+#: croptionsdialog.cpp:49
+msgid "Jack audio configuration:"
+msgstr "Настройки JACK Audio:"
+
+#: croptionsdialog.cpp:55
+msgid "Input Channel Connection"
+msgstr "Соединение с входным каналом"
+
+#: croptionsdialog.cpp:61 croptionsdialog.cpp:95
+msgid "Left:"
+msgstr "Левый:"
+
+#: croptionsdialog.cpp:68 croptionsdialog.cpp:102
+msgid "Right:"
+msgstr "Правый:"
+
+#: croptionsdialog.cpp:75 croptionsdialog.cpp:109
+msgid "Leave disconnected"
+msgstr "Оставить неподключенным"
+
+#: croptionsdialog.cpp:89
+msgid "Output Channel Connection"
+msgstr "Соединение с выходным каналом"
+
+#: croptionsdialog.cpp:125
+msgid "Sampling Rate:"
+msgstr "Частота дискретизации"
+
+#: croptionsdialog.cpp:133 effects_gui/crdistortion.cpp:62
+#: effects_gui/crdistortion.cpp:102 effects_gui/crdistortion.cpp:108
+#: effects_gui/crdistortion.cpp:115 effects_gui/crflanger.cpp:63
+#: effects_gui/crphaser.cpp:60 effects_gui/crphaser.cpp:63
+#: effects_gui/crtremolo.cpp:57
+msgid "Hz"
+msgstr "Гц"
+
+#: croptionsdialog.cpp:138
+msgid "Resolution:"
+msgstr "Разрешение:"
+
+#: croptionsdialog.cpp:146
+msgid "bit"
+msgstr "бит"
+
+#: crthreadeventdispatcher.cpp:32
+msgid "Unable to create pipes!"
+msgstr "Не удаётся создать каналы!"
+
+#: crthreadeventdispatcher.cpp:70
+msgid "Unable to read from pipe!"
+msgstr "Не удаётся прочитать из канала!"
+
+#: privilegesswitcher.cpp:43 privilegesswitcher.cpp:56
+msgid "Couldn't set uid!"
+msgstr "Не удаётся установить uid!"
+
+#: cr_lib/creffectgui.cpp:23
+msgid "unknown effect"
+msgstr "неизвестный эффект"
+
+#: dsp_flow/threadeffector.cpp:176
+msgid "The JACK sample rate has changed to %1 Hz. Restart the sound processing."
+msgstr ""
+"Частота дискретизации для JACK установлена на %1 Гц. Перезапустите обработку "
+"звука. "
+
+#: dsp_flow/threadeffector.cpp:220 dsp_flow/threadeffector.cpp:287
+msgid "Error: %1"
+msgstr "Ошибка: %1"
+
+#: dsp_flow/threadeffector.cpp:307 dsp_flow/threadeffector.cpp:320
+msgid "Error! Cannot connect input port: %1\n"
+msgstr "Ошибка! Не удаётся соединиться с входным портом: %1\n"
+
+#: dsp_flow/threadeffector.cpp:338 dsp_flow/threadeffector.cpp:351
+msgid "Error! Cannot connect output port: %1"
+msgstr "Ошибка! Не удаётся соединиться с выходным портом: %1"
+
+#: effects_gui/crdistortion.cpp:53 effects_gui/crecho.cpp:55
+#: effects_gui/crflanger.cpp:52 effects_gui/crphaser.cpp:50
+#: effects_gui/crtremolo.cpp:48
+msgid "Mix"
+msgstr "Микширование"
+
+#: effects_gui/crdistortion.cpp:55 effects_gui/crecho.cpp:57
+#: effects_gui/crflanger.cpp:54 effects_gui/crphaser.cpp:52
+#: effects_gui/crtremolo.cpp:50
+msgid "Input Gain"
+msgstr "Громкость на входе"
+
+#: effects_gui/crdistortion.cpp:55 effects_gui/crdistortion.cpp:64
+#: effects_gui/crdistortion.cpp:65 effects_gui/crdistortion.cpp:84
+#: effects_gui/crdistortion.cpp:85 effects_gui/crdistortion.cpp:109
+#: effects_gui/crdistortion.cpp:116 effects_gui/crecho.cpp:57
+#: effects_gui/crflanger.cpp:54 effects_gui/crphaser.cpp:52
+#: effects_gui/crphaser.cpp:54 effects_gui/crtremolo.cpp:50
+#: effects_gui/crtremolo.cpp:58
+msgid "dB"
+msgstr "Дб"
+
+#: effects_gui/crdistortion.cpp:56 effects_gui/crecho.cpp:59
+#: effects_gui/crtremolo.cpp:52
+msgid "Wet Mix"
+msgstr "Wet Mix"
+
+#: effects_gui/crdistortion.cpp:57 effects_gui/crecho.cpp:58
+#: effects_gui/crphaser.cpp:53 effects_gui/crtremolo.cpp:51
+msgid "Dry Mix"
+msgstr "Dry Mix"
+
+#: effects_gui/crdistortion.cpp:60
+msgid "Accent Frequency"
+msgstr "Частота акцентирования"
+
+#: effects_gui/crdistortion.cpp:62 effects_gui/crdistortion.cpp:108
+#: effects_gui/crdistortion.cpp:115 effects_gui/crflanger.cpp:63
+#: effects_gui/crtremolo.cpp:57
+msgid "Frequency"
+msgstr "Частота"
+
+#: effects_gui/crdistortion.cpp:63
+msgid "Bandwidth"
+msgstr "Полоса пропускания"
+
+#: effects_gui/crdistortion.cpp:63
+msgid "oct"
+msgstr "окт"
+
+#: effects_gui/crdistortion.cpp:64 effects_gui/crdistortion.cpp:84
+msgid "Drive"
+msgstr "Интенсивность"
+
+#: effects_gui/crdistortion.cpp:65 effects_gui/crdistortion.cpp:85
+#: effects_gui/crdistortion.cpp:109 effects_gui/crdistortion.cpp:116
+msgid "Gain"
+msgstr "Громкость"
+
+#: effects_gui/crdistortion.cpp:68 effects_gui/crdistortion.cpp:88
+msgid "Mode"
+msgstr "Режим"
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Clean"
+msgstr "Чистый"
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Soft"
+msgstr "Мягкий"
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Hard"
+msgstr "Жёсткий"
+
+#: effects_gui/crdistortion.cpp:73
+msgid "Extra Hard"
+msgstr "Очень жёсткий"
+
+#: effects_gui/crdistortion.cpp:82
+msgid "Main Drive"
+msgstr "Основная интенсивность"
+
+#: effects_gui/crdistortion.cpp:100
+msgid "Low Pass Filter"
+msgstr "Фильтр нижних частот"
+
+#: effects_gui/crdistortion.cpp:102
+msgid "Cutoff Freq"
+msgstr "Частота вырезания"
+
+#: effects_gui/crdistortion.cpp:103 effects_gui/crdistortion.cpp:110
+#: effects_gui/crdistortion.cpp:117
+msgid "Slope"
+msgstr "Наклон"
+
+#: effects_gui/crdistortion.cpp:103 effects_gui/crdistortion.cpp:110
+#: effects_gui/crdistortion.cpp:117 effects_gui/crphaser.cpp:62
+msgid "Q"
+msgstr "Q"
+
+#: effects_gui/crdistortion.cpp:106
+msgid "Input Bass"
+msgstr "Бас на входе"
+
+#: effects_gui/crdistortion.cpp:113
+msgid "Output Bass"
+msgstr "Бас на выходе"
+
+#: effects_gui/crecho.cpp:49 effects_gui/crecho.cpp:90
+#: effects_gui/crecho.cpp:171
+msgid "Voice %1"
+msgstr "Голос %1"
+
+#: effects_gui/crecho.cpp:64
+msgid "Final Delay"
+msgstr "Окончательная задержка"
+
+#: effects_gui/crecho.cpp:64 effects_gui/crecho.cpp:92
+#: effects_gui/crflanger.cpp:61 effects_gui/crflanger.cpp:62
+msgid "ms"
+msgstr "мс"
+
+#: effects_gui/crecho.cpp:65
+msgid "Final Feedback"
+msgstr "Окончательный отклик"
+
+#: effects_gui/crecho.cpp:67
+msgid "Number of Voices"
+msgstr "Кол-во голосов"
+
+#: effects_gui/crecho.cpp:92 effects_gui/crflanger.cpp:61
+msgid "Delay"
+msgstr "Задержка"
+
+#: effects_gui/crecho.cpp:93
+msgid "Decay"
+msgstr "Распад"
+
+#: effects_gui/crecho.cpp:94 effects_gui/crflanger.cpp:60
+msgid "Feedback"
+msgstr "Отклик"
+
+#: effects_gui/crflanger.cpp:55
+msgid "Dry"
+msgstr "Dry"
+
+#: effects_gui/crflanger.cpp:55
+msgid "Wet"
+msgstr "Wet"
+
+#: effects_gui/crflanger.cpp:62 effects_gui/crphaser.cpp:61
+#: effects_gui/crtremolo.cpp:58
+msgid "Depth"
+msgstr "Глубина"
+
+#: effects_gui/crflanger.cpp:67 effects_gui/crtremolo.cpp:62
+msgid "LFO Type"
+msgstr "Тип LFO"
+
+#: effects_gui/crflanger.cpp:68 effects_gui/crtremolo.cpp:63
+msgid "Sine"
+msgstr "Синусоида"
+
+#: effects_gui/crflanger.cpp:69 effects_gui/crtremolo.cpp:64
+msgid "Triangle"
+msgstr "\"Пила\""
+
+#: effects_gui/crflanger.cpp:78
+msgid "Inverted"
+msgstr "Перевёрнуто"
+
+#: effects_gui/crphaser.cpp:54
+msgid "Sweep Gain"
+msgstr "Громкость \"вычищения\""
+
+#: effects_gui/crphaser.cpp:60
+msgid "Center Freq"
+msgstr "Центр. частота"
+
+#: effects_gui/crphaser.cpp:61
+msgid "/Q"
+msgstr "/Q"
+
+#: effects_gui/crphaser.cpp:62
+msgid "Resonance"
+msgstr "Резонанс"
+
+#: effects_gui/crphaser.cpp:63
+msgid "Sweep Freq"
+msgstr "Частота \"вычищения\""
+
+#: preset/crnewpresetfolderdialog.cpp:28
+msgid "New Preset Folder"
+msgstr "Новый каталог с предустановками"
+
+#: preset/crnewpresetfolderdialog.cpp:46
+msgid "<b>New Preset Folder Name:</b>"
+msgstr "<b>Имя нового каталога с предустановками:</b>"
+
+#: preset/crnewpresetfolderdialog.cpp:54
+msgid "New Folder"
+msgstr "Новый каталог"
+
+#: preset/crnewpresetfolderdialog.cpp:60
+msgid "Root Folder"
+msgstr "Корневой каталог"
+
+#: preset/crnewpresetfolderdialog.cpp:73
+msgid "Create"
+msgstr "Создать"
+
+#: preset/crnewpresetfolderdialogimpl.cpp:52
+msgid "You have to specify a folder name!"
+msgstr "Необходимо указать имя каталога!"
+
+#: preset/crpresetpopupmenu.cpp:42
+msgid "&Load Preset"
+msgstr "&Загрузить предустановку"
+
+#: preset/crpresetpopupmenu.cpp:61
+msgid "<p>Do you really want to delete <b>%1</b>?<p>"
+msgstr "<p>Вы действительно хотите удалить <b>%1</b>?<p>"
+
+#: preset/crpresetpopupmenu.cpp:63
+msgid "Delete Item"
+msgstr "Удалить предустановку"
+
+#: preset/crpresetview.cpp:59
+msgid "<p>A preset item named <b>%1</b> already exists!</p>"
+msgstr "<p>Предустановка с именем <b>%1</b> уже существует!</p>"
+
+#: preset/crpresetview.cpp:145
+msgid ""
+"Bad preset data file magic type!\n"
+"Creox is unable to load presets."
+msgstr ""
+"Этот файл не является предустановкой!\n"
+"Creox не удаётся загрузить предустановки."
+
+#: preset/crpresetview.cpp:150
+msgid ""
+"Wrong preset data file version!\n"
+"Creox is unable to load presets."
+msgstr ""
+"Версия файла с предустановкой некорректна!\n"
+"Creox не удаётся загрузить предустановки."
+
+#: preset/crpresetview.cpp:202 preset/crpresetview.cpp:321
+msgid ""
+"Preset data file inconsistency!\n"
+"Creox is unable to continue loading presets."
+msgstr ""
+"Формат файла с предустановкой не совместим с текущей версией!\n"
+"Creox не удаётся загрузить предустановки."
+
+#: preset/crpresetview.cpp:221
+msgid "Cannot create preset data file!\n"
+msgstr "Не удаётся создать файл с предустановкой!\n"
+
+#: preset/crsavenewpresetdialog.cpp:45
+msgid "Save New Preset"
+msgstr "Сохранить новую предустановку"
+
+#: preset/crsavenewpresetdialog.cpp:62
+msgid "<b>Select effects to save:</b>"
+msgstr "<b>Выбрать сохраняемые эффекты:</b>"
+
+#: preset/crsavenewpresetdialog.cpp:103
+msgid "Save chain (Effects order)"
+msgstr "Сохранить цепь (порядок следования эффектов)"
+
+#: preset/crsavenewpresetdialog.cpp:120
+msgid "<b>New Preset Name:</b>"
+msgstr "<b>Имя новой предустановки:</b>"
+
+#: preset/crsavenewpresetdialog.cpp:125
+msgid "New Preset"
+msgstr "Новая предустановка"
+
+#: preset/crsavenewpresetdialog.cpp:132
+msgid "Root Preset"
+msgstr "Корневая предустановка"
+
+#: preset/crsavenewpresetdialog.cpp:182
+msgid "You have to specify a preset name!"
+msgstr "Необходимо указать имя предустановки!"
+
+#: preset/effectpreset.cpp:59
+msgid "Error loading preset!"
+msgstr "Произошла ошибка при загрузке предустановки!"
+
+#: preset/effectpreset.cpp:217
+msgid "Error loading preset unit!"
+msgstr "Произошла ошибка при загрузке части предустановки!"
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Alexandre Prokoudine"
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "avp@altlinux.ru"
+

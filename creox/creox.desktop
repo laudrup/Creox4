@@ -1,0 +1,11 @@
+# KDE Config File  
+[Desktop Entry]
+BinaryPattern=creox;
+Type=Application
+Exec=creox -caption "%c" %i %m  
+Icon=creox.png
+MiniIcon=creox.png
+DocPath=creox/index.html
+Comment=The Realtime Sound Effector
+Terminal=0
+Name=creox
