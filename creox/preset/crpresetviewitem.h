@@ -18,7 +18,7 @@
 #define CRPRESETVIEWITEM_H
 
 #include <qwidget.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include "effectpreset.h"
 
 class EffectKeeper;
@@ -27,12 +27,12 @@ class QDataStream;
 /**
 	*@author Jozef Kosoru
 	*/
-class CrPresetViewItem : public QListViewItem, public EffectPreset  {
+class CrPresetViewItem : public Q3ListViewItem, public EffectPreset  {
 public:
-	CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, QListView *parent);
-	CrPresetViewItem(QDataStream& dataStream, QListView *parent);
-	CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, QListViewItem *parent);
-	CrPresetViewItem(QDataStream& dataStream, QListViewItem *parent);
+	CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, Q3ListView *parent);
+	CrPresetViewItem(QDataStream& dataStream, Q3ListView *parent);
+	CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, Q3ListViewItem *parent);
+	CrPresetViewItem(QDataStream& dataStream, Q3ListViewItem *parent);
 	~CrPresetViewItem();
 private:
 	CrPresetViewItem(const CrPresetViewItem&);

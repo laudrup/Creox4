@@ -18,8 +18,10 @@
 #include <cassert>
 #include <iostream>
 #include <qlayout.h>
-#include <qvgroupbox.h>
-#include <qvbox.h>
+#include <q3vgroupbox.h>
+#include <q3vbox.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -45,16 +47,16 @@ CrPhaser::CrPhaser(QWidget *parent, const char *name )
 	CrValidator* resonanceValid = new CrValidator(0.01f, 15.f, 0.4f, this);
 	CrValidator* sweepFreqValid = new CrValidator(0.1f, 30.f, 0.25f, this);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout(this, CR_FRAME_WIDTH);
+	Q3VBoxLayout* mainLayout = new Q3VBoxLayout(this, CR_FRAME_WIDTH);
 	//mix
-	QVGroupBox* mixBox = new  QVGroupBox(i18n("Mix"), this);
+	Q3VGroupBox* mixBox = new  Q3VGroupBox(i18n("Mix"), this);
 	m_mixArray = new CrSliderArray(3, 5, m_phaser, mixBox);
 	m_mixArray->addSlider(i18n("Input Gain"), i18n("dB"), inputGainValid, &m_ppar->inputGain);
 	m_mixArray->addSlider(i18n("Dry Mix"), "%", mixValid, &m_ppar->dryMix);
 	m_mixArray->addSlider(i18n("Sweep Gain"), i18n("dB"), sweepGainValid, &m_ppar->sweepGain);
 
 	//sweep
-	QVBox* sweepBox = new  QVBox(this);
+	Q3VBox* sweepBox = new  Q3VBox(this);
 	sweepBox->setMargin(CR_CELL_SPACING*2);
 	m_sweepArray = new CrSliderArray(4, 7, m_phaser, sweepBox);
 	m_sweepArray->addSlider(i18n("Center Freq"), i18n("Hz"), centerFreqValid, &m_ppar->centerFrequency);

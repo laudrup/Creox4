@@ -23,8 +23,8 @@
 
 class CrSliderArray;
 class QSpinBox;
-class QListBox;
-class QVGroupBox;
+class Q3ListBox;
+class Q3VGroupBox;
 class CrEchoTapsView;
 
 /**
@@ -43,9 +43,9 @@ class CrEcho : public CrEffectGui  {
 		CrSliderArray* m_mixArray;
 		CrSliderArray* m_finalEchoArray;
 		CrSliderArray* m_voiceArray;
-		QVGroupBox* m_voiceBox;
+		Q3VGroupBox* m_voiceBox;
 		QSpinBox* m_voiceNumSpinBox;
-		QListBox* m_voicesListBox;
+		Q3ListBox* m_voicesListBox;
 		QStringList m_voicesStringList;
 		int m_visibleVoice;
 		CrEchoTapsView* m_echoTapsView;

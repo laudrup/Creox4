@@ -52,7 +52,7 @@ void CrNewPresetFolderDialogImpl::accept()
 		KMessageBox::sorry(this, i18n("You have to specify a folder name!"));
 		return;
 	}
-	QListViewItem* selectedItem = m_presetView->selectedItem();
+	Q3ListViewItem* selectedItem = m_presetView->selectedItem();
 	if(!selectedItem || m_rootFolderCheckBox->isChecked()){
 		if(!checkUniqueName(m_presetView->firstChild(), folderName)) return;
 		(void) new CrPresetViewDir(folderName, m_presetView);

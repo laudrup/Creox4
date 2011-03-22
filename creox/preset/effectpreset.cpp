@@ -167,7 +167,7 @@ void EffectPreset::loadEffect(EffectKeeper* effectKeeper)
 	effectKeeper->chainView()->synchronize();
 
 	//synchronize an effect GUI
-	for( QPtrListIterator<CrEffectGui> effectIterator(effectKeeper->effectList());
+	for( Q3PtrListIterator<CrEffectGui> effectIterator(effectKeeper->effectList());
 				effectIterator.current(); ++effectIterator ){
 		for(std::vector<SoundProcessor*>::const_iterator activeIterator = activeProcessors.begin();
 				activeIterator != activeProcessors.end(); activeIterator++){

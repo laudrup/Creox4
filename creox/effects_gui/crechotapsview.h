@@ -18,7 +18,7 @@
 #define CRECHOTAPSVIEW_H
 
 #include <qwidget.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qsizepolicy.h>
 #include <qsize.h>
 #include "echoprocessor.h"
@@ -28,7 +28,7 @@ class QPainter;
 /**
  *	@author Jozef Kosoru
  */
-class CrEchoTapsView : public QFrame
+class CrEchoTapsView : public Q3Frame
 {
 	Q_OBJECT
 

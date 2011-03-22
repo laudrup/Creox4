@@ -18,16 +18,22 @@
 #define CRSAVENEWPRESETDIALOG_H
 
 #include <qvariant.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qdialog.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3Frame>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QLabel>
 #include "effectpreset.h"
 #include "crpresetview.h"
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QFrame;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
+class Q3Frame;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -40,7 +46,7 @@ class CrSaveNewPresetDialog : public QDialog, public EffectPresetSaveRequest, pu
 {
 	Q_OBJECT
 public:
-	CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, CrPresetView* const presetView, QWidget* parent = 0, const char* name = 0, WFlags fl = 0 );
+	CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, CrPresetView* const presetView, QWidget* parent = 0, const char* name = 0, Qt::WFlags fl = 0 );
 	~CrSaveNewPresetDialog();
 protected slots:
 	virtual void accept();
@@ -50,24 +56,24 @@ protected:
 	EffectKeeper* m_effectKeeper;
 	CrPresetView* m_presetView;
 
-	QFrame* m_effectFrame;
+	Q3Frame* m_effectFrame;
 	QLabel* m_effectTextLabel;
-	QFrame* m_line1;
-	QPtrList<CrCheckBox_private> m_effectCheckBoxList;
-	QFrame* m_line2;
+	Q3Frame* m_line1;
+	Q3PtrList<CrCheckBox_private> m_effectCheckBoxList;
+	Q3Frame* m_line2;
 	QCheckBox* m_saveChainCheckBox;
-	QFrame* m_presetFrame;
+	Q3Frame* m_presetFrame;
 	QLabel* m_presetNameTextLabel;
 	QLineEdit* m_presetNameLineEdit;
 	QCheckBox* m_rootPresetCheckBox;
 	QPushButton* m_okButton;
 	QPushButton* m_cancelButton;
 
-	QVBoxLayout* CrSaveNewPresetDialogLayout;
-	QVBoxLayout* m_effectFrameLayout;
-	QGridLayout* m_effectLayout;
-	QVBoxLayout* m_presetFrameLayout;
-	QHBoxLayout* m_buttonLayout;
+	Q3VBoxLayout* CrSaveNewPresetDialogLayout;
+	Q3VBoxLayout* m_effectFrameLayout;
+	Q3GridLayout* m_effectLayout;
+	Q3VBoxLayout* m_presetFrameLayout;
+	Q3HBoxLayout* m_buttonLayout;
 };
 
 /**

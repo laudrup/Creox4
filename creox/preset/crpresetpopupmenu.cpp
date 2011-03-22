@@ -31,7 +31,7 @@
 #include "creox.h"
 #include "crpresetpopupmenu.h"
 
-CrPresetPopupMenu::CrPresetPopupMenu(QListViewItem* const selectedItem, QWidget* const parent, const char* const name)
+CrPresetPopupMenu::CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget* const parent, const char* const name)
 	: KPopupMenu(parent,name), m_selectedItem(selectedItem)
 {
 	Creox* const creox = dynamic_cast<Creox*>(kapp->mainWidget());

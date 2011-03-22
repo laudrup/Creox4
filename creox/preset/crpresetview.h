@@ -19,8 +19,8 @@
 
 #include <new>
 #include <qwidget.h>
-#include <qlistview.h>
-#include <qvaluelist.h>
+#include <q3listview.h>
+#include <q3valuelist.h>
 #include <qstringlist.h>
 #include "crexception.h"
 
@@ -44,13 +44,13 @@ public:
 	*/
 class CrPresetViewGlobal {
 public:
-	static bool checkUniqueName(const QListViewItem* item, const QString& folderName);
+	static bool checkUniqueName(const Q3ListViewItem* item, const QString& folderName);
 };
 
-class CrPresetViewDir : public QListViewItem {
+class CrPresetViewDir : public Q3ListViewItem {
 public:
-	CrPresetViewDir(const QString& dirName, QListView *parent) : QListViewItem(parent, dirName) { init(); }
-	CrPresetViewDir(const QString& dirName, QListViewItem *parent) : QListViewItem(parent, dirName) { init(); }
+	CrPresetViewDir(const QString& dirName, Q3ListView *parent) : Q3ListViewItem(parent, dirName) { init(); }
+	CrPresetViewDir(const QString& dirName, Q3ListViewItem *parent) : Q3ListViewItem(parent, dirName) { init(); }
 	~CrPresetViewDir() { }
 private:
 	void init();
@@ -59,7 +59,7 @@ private:
 /**
 	*@author Jozef Kosoru
 	*/
-class CrPresetView : public QListView  {
+class CrPresetView : public Q3ListView  {
 	 Q_OBJECT
 public:
 	CrPresetView(EffectKeeper* effectKeeper, QWidget *parent=0, const char *name=0);
@@ -67,21 +67,21 @@ public:
 	void loadPresets() throw(Cr::CrException_presetDataFileError,std::bad_alloc);
 	void savePresets() throw(Cr::CrException_presetDataFileError,std::bad_alloc);
 public slots:
-	void slotApplyPreset(QListViewItem* preset);
+	void slotApplyPreset(Q3ListViewItem* preset);
 private slots:
-	void slotMouseButtonPressed(int button, QListViewItem* item, const QPoint&, int);
-	void slotShowPresetViewPopupMenu(QListViewItem* item, const QPoint&, int);
+	void slotMouseButtonPressed(int button, Q3ListViewItem* item, const QPoint&, int);
+	void slotShowPresetViewPopupMenu(Q3ListViewItem* item, const QPoint&, int);
 private:
-	void saveDir(QDataStream& dataStream, QListViewItem* const parent) const;
-	void loadDir(QDataStream& dataStream, QListViewItem* const parent);
+	void saveDir(QDataStream& dataStream, Q3ListViewItem* const parent) const;
+	void loadDir(QDataStream& dataStream, Q3ListViewItem* const parent);
 
 	EffectKeeper* m_effectKeeper;
 
-	QValueList<int>* m_pDirIsOpenMap;
+	Q3ValueList<int>* m_pDirIsOpenMap;
 	QStringList* m_pDirNamesMap;
 
-	QValueListConstIterator<int> m_dirIsOpenIterator;
-	QValueListConstIterator<QString> m_dirNamesIterator;
+	Q3ValueListConstIterator<int> m_dirIsOpenIterator;
+	Q3ValueListConstIterator<QString> m_dirNamesIterator;
 
 };
 

@@ -18,10 +18,13 @@
 #include <cassert>
 #include <iostream>
 #include <qlayout.h>
-#include <qvgroupbox.h>
+#include <q3vgroupbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -47,24 +50,24 @@ CrDistortion::CrDistortion(QWidget *parent, const char *name )
 	CrValidator* accBandValid = new CrValidator(0.01f, 15.0f, 0.4f, this);
 	CrValidator* driveValid = new CrValidator(0.0f, 100.0f, 0.4f, this);
 
-	QGridLayout* gridLayout = new QGridLayout(this, 5, 2, CR_FRAME_WIDTH);
+	Q3GridLayout* gridLayout = new Q3GridLayout(this, 5, 2, CR_FRAME_WIDTH);
 
 	//mix
-	QVGroupBox* mixBox = new  QVGroupBox(i18n("Mix"), this);
+	Q3VGroupBox* mixBox = new  Q3VGroupBox(i18n("Mix"), this);
 	m_mixArray = new CrSliderArray(3, 5, m_distortion, mixBox);
 	m_mixArray->addSlider(i18n("Input Gain"), i18n("dB"), inputGainValid, &m_dpar->inputGain);
 	m_mixArray->addSlider(i18n("Wet Mix"), "%", mixValid, &m_dpar->wetMix);
 	m_mixArray->addSlider(i18n("Dry Mix"), "%", mixValid, &m_dpar->dryMix);
 
 	//accented frequency (BPF)
-	QVGroupBox* accentBox = new  QVGroupBox(i18n("Accent Frequency"), this);
+	Q3VGroupBox* accentBox = new  Q3VGroupBox(i18n("Accent Frequency"), this);
 	m_accentArray = new CrSliderArray(4, 7, m_distortion, accentBox);
 	m_accentArray->addSlider(i18n("Frequency"), i18n("Hz"), accFreqValid, &m_dpar->accent_frequency);
 	m_accentArray->addSlider(i18n("Bandwidth"), i18n("oct"), accBandValid, &m_dpar->accent_bandwidth);
 	m_accentArray->addSlider(i18n("Drive"), i18n("dB"), driveValid, &m_dpar->accent_drive);
 	m_accentArray->addSlider(i18n("Gain"), i18n("dB"), bassGainValid, &m_dpar->accent_gain);
 	QWidget* modeWidget = new QWidget(accentBox);
-	QHBoxLayout* modeLayout = new QHBoxLayout(modeWidget, 0, CR_CELL_SPACING);
+	Q3HBoxLayout* modeLayout = new Q3HBoxLayout(modeWidget, 0, CR_CELL_SPACING);
 	QLabel* modeLabel = new QLabel(i18n("Mode"), modeWidget);
 	modeLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
 	modeLabel->setFixedWidth(m_accentArray->setMinLeftColWidth(modeLabel->sizeHint().width()));
@@ -79,12 +82,12 @@ CrDistortion::CrDistortion(QWidget *parent, const char *name )
 	modeLayout->addStretch(5);
 
 	//mainDrive
-	QVGroupBox* mainDriveBox = new  QVGroupBox(i18n("Main Drive"), this);
+	Q3VGroupBox* mainDriveBox = new  Q3VGroupBox(i18n("Main Drive"), this);
 	m_mainDriveArray = new CrSliderArray(2, 5, m_distortion, mainDriveBox);
 	m_mainDriveArray->addSlider(i18n("Drive"), i18n("dB"), driveValid, &m_dpar->main_drive);
 	m_mainDriveArray->addSlider(i18n("Gain"), i18n("dB"), bassGainValid, &m_dpar->main_gain);
 	QWidget* modeWidget2 = new QWidget(mainDriveBox);
-	QHBoxLayout* modeLayout2 = new QHBoxLayout(modeWidget2, 0, CR_CELL_SPACING);
+	Q3HBoxLayout* modeLayout2 = new Q3HBoxLayout(modeWidget2, 0, CR_CELL_SPACING);
 	QLabel* modeLabel2 = new QLabel(i18n("Mode"), modeWidget2);
 	modeLabel2->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
 	modeLabel2->setFixedWidth(m_mainDriveArray->setMinLeftColWidth(modeLabel2->sizeHint().width()));
@@ -97,20 +100,20 @@ CrDistortion::CrDistortion(QWidget *parent, const char *name )
 	modeLayout2->addStretch(5);
 
 	//low Pass
-	QVGroupBox* lowPassBox = new  QVGroupBox(i18n("Low Pass Filter"), this);
+	Q3VGroupBox* lowPassBox = new  Q3VGroupBox(i18n("Low Pass Filter"), this);
 	m_lowPassArray = new CrSliderArray(2, 7, m_distortion, lowPassBox);
 	m_lowPassArray->addSlider(i18n("Cutoff Freq"), i18n("Hz"), accFreqValid, &m_dpar->lowPass_cutoffFrequency);
 	m_lowPassArray->addSlider(i18n("Slope"), i18n("Q"), accBandValid, &m_dpar->lowPass_Q);
 
 	//input bass cut/boost (lowShelf)
-	QVGroupBox* inputBassBox = new  QVGroupBox(i18n("Input Bass"), this);
+	Q3VGroupBox* inputBassBox = new  Q3VGroupBox(i18n("Input Bass"), this);
 	m_inputBassArray = new CrSliderArray(3, 6, m_distortion, inputBassBox);
 	m_inputBassArray->addSlider(i18n("Frequency"), i18n("Hz"), bassFreqValid, &m_dpar->inBass_frequency);
 	m_inputBassArray->addSlider(i18n("Gain"), i18n("dB"), bassGainValid, &m_dpar->inBass_gain);
 	m_inputBassArray->addSlider(i18n("Slope"), i18n("Q"), bassSlopeValid, &m_dpar->inBass_slope);
 
 	//output bass boost/cut (lowShelf)
-	QVGroupBox* outputBassBox = new  QVGroupBox(i18n("Output Bass"), this);
+	Q3VGroupBox* outputBassBox = new  Q3VGroupBox(i18n("Output Bass"), this);
 	m_outputBassArray = new CrSliderArray(3, 6, m_distortion, outputBassBox);
 	m_outputBassArray->addSlider(i18n("Frequency"), i18n("Hz"), bassFreqValid, &m_dpar->outBass_frequency);
 	m_outputBassArray->addSlider(i18n("Gain"), i18n("dB"), bassGainValid, &m_dpar->outBass_gain);

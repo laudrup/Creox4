@@ -17,7 +17,7 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qstring.h>
 #include <kglobal.h>
 #include <kconfig.h>
@@ -45,7 +45,7 @@ void EffectKeeper::shutdown()
 	//save the effectChain order
 	KConfig* conf = KGlobal::config();
 	conf->setGroup("EffectKeeper");
-	QValueList<int> effectIdList;
+	Q3ValueList<int> effectIdList;
 	const int chainSize = m_threadEffector->getProcessorChainSize();
 	for(int count=0; count<chainSize; count++){
 		conf->writeEntry(QString::fromLatin1((*m_threadEffector)[count]->getName()),
@@ -70,18 +70,18 @@ void EffectKeeper::activate()
 	m_threadEffector = new ThreadEffector(m_effectList.count());
 
 	//add effects to the threadEffector chain
-	QValueList<int> effectIdList;
+	Q3ValueList<int> effectIdList;
 	KConfig* conf = KGlobal::config();
 	conf->setGroup("EffectKeeper");
 	effectIdList = conf->readIntListEntry("effectChainOrder");
 
 	if(m_effectList.count() == effectIdList.count()){
-		QValueList<int>::Iterator effectListIterator;
+		Q3ValueList<int>::Iterator effectListIterator;
 		int count;
 		for(effectListIterator = effectIdList.begin(), count = 0; effectListIterator != effectIdList.end(); ++effectListIterator, count++){
 			const int effectId = *effectListIterator;
 
-			for(QPtrListIterator<CrEffectGui> effectIterator(m_effectList); effectIterator.current(); ++effectIterator){
+			for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectList); effectIterator.current(); ++effectIterator){
 				if(effectIterator.current()->getProcessor()->getId() == effectId){
 					(*m_threadEffector)[count] = effectIterator.current()->getProcessor();
 					(*m_threadEffector)[count]->setMode(conf->readNumEntry(QString::fromLatin1((*m_threadEffector)[count]->getName()), SoundProcessor::disabled));
@@ -91,7 +91,7 @@ void EffectKeeper::activate()
 		}
 	}
 	else{
-		QPtrListIterator<CrEffectGui> effectIterator(m_effectList);
+		Q3PtrListIterator<CrEffectGui> effectIterator(m_effectList);
 		for(int count=0; effectIterator.current(); ++effectIterator, count++){
 			(*m_threadEffector)[count] = effectIterator.current()->getProcessor();
 		}

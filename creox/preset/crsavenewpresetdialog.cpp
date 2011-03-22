@@ -18,14 +18,18 @@
 #include <cassert>
 #include <iostream>
 #include <typeinfo>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include "effectkeeper.h"
@@ -36,25 +40,25 @@
 #include "soundprocessor.h"
 #include "crsavenewpresetdialog.h"
 
-CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, CrPresetView* const presetView, QWidget* parent, const char* name, WFlags fl )
+CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, CrPresetView* const presetView, QWidget* parent, const char* name, Qt::WFlags fl )
 	: QDialog( parent, name, true, fl ), m_effectKeeper(effectKeeper), m_presetView(presetView)
 {
 	if(!name) setName( "CrSaveNewPresetDialog" );
 	resize( 248, 238 );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, sizePolicy().hasHeightForWidth() ) );
 	setCaption( i18n( "Save New Preset" ) );
-	CrSaveNewPresetDialogLayout = new QVBoxLayout( this );
+	CrSaveNewPresetDialogLayout = new Q3VBoxLayout( this );
 	CrSaveNewPresetDialogLayout->setSpacing( 3 );
 	CrSaveNewPresetDialogLayout->setMargin( 3 );
 
-	m_effectFrame = new QFrame( this, "m_effectFrame" );
-	m_effectFrame->setFrameShape( QFrame::StyledPanel );
-	m_effectFrame->setFrameShadow( QFrame::Raised );
+	m_effectFrame = new Q3Frame( this, "m_effectFrame" );
+	m_effectFrame->setFrameShape( Q3Frame::StyledPanel );
+	m_effectFrame->setFrameShadow( Q3Frame::Raised );
 	m_effectFrame->setLineWidth( 1 );
 	m_effectFrame->setMargin( 0 );
 	m_effectFrame->setMidLineWidth( 0 );
 
-	m_effectFrameLayout = new QVBoxLayout( m_effectFrame );
+	m_effectFrameLayout = new Q3VBoxLayout( m_effectFrame );
 	m_effectFrameLayout->setSpacing( 3 );
 	m_effectFrameLayout->setMargin( 6 );
 
@@ -62,19 +66,19 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 	m_effectTextLabel->setText( i18n( "<b>Select effects to save:</b>" ) );
 	m_effectFrameLayout->addWidget( m_effectTextLabel );
 
-	m_line1 = new QFrame( m_effectFrame, "m_line1" );
-	m_line1->setFrameStyle( QFrame::HLine | QFrame::Sunken );
+	m_line1 = new Q3Frame( m_effectFrame, "m_line1" );
+	m_line1->setFrameStyle( Q3Frame::HLine | Q3Frame::Sunken );
 	m_effectFrameLayout->addWidget( m_line1 );
 
 	// ------------------ effects ---------------------------
-	m_effectLayout = new QGridLayout;
+	m_effectLayout = new Q3GridLayout;
 	m_effectLayout->setSpacing( 5 );
 	m_effectLayout->setMargin( 0 );
 
 	// create  effect QCheckBoxes
 	int activeEffectsCount = 0;
 	int xPos=0, yPos=0;
-	for(QPtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList()) ; effectIterator.current(); ++effectIterator ){
+	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList()) ; effectIterator.current(); ++effectIterator ){
 		CrCheckBox_private* const effectCheckBox = new CrCheckBox_private(effectIterator.current()->getProcessor()->getId(), m_effectFrame);
 		effectCheckBox->setText(effectIterator.current()->effectName());
 		if(effectIterator.current()->getProcessor()->mode() == SoundProcessor::enabled){
@@ -95,8 +99,8 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 	m_effectFrameLayout->addLayout( m_effectLayout );
 	// ------------------------------------------------------
 
-	m_line2 = new QFrame( m_effectFrame, "m_line2" );
-	m_line2->setFrameStyle( QFrame::HLine | QFrame::Sunken );
+	m_line2 = new Q3Frame( m_effectFrame, "m_line2" );
+	m_line2->setFrameStyle( Q3Frame::HLine | Q3Frame::Sunken );
 	m_effectFrameLayout->addWidget( m_line2 );
 
 	m_saveChainCheckBox = new QCheckBox( m_effectFrame, "m_saveChainCheckBox" );
@@ -108,10 +112,10 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 	m_effectFrameLayout->addWidget( m_saveChainCheckBox );
 	CrSaveNewPresetDialogLayout->addWidget( m_effectFrame );
 
-	m_presetFrame = new QFrame( this, "m_presetFrame" );
-	m_presetFrame->setFrameShape( QFrame::StyledPanel );
-	m_presetFrame->setFrameShadow( QFrame::Raised );
-	m_presetFrameLayout = new QVBoxLayout( m_presetFrame );
+	m_presetFrame = new Q3Frame( this, "m_presetFrame" );
+	m_presetFrame->setFrameShape( Q3Frame::StyledPanel );
+	m_presetFrame->setFrameShadow( Q3Frame::Raised );
+	m_presetFrameLayout = new Q3VBoxLayout( m_presetFrame );
 	m_presetFrameLayout->setSpacing( 3 );
 	m_presetFrameLayout->setMargin( 6 );
 
@@ -121,7 +125,7 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 	m_presetFrameLayout->addWidget( m_presetNameTextLabel );
 
 	m_presetNameLineEdit = new QLineEdit( m_presetFrame, "m_presetNameLineEdit" );
-	m_presetNameLineEdit->setFocusPolicy( QLineEdit::StrongFocus );
+	m_presetNameLineEdit->setFocusPolicy( Qt::StrongFocus );
 	m_presetNameLineEdit->setText( i18n( "New Preset" ) );
 	m_presetNameLineEdit->setEdited( false );
 	m_presetNameLineEdit->selectAll();
@@ -141,7 +145,7 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	CrSaveNewPresetDialogLayout->addItem( spacer );
 
-	m_buttonLayout = new QHBoxLayout;
+	m_buttonLayout = new Q3HBoxLayout;
 	m_buttonLayout->setSpacing( 6 );
 	m_buttonLayout->setMargin( 0 );
 	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -175,14 +179,14 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 void CrSaveNewPresetDialog::accept()
 {
 	const QString folderName(m_presetNameLineEdit->text().simplifyWhiteSpace());
-	QListViewItem* newPresetParent;
+	Q3ListViewItem* newPresetParent;
 
 	// check whether a preset name is unique
 	if(folderName.isEmpty()){
 		KMessageBox::sorry(this, i18n("You have to specify a preset name!"));
 		return;
 	}
-	QListViewItem* selectedItem = m_presetView->selectedItem();
+	Q3ListViewItem* selectedItem = m_presetView->selectedItem();
 	if(!selectedItem || m_rootPresetCheckBox->isChecked()){
 		if(!checkUniqueName(m_presetView->firstChild(), folderName)) return;
 		newPresetParent=0;
@@ -208,7 +212,7 @@ void CrSaveNewPresetDialog::accept()
 	m_presetName = folderName;
 	m_saveChain = m_saveChainCheckBox->isChecked();
 
-	for(QPtrListIterator<CrCheckBox_private> checkBoxIterator(m_effectCheckBoxList) ; checkBoxIterator.current(); ++checkBoxIterator ){
+	for(Q3PtrListIterator<CrCheckBox_private> checkBoxIterator(m_effectCheckBoxList) ; checkBoxIterator.current(); ++checkBoxIterator ){
 		if(checkBoxIterator.current()->isChecked()){
 			m_processorIdList.push_back(checkBoxIterator.current()->m_processorId);
 		}

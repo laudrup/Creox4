@@ -18,15 +18,17 @@
 #define CREFFECTGUITRAY_H
 
 #include <qwidget.h>
-#include <qframe.h>
+#include <q3frame.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 
 class CrEffectGui;
-class QHBoxLayout;
+class Q3HBoxLayout;
 
 /**
 	*@author Jozef Kosoru
 	*/
-class CrEffectGuiTray : public QFrame  {
+class CrEffectGuiTray : public Q3Frame  {
 	 Q_OBJECT
 public:
 	CrEffectGuiTray(QWidget *parent=0, const char *name=0);
@@ -35,7 +37,7 @@ public:
 	void insertEffectGuiWidget(CrEffectGui* effectGui);
 private: // Private attributes
 	/** main layout */
-	QHBoxLayout* m_layout;
+	Q3HBoxLayout* m_layout;
 };
 
 #endif

@@ -22,6 +22,8 @@
 #include <qstring.h>
 #include <qsocketnotifier.h>
 #include <qapplication.h>
+//Added by qt3to4:
+#include <QEvent>
 #include <klocale.h>
 #include "crthreadeventdispatcher.h"
 

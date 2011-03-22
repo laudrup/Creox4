@@ -1,18 +1,21 @@
 #include <qcheckbox.h>
-#include <qframe.h>
+#include <q3frame.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include <klocale.h>
 #include "crnewpresetfolderdialog.h"
 
 CrNewPresetFolderDialog::CrNewPresetFolderDialog(QWidget* parent,
 												 const char* name,
-												 bool modal, WFlags fl )
+												 bool modal, Qt::WFlags fl )
  : QDialog( parent, name, modal, fl )
 {
 	if(!name)
@@ -27,14 +30,14 @@ CrNewPresetFolderDialog::CrNewPresetFolderDialog(QWidget* parent,
 
 	setCaption( i18n( "New Preset Folder" ) );
 	setSizeGripEnabled( false );
-	CrNewPresetFolderDialogLayout = new QVBoxLayout( this );
+	CrNewPresetFolderDialogLayout = new Q3VBoxLayout( this );
 	CrNewPresetFolderDialogLayout->setSpacing( 3 );
 	CrNewPresetFolderDialogLayout->setMargin( 3 );
 
-	m_mainFrame = new QFrame( this, "m_mainFrame" );
-	m_mainFrame->setFrameShape( QFrame::StyledPanel );
-	m_mainFrame->setFrameShadow( QFrame::Raised );
-	m_mainFrameLayout = new QVBoxLayout( m_mainFrame );
+	m_mainFrame = new Q3Frame( this, "m_mainFrame" );
+	m_mainFrame->setFrameShape( Q3Frame::StyledPanel );
+	m_mainFrame->setFrameShadow( Q3Frame::Raised );
+	m_mainFrameLayout = new Q3VBoxLayout( m_mainFrame );
 	m_mainFrameLayout->setSpacing( 3 );
 	m_mainFrameLayout->setMargin( 6 );
 
@@ -49,7 +52,7 @@ CrNewPresetFolderDialog::CrNewPresetFolderDialog(QWidget* parent,
 	m_folderNameLineEdit = new QLineEdit( m_mainFrame, "m_folderNameLineEdit" );
 	m_folderNameLineEdit->setMaximumSize( QSize( 32767, 32767 ) );
 	m_folderNameLineEdit->setMouseTracking( false );
-	m_folderNameLineEdit->setFocusPolicy( QLineEdit::StrongFocus );
+	m_folderNameLineEdit->setFocusPolicy( Qt::StrongFocus );
 	m_folderNameLineEdit->setAutoMask( false );
 	m_folderNameLineEdit->setText( i18n( "New Folder" ) );
 	m_folderNameLineEdit->setCursorPosition( 0 );
@@ -63,7 +66,7 @@ CrNewPresetFolderDialog::CrNewPresetFolderDialog(QWidget* parent,
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	CrNewPresetFolderDialogLayout->addItem( spacer );
 
-	m_buttonLayout = new QHBoxLayout;
+	m_buttonLayout = new Q3HBoxLayout;
 	m_buttonLayout->setSpacing( 6 );
 	m_buttonLayout->setMargin( 0 );
 	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

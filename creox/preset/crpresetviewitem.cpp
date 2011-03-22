@@ -22,26 +22,26 @@
 #include <kiconloader.h>
 #include "crpresetviewitem.h"
 
-CrPresetViewItem::CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, QListView *parent)
-	: QListViewItem(parent), EffectPreset(saveRequest, effectKeeper)
+CrPresetViewItem::CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, Q3ListView *parent)
+	: Q3ListViewItem(parent), EffectPreset(saveRequest, effectKeeper)
 {
 	init();
 }
 
-CrPresetViewItem::CrPresetViewItem(QDataStream& dataStream, QListView *parent)
-	: QListViewItem(parent), EffectPreset(dataStream)
+CrPresetViewItem::CrPresetViewItem(QDataStream& dataStream, Q3ListView *parent)
+	: Q3ListViewItem(parent), EffectPreset(dataStream)
 {
 	init();
 }
 
-CrPresetViewItem::CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, QListViewItem *parent)
-	: QListViewItem(parent), EffectPreset(saveRequest, effectKeeper)
+CrPresetViewItem::CrPresetViewItem(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper, Q3ListViewItem *parent)
+	: Q3ListViewItem(parent), EffectPreset(saveRequest, effectKeeper)
 {
 	init();
 }
 
-CrPresetViewItem::CrPresetViewItem(QDataStream& dataStream, QListViewItem *parent)
-	: QListViewItem(parent), EffectPreset(dataStream)
+CrPresetViewItem::CrPresetViewItem(QDataStream& dataStream, Q3ListViewItem *parent)
+	: Q3ListViewItem(parent), EffectPreset(dataStream)
 {
 	init();
 }

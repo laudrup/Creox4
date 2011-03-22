@@ -27,9 +27,12 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qstring.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qcheckbox.h>
-#include <qvgroupbox.h>
+#include <q3vgroupbox.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3Frame>
 #include <kconfig.h>
 #include <klocale.h>
 #include <kglobal.h>
@@ -45,18 +48,18 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
 	: KDialogBase(IconList, i18n("Options"), Ok | Cancel, Ok, parent, name, true, true)
 {
 	/* page 1 */
-	QFrame* const page1 = addPage(i18n("Jack"),
+	Q3Frame* const page1 = addPage(i18n("Jack"),
 								  i18n("Jack audio configuration:"),
 								  BarIcon("sound_card_properties", KIcon::SizeLarge ));
-	QGridLayout* const page1Layout = new QGridLayout(page1, 6, 4, 0,
+	Q3GridLayout* const page1Layout = new Q3GridLayout(page1, 6, 4, 0,
 													 spacingHint());
 
 	// input channel
-    QVGroupBox* const inputChannelGroupBox = new QVGroupBox(i18n("Input Channel Connection"), page1);
+    Q3VGroupBox* const inputChannelGroupBox = new Q3VGroupBox(i18n("Input Channel Connection"), page1);
 	page1Layout->addMultiCellWidget(inputChannelGroupBox, 0, 0, 0, 3);
 
     QWidget* const inputGroupBoxHelper = new QWidget(inputChannelGroupBox);
-    QGridLayout* const inputGroupBoxHelperLayout = new QGridLayout(inputGroupBoxHelper,
+    Q3GridLayout* const inputGroupBoxHelperLayout = new Q3GridLayout(inputGroupBoxHelper,
     														       2, 2, 0, spacingHint());
 	QLabel* const leftInputChannelLabel = new QLabel(i18n("Left:"), inputGroupBoxHelper);
 	leftInputChannelLabel->setAlignment(AlignVCenter | AlignRight);
@@ -86,11 +89,11 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
 	inputGroupBoxHelperLayout->setColStretch(1, 5);
 
 	// output channel
-    QVGroupBox* const outputChannelGroupBox = new QVGroupBox(i18n("Output Channel Connection"), page1);
+    Q3VGroupBox* const outputChannelGroupBox = new Q3VGroupBox(i18n("Output Channel Connection"), page1);
 	page1Layout->addMultiCellWidget(outputChannelGroupBox, 1, 1, 0, 3);
 
     QWidget* const outputGroupBoxHelper = new QWidget(outputChannelGroupBox);
-    QGridLayout* const outputGroupBoxHelperLayout = new QGridLayout(outputGroupBoxHelper,
+    Q3GridLayout* const outputGroupBoxHelperLayout = new Q3GridLayout(outputGroupBoxHelper,
     														       2, 2, 0, spacingHint());
 	QLabel* const leftOutputChannelLabel = new QLabel(i18n("Left:"), outputGroupBoxHelper);
 	leftOutputChannelLabel->setAlignment(AlignVCenter | AlignRight);
@@ -128,7 +131,7 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
 	QLabel* const samplerateNumLabel = new QLabel(QString::fromLatin1("48000"),
 												  page1);
 	samplerateNumLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-	samplerateNumLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+	samplerateNumLabel->setFrameStyle(Q3Frame::Panel | Q3Frame::Sunken);
 	page1Layout->addWidget(samplerateNumLabel, 3, 2);
 	QLabel* const hzLabel = new QLabel(i18n("Hz"), page1);
 	hzLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -141,7 +144,7 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
 	QLabel* const resolutionNumLabel = new QLabel(QString::fromLatin1("32"),
 												  page1);
 	resolutionNumLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-	resolutionNumLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+	resolutionNumLabel->setFrameStyle(Q3Frame::Panel | Q3Frame::Sunken);
 	page1Layout->addWidget(resolutionNumLabel, 4, 2);
 	QLabel* const bitLabel = new QLabel(i18n("bit"), page1);
 	bitLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);

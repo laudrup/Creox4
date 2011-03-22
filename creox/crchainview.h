@@ -18,9 +18,11 @@
 #define CRCHAINVIEW_H
 
 #include <qwidget.h>
-#include <qframe.h>
-#include <qptrlist.h>
+#include <q3frame.h>
+#include <q3ptrlist.h>
 #include <qsizepolicy.h>
+//Added by qt3to4:
+#include <QResizeEvent>
 #include "threadeffector.h"
 #include "crchainbutton.h"
 
@@ -31,7 +33,7 @@ class QSize;
 /**
 	*@author Jozef Kosoru
 	*/
-class CrChainView : public QFrame  {
+class CrChainView : public Q3Frame  {
 	 Q_OBJECT
 public:
 	CrChainView(EffectKeeper* effectKeeper, QWidget *parent=0, const char *name=0);
@@ -55,7 +57,7 @@ private:
 	void syncChainButtons();
 	EffectKeeper* m_effectKeeper;
 	ThreadEffector* m_threadEffector;
-	QPtrList<CrChainButton> m_chainButtonList;
+	Q3PtrList<CrChainButton> m_chainButtonList;
 	CrChainButton** m_chainButtonArray;
 	QSize m_sizeHint;
 };

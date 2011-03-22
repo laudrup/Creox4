@@ -18,6 +18,8 @@
 #define CRCHAINBUTTON_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include "crbutton.h"
 
 class CrEffectGui;

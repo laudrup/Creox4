@@ -18,12 +18,15 @@
 #include <cassert>
 #include <iostream>
 #include <qlayout.h>
-#include <qvgroupbox.h>
+#include <q3vgroupbox.h>
 #include <qspinbox.h>
 #include <qlabel.h>
 //#include <qvbox.h>
 #include <qstringlist.h>
-#include <qlistbox.h>
+#include <q3listbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -49,21 +52,21 @@ CrEcho::CrEcho(QWidget *parent, const char *name )
 		m_voicesStringList << i18n("Voice %1").arg(count);
 	}
 
-	QVBoxLayout* mainLayout = new QVBoxLayout(this, CR_FRAME_WIDTH);
+	Q3VBoxLayout* mainLayout = new Q3VBoxLayout(this, CR_FRAME_WIDTH);
 	//mix
-	QHBoxLayout* topLayout = new QHBoxLayout(CR_CELL_SPACING);
-	QVGroupBox* mixBox = new QVGroupBox(i18n("Mix"), this);
+	Q3HBoxLayout* topLayout = new Q3HBoxLayout(CR_CELL_SPACING);
+	Q3VGroupBox* mixBox = new Q3VGroupBox(i18n("Mix"), this);
 	m_mixArray = new CrSliderArray(3, 5, m_echo, mixBox);
 	(void)m_mixArray->addSlider(i18n("Input Gain"), i18n("dB"), inputGainValid, &m_epar->inputGain);
 	(void)m_mixArray->addSlider(i18n("Dry Mix"), "%", mixValid, &m_epar->dryMix);
 	(void)m_mixArray->addSlider(i18n("Wet Mix"), "%", mixValid, &m_epar->wetMix);
 
-	QVBoxLayout* finalLayout = new QVBoxLayout;
+	Q3VBoxLayout* finalLayout = new Q3VBoxLayout;
 	finalLayout->setMargin(mixBox->frameWidth());
 	m_finalEchoArray = new CrSliderArray(2, 6, m_echo, this);
 	(void)m_finalEchoArray->addSlider(i18n("Final Delay"), i18n("ms"), delayValid, &m_epar->finalDelay, true, true);
 	(void)m_finalEchoArray->addSlider(i18n("Final Feedback"), "%", mixValid, &m_epar->finalFeedback, true, true);
-	QHBoxLayout* voiceNumLayout = new QHBoxLayout(CR_CELL_SPACING);
+	Q3HBoxLayout* voiceNumLayout = new Q3HBoxLayout(CR_CELL_SPACING);
 	QLabel* voiceNumLabel = new QLabel(i18n("Number of Voices"), this);
 	m_voiceNumSpinBox = new QSpinBox(0, 10, 1, this);
 	m_voiceNumSpinBox->setValue(m_epar->parallelEchoCount);
@@ -83,11 +86,11 @@ CrEcho::CrEcho(QWidget *parent, const char *name )
 	m_echoTapsView  = new CrEchoTapsView(m_epar, m_visibleVoice, this);
 
 	//voices list box
-	QHBoxLayout* middleLayout = new QHBoxLayout(CR_CELL_SPACING);
-	m_voicesListBox = new QListBox(this);
+	Q3HBoxLayout* middleLayout = new Q3HBoxLayout(CR_CELL_SPACING);
+	m_voicesListBox = new Q3ListBox(this);
 	//voice box
 	assert(m_visibleVoice <= m_epar->parallelEchoCount);
-	m_voiceBox = new QVGroupBox(i18n("Voice %1").arg(m_visibleVoice+1), this);
+	m_voiceBox = new Q3VGroupBox(i18n("Voice %1").arg(m_visibleVoice+1), this);
 	m_voiceArray = new CrSliderArray(3, 6, m_echo, m_voiceBox);
 	(void)m_voiceArray->addSlider(i18n("Delay"), i18n("ms"), delayValid, &m_epar->parallelEcho[m_visibleVoice].delay, true, true);
 	(void)m_voiceArray->addSlider(i18n("Decay"), "%", mixValid, &m_epar->parallelEcho[m_visibleVoice].decay, true, true);

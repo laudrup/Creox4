@@ -22,6 +22,8 @@
 #include <qslider.h>
 #include <qlabel.h>
 #include <qfontmetrics.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 #include "crfloatspinbox.h"
 #include "crvalidator.h"
 #include "soundprocessor.h"
@@ -33,7 +35,7 @@ CrSliderArray::CrSliderArray(const int entries, const int spinBoxWidth, SoundPro
 	: QWidget(parent, name), m_entries(entries), m_entryCount(0), m_spinBoxWidth(spinBoxWidth), m_processor(processor), m_leftColWidth(0),
 		m_firstNameLabel(0), m_rightColWidth(0), m_firstUnitLabel(0)
 {
-	m_layout = new QGridLayout(this, m_entries, 4, 0, CR_CELL_SPACING, "CrSliderArray_layout");
+	m_layout = new Q3GridLayout(this, m_entries, 4, 0, CR_CELL_SPACING, "CrSliderArray_layout");
 	m_sliderArray = new CrSliderEntry*[m_entries];
 	for(int count=0; count<m_entries; count++){
 		m_sliderArray[count] = 0;
@@ -156,7 +158,7 @@ CrSliderEntry::CrSliderEntry(float* variable, CrValidator* validator, bool track
 												 1, intValue, Qt::Horizontal, parent,
 												 "CrSliderEntry_slider");
 	m_slider->setTracking(m_tracking);
-	m_slider->setTickmarks(QSlider::NoMarks);
+	m_slider->setTickmarks(QSlider::NoTicks);
 
 	m_spinBox = new CrFloatSpinBox(m_validator, parent, "CrSliderEntry_spinBox");
 	m_spinBox->setValue(intValue);

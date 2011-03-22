@@ -20,7 +20,7 @@
 #include <qwidget.h>
 #include <kpopupmenu.h>
 
-class QListViewItem;
+class Q3ListViewItem;
 
 /**
 	*@author Jozef Kosoru
@@ -28,10 +28,10 @@ class QListViewItem;
 class CrPresetPopupMenu : public KPopupMenu  {
 	 Q_OBJECT
 public:
-	CrPresetPopupMenu(QListViewItem* const selectedItem, QWidget* const parent=0, const char* const name=0);
+	CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget* const parent=0, const char* const name=0);
 	~CrPresetPopupMenu();
 private:
-	QListViewItem* m_selectedItem;
+	Q3ListViewItem* m_selectedItem;
 private slots:
 	void slotLoadPreset();
 	void slotDeleteItem();

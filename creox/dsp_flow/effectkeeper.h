@@ -18,7 +18,7 @@
 #define EFFECTKEEPER_H
 
 #include <qobject.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include "creffectgui.h"
 
 class ThreadEffector;
@@ -44,7 +44,7 @@ public:
 	/** Start DSP processing. */
 	void start();
 	/** get effect list */
-	QPtrList<CrEffectGui>& effectList() { return m_effectList; }
+	Q3PtrList<CrEffectGui>& effectList() { return m_effectList; }
 	/** get threadEffector */
 	ThreadEffector* threadEffector() const { return m_threadEffector; }
 	/** get corresponding chainView */
@@ -53,7 +53,7 @@ public:
 	void shutdown();
 
 private: // Private attributes
-	QPtrList<CrEffectGui> m_effectList;
+	Q3PtrList<CrEffectGui> m_effectList;
 	ThreadEffector* m_threadEffector;
 	CrChainView* m_chainView;
 };

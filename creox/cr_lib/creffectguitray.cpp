@@ -18,20 +18,23 @@
 #include <cassert>
 #include <iostream>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <Q3HBoxLayout>
 #include "creffectguitray.h"
 #include "creffectgui.h"
 
 CrEffectGuiTray::CrEffectGuiTray(QWidget *parent, const char *name ) :
-	QFrame(parent,name)
+	Q3Frame(parent,name)
 {
 	//setBackgroundColor(Qt::black);
-	setBackgroundMode(QWidget::PaletteBackground);
-	setFrameStyle(QFrame::Box | QFrame::Raised);
+	setBackgroundMode(Qt::PaletteBackground);
+	setFrameStyle(Q3Frame::Box | Q3Frame::Raised);
 	setLineWidth(1);
 	setMidLineWidth(1);
 	setMargin(0);
 
-	m_layout = new QHBoxLayout(this, 4, 0);
+	m_layout = new Q3HBoxLayout(this, 4, 0);
 }
 
 CrEffectGuiTray::~CrEffectGuiTray()

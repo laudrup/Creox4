@@ -18,10 +18,13 @@
 #include <cassert>
 #include <iostream>
 #include <qlayout.h>
-#include <qvgroupbox.h>
-#include <qvbox.h>
-#include <qvbuttongroup.h>
+#include <q3vgroupbox.h>
+#include <q3vbox.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -43,23 +46,23 @@ CrTremolo::CrTremolo(QWidget *parent, const char *name )
 	CrValidator* freqValid = new CrValidator(0.01f, 40.0f, 0.3f, this);
 	CrValidator* depthValid = new CrValidator(0.0f, 35.0f, 0.5f, this);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout(this, CR_FRAME_WIDTH);
+	Q3VBoxLayout* mainLayout = new Q3VBoxLayout(this, CR_FRAME_WIDTH);
 	//mix
-	QVGroupBox* mixBox = new  QVGroupBox(i18n("Mix"), this);
+	Q3VGroupBox* mixBox = new  Q3VGroupBox(i18n("Mix"), this);
 	m_mixArray = new CrSliderArray(3, 5, m_tremolo, mixBox);
 	m_mixArray->addSlider(i18n("Input Gain"), i18n("dB"), inputGainValid, &m_tpar->inputGain);
 	m_mixArray->addSlider(i18n("Dry Mix"), "%", mixValid, &m_tpar->dryMix);
 	m_mixArray->addSlider(i18n("Wet Mix"), "%", mixValid, &m_tpar->wetMix);
 
-	QVBox* tremoloBox = new  QVBox(this);
+	Q3VBox* tremoloBox = new  Q3VBox(this);
 	tremoloBox->setMargin(CR_CELL_SPACING*2);
 	m_tremoloArray = new CrSliderArray(2, 4, m_tremolo, tremoloBox);
 	m_tremoloArray->addSlider(i18n("Frequency"), i18n("Hz"), freqValid, &m_tpar->frequency);
 	m_tremoloArray->addSlider(i18n("Depth"), i18n("dB"), depthValid, &m_tpar->depth);
 
 	QWidget* lfoBox = new QWidget(this);
-	QHBoxLayout* lfoLay = new QHBoxLayout(lfoBox);
-	QVButtonGroup *lfoGroup = new QVButtonGroup(i18n("LFO Type"), lfoBox);
+	Q3HBoxLayout* lfoLay = new Q3HBoxLayout(lfoBox);
+	Q3VButtonGroup *lfoGroup = new Q3VButtonGroup(i18n("LFO Type"), lfoBox);
 	m_lfoSine = new QRadioButton(i18n("Sine"), lfoGroup);
 	m_lfoTriangle = new QRadioButton(i18n("Triangle"), lfoGroup);
 	if(m_tpar->waveform == TremoloProcessor::triangle){

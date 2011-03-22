@@ -21,6 +21,8 @@
 #include <qevent.h>
 #include <qpoint.h>
 #include <qcursor.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 #include "creffectgui.h"
 #include "crchainview.h"
 #include "soundprocessor.h"
@@ -83,7 +85,7 @@ void CrChainButton::mousePressEvent(QMouseEvent* mouseEvent)
 		popupMenu.exec(QCursor::pos() - QPoint(3,3));
 	}
 	else if(mouseEvent->button() == Qt::MidButton){
-		setCursor(sizeVerCursor);
+		setCursor(Qt::sizeVerCursor);
 		setIntermediateState(true);
 	}
 }

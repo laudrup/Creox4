@@ -19,18 +19,21 @@
 #include <iostream>
 #include <qevent.h>
 #include <qsize.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <Q3Frame>
 #include "soundprocessor.h"
 #include "effectkeeper.h"
 #include "crchainview.h"
 #include "crchainbutton.h"
 
 CrChainView::CrChainView(EffectKeeper* effectKeeper, QWidget *parent, const char *name ) :
-	QFrame(parent,name), m_effectKeeper(effectKeeper), m_threadEffector(0),
+	Q3Frame(parent,name), m_effectKeeper(effectKeeper), m_threadEffector(0),
 	m_chainButtonArray(0), m_sizeHint(100,25)
 
 {
-	setBackgroundMode(QWidget::PaletteMid);
-	setFrameStyle(QFrame::Box | QFrame::Raised);
+	setBackgroundMode(Qt::PaletteMid);
+	setFrameStyle(Q3Frame::Box | Q3Frame::Raised);
 	setLineWidth(1);
 	setMidLineWidth(1);
 	setMargin(0);
@@ -56,7 +59,7 @@ void CrChainView::activate()
 
 	//create chainButtons
 	int maxWidth = 0, maxHeight = 2*frameWidth();
-	for(QPtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList()) ; effectIterator.current(); ++effectIterator ){
+	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList()) ; effectIterator.current(); ++effectIterator ){
 		CrChainButton* chainButton = new CrChainButton(effectIterator.current(), this);
 		m_chainButtonList.append(chainButton);
 		//compute sizeHint
@@ -107,7 +110,7 @@ void CrChainView::syncChainButtons()
 	for(int count=0; count<chainSize; count++){
 		const int effectId = m_threadEffector->getProcessorChain()[count]->getId();
 
-		for(QPtrListIterator<CrChainButton> chainButtonIterator(m_chainButtonList) ; chainButtonIterator.current(); ++chainButtonIterator ){
+		for(Q3PtrListIterator<CrChainButton> chainButtonIterator(m_chainButtonList) ; chainButtonIterator.current(); ++chainButtonIterator ){
 			if(chainButtonIterator.current()->getEffect()->getProcessor()->getId() == effectId){
 				(m_chainButtonArray[count] = chainButtonIterator.current())->synchronize();
 				break;

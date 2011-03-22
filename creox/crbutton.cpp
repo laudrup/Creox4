@@ -37,12 +37,12 @@
 #define TEXT_HOFFSET 5
 
 CrButton::CrButton(QWidget *parent, const char *name ) :
-	QButton(parent ,name, WResizeNoErase|WRepaintNoErase), m_heightSizeHint(25), m_iconWidth(0),
+	QButton(parent ,name, Qt::WResizeNoErase|Qt::WNoAutoErase), m_heightSizeHint(25), m_iconWidth(0),
 	m_intermediateState(false)
 {
 	setToggleType(QButton::Toggle);
-	setBackgroundMode(NoBackground);
-	setFocusPolicy(NoFocus);
+	setBackgroundMode(Qt::NoBackground);
+	setFocusPolicy(Qt::NoFocus);
 }
 
 CrButton::~CrButton()

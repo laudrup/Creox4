@@ -18,12 +18,15 @@
 #include <cassert>
 #include <iostream>
 #include <qlayout.h>
-#include <qvgroupbox.h>
-#include <qvbox.h>
+#include <q3vgroupbox.h>
+#include <q3vbox.h>
 //#include <qhbox.h>
-#include <qvbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qradiobutton.h>
 #include <qcheckbox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <klocale.h>
@@ -46,15 +49,15 @@ CrFlanger::CrFlanger(QWidget *parent, const char *name )
 	CrValidator* delayValid = new CrValidator(0.0f, 40.0f, 0.35f, this);
 	CrValidator* freqValid = new CrValidator(0.1f, 20.0f, 0.3f, this);
 
-	QVBoxLayout* mainLayout = new QVBoxLayout(this, CR_FRAME_WIDTH);
+	Q3VBoxLayout* mainLayout = new Q3VBoxLayout(this, CR_FRAME_WIDTH);
 
 	//mix
-	QVGroupBox* mixBox = new  QVGroupBox(i18n("Mix"), this);
+	Q3VGroupBox* mixBox = new  Q3VGroupBox(i18n("Mix"), this);
 	m_mixArray = new CrSliderArray(2, 6, m_flanger, mixBox);
 	m_mixArray->addSlider(i18n("Input Gain"), i18n("dB"), inputGainValid, &m_fpar->inputGain);
 	m_mixArray->addSlider(i18n("Dry"), i18n("Wet"), crossfadeValid, &m_fpar->crossfade);
 
-	QVBox* flangerBox = new  QVBox(this);
+	Q3VBox* flangerBox = new  Q3VBox(this);
 	flangerBox->setMargin(CR_CELL_SPACING*2);
 	m_flangerArray = new CrSliderArray(4, 5, m_flanger, flangerBox);
 	m_flangerArray->addSlider(i18n("Feedback"), "%", mixValid, &m_fpar->feedback);
@@ -63,8 +66,8 @@ CrFlanger::CrFlanger(QWidget *parent, const char *name )
 	m_flangerArray->addSlider(i18n("Frequency"), i18n("Hz"), freqValid, &m_fpar->frequency);
 
 	QWidget* lfoBox = new QWidget(this);
-	QHBoxLayout* lfoLay = new QHBoxLayout(lfoBox, 0, CR_CELL_SPACING*2);
-	QVButtonGroup *lfoGroup = new QVButtonGroup(i18n("LFO Type"), lfoBox);
+	Q3HBoxLayout* lfoLay = new Q3HBoxLayout(lfoBox, 0, CR_CELL_SPACING*2);
+	Q3VButtonGroup *lfoGroup = new Q3VButtonGroup(i18n("LFO Type"), lfoBox);
 	m_lfoSine = new QRadioButton(i18n("Sine"), lfoGroup);
 	m_lfoTriangle = new QRadioButton(i18n("Triangle"), lfoGroup);
 	if(m_fpar->waveform == FlangerProcessor::triangle){
@@ -74,14 +77,14 @@ CrFlanger::CrFlanger(QWidget *parent, const char *name )
 		m_lfoSine->setChecked(true);
 	}
 	connect(lfoGroup, SIGNAL(clicked(int)), this, SLOT(slotChangeLfoType(int)));
-	QVBoxLayout* invertLay = new QVBoxLayout;
+	Q3VBoxLayout* invertLay = new Q3VBoxLayout;
 	m_checkInvertBox = new QCheckBox(i18n("Inverted"), lfoBox);
 	if(m_fpar->inverted){
 		m_checkInvertBox->setChecked(true);
 	}
 	connect(m_checkInvertBox, SIGNAL(toggled(bool)), this, SLOT(slotChangeInverted(bool)));
 	invertLay->addSpacing(CR_CELL_SPACING*3);
-	invertLay->addWidget(m_checkInvertBox, 0, Qt::AlignLeft | AlignTop);
+	invertLay->addWidget(m_checkInvertBox, 0, Qt::AlignLeft | Qt::AlignTop);
 	invertLay->addStretch(10);
 	lfoLay->addWidget(lfoGroup,8);
 	lfoLay->addLayout(invertLay);

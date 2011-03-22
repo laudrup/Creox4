@@ -19,12 +19,15 @@
 #include <cstring>
 #include <iostream>
 #include <typeinfo>
-#include <qheader.h>
+#include <q3header.h>
 #include <qstring.h>
 #include <qfile.h>
 #include <qcursor.h>
 #include <qpoint.h>
 #include <qdatastream.h>
+//Added by qt3to4:
+#include <Q3Frame>
+#include <Q3ValueList>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include <kstandarddirs.h>
@@ -51,7 +54,7 @@ void CrPresetViewDir::init()
 	//setExpandable(true);
 }
 
-bool CrPresetViewGlobal::checkUniqueName(const QListViewItem* item, const QString& folderName)
+bool CrPresetViewGlobal::checkUniqueName(const Q3ListViewItem* item, const QString& folderName)
 {
 	if(item){
 		while(item){
@@ -66,26 +69,26 @@ bool CrPresetViewGlobal::checkUniqueName(const QListViewItem* item, const QStrin
 }
 
 CrPresetView::CrPresetView(EffectKeeper* effectKeeper, QWidget *parent, const char *name )
-	: QListView(parent, name, WResizeNoErase|WRepaintNoErase), m_effectKeeper(effectKeeper)
+	: Q3ListView(parent, name, Qt::WResizeNoErase|Qt::WNoAutoErase), m_effectKeeper(effectKeeper)
 {
-	setFrameStyle(QFrame::Box | QFrame::Raised);
+	setFrameStyle(Q3Frame::Box | Q3Frame::Raised);
 	setLineWidth(1);
 	setMidLineWidth(1);
 	setMargin(0);
-	setFocusPolicy(ClickFocus);
+	setFocusPolicy(Qt::ClickFocus);
 	setRootIsDecorated(true);
 	setSorting(-1);
 	header()->hide();
 	addColumn("");
 
-	connect(this, SIGNAL(rightButtonPressed(QListViewItem*, const QPoint&, int)),
-								SLOT(slotShowPresetViewPopupMenu(QListViewItem*, const QPoint&, int)));
+	connect(this, SIGNAL(rightButtonPressed(Q3ListViewItem*, const QPoint&, int)),
+								SLOT(slotShowPresetViewPopupMenu(Q3ListViewItem*, const QPoint&, int)));
 
-	connect(this, SIGNAL(mouseButtonPressed(int,QListViewItem*,const QPoint&,int)), SLOT(slotMouseButtonPressed(int,QListViewItem*,const QPoint&,int)));
-	connect(this, SIGNAL(returnPressed(QListViewItem*)), SLOT(slotApplyPreset(QListViewItem*)));
+	connect(this, SIGNAL(mouseButtonPressed(int,Q3ListViewItem*,const QPoint&,int)), SLOT(slotMouseButtonPressed(int,Q3ListViewItem*,const QPoint&,int)));
+	connect(this, SIGNAL(returnPressed(Q3ListViewItem*)), SLOT(slotApplyPreset(Q3ListViewItem*)));
 }
 
-void CrPresetView::slotShowPresetViewPopupMenu(QListViewItem* item, const QPoint&, int)
+void CrPresetView::slotShowPresetViewPopupMenu(Q3ListViewItem* item, const QPoint&, int)
 {
 	if(item){
 		CrPresetPopupMenu popupMenu(item, this);
@@ -100,14 +103,14 @@ CrPresetView::~CrPresetView()
 #endif
 }
 
-void CrPresetView::slotMouseButtonPressed(int button, QListViewItem* item, const QPoint&, int)
+void CrPresetView::slotMouseButtonPressed(int button, Q3ListViewItem* item, const QPoint&, int)
 {
-	if(button == LeftButton){
+	if(button == Qt::LeftButton){
 		slotApplyPreset(item);
 	}
 }
 
-void CrPresetView::slotApplyPreset(QListViewItem* preset)
+void CrPresetView::slotApplyPreset(Q3ListViewItem* preset)
 {
 	if(preset && typeid(*preset) == typeid(CrPresetViewItem)){
 		CrPresetViewItem* const effectPreset = dynamic_cast<CrPresetViewItem*>(preset);
@@ -128,7 +131,7 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 		std::cerr << "CrPresetView::loadPresets - loading: " << dataFileName.latin1() << "\n";
 #endif
 		QFile presetDataFile(dataFileName);
-		if(presetDataFile.open(IO_ReadOnly)){
+		if(presetDataFile.open(QIODevice::ReadOnly)){
 #ifdef _DEBUG
 			std::cerr << "Data file opened!\n";
 #endif
@@ -152,7 +155,7 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 
 			KConfig* const conf = KGlobal::config();
 			conf->setGroup("Preset_View");
-			QValueList<int> dirIsOpenMap = conf->readIntListEntry(QString::fromLatin1("dirIsOpenMap"));
+			Q3ValueList<int> dirIsOpenMap = conf->readIntListEntry(QString::fromLatin1("dirIsOpenMap"));
 			QStringList dirNamesMap = conf->readListEntry(QString::fromLatin1("dirNamesMap"), '|');
 			if(dirIsOpenMap.isEmpty() || dirNamesMap.isEmpty()){
 				m_pDirIsOpenMap = 0;
@@ -217,7 +220,7 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 	const KStandardDirs* const stdDirs = KGlobal::dirs();
 	const QString dataFileName(stdDirs->saveLocation("appdata") + QString::fromLatin1(CR_PRESET_DATA_FILE_NAME));
 	QFile presetDataFile(dataFileName);
-	if(!presetDataFile.open(IO_WriteOnly)){
+	if(!presetDataFile.open(QIODevice::WriteOnly)){
 		throw(Cr::CrException_presetDataFileError(i18n("Cannot create preset data file!\n") + dataFileName));
 	}
 #ifdef _DEBUG
@@ -226,10 +229,10 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 	QDataStream presetDataStream(&presetDataFile);
 	presetDataStream << CR_PRESET_DATA_FILE_BEGIN_STRING << static_cast<Q_INT32>(CR_PRESET_DATA_FILE_BEGIN) << static_cast<float>(CR_PRESET_DATA_FILE_VERSION);
 
-	m_pDirIsOpenMap = new QValueList<int>;
+	m_pDirIsOpenMap = new Q3ValueList<int>;
 	m_pDirNamesMap = new QStringList;
 
-	QListViewItem* presetItem = firstChild();
+	Q3ListViewItem* presetItem = firstChild();
 	while(presetItem){
 		if(typeid(*presetItem) == typeid(CrPresetViewItem)){
 			presetDataStream << CR_PRESET_DATA_FILE_PRESET_BEGIN;
@@ -260,9 +263,9 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 	m_pDirNamesMap = 0;
 }
 
-void CrPresetView::saveDir(QDataStream& dataStream, QListViewItem* const parent) const
+void CrPresetView::saveDir(QDataStream& dataStream, Q3ListViewItem* const parent) const
 {
-	QListViewItem* presetItem = parent->firstChild();
+	Q3ListViewItem* presetItem = parent->firstChild();
 	while(presetItem){
 		if(typeid(*presetItem) == typeid(CrPresetViewItem)){
 			dataStream << CR_PRESET_DATA_FILE_PRESET_BEGIN;
@@ -283,7 +286,7 @@ void CrPresetView::saveDir(QDataStream& dataStream, QListViewItem* const parent)
 	dataStream << CR_PRESET_DATA_FILE_DIR_END;
 }
 
-void CrPresetView::loadDir(QDataStream& dataStream, QListViewItem* const parent)
+void CrPresetView::loadDir(QDataStream& dataStream, Q3ListViewItem* const parent)
 {
 	while(true){
 		Q_INT32 itemType;

@@ -22,16 +22,18 @@
 #include <qpalette.h>
 #include <qpen.h>
 #include <qcolor.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
 #include <qapplication.h>
+//Added by qt3to4:
+#include <Q3Frame>
 #include "crechotapsview.h"
 #define WIDGET_HEIGHT (180)
 
 CrEchoTapsView::CrEchoTapsView(const EchoParameters* epar, const int selectedEchoTap,
 							   QWidget *parent, const char *name )
- : QFrame(parent,name), m_epar(epar), m_selectedEchoTap(selectedEchoTap)
+ : Q3Frame(parent,name), m_epar(epar), m_selectedEchoTap(selectedEchoTap)
 {
 	(void)std::memcpy(&m_parallelEcho,
 					  reinterpret_cast<void*>(
@@ -42,7 +44,7 @@ CrEchoTapsView::CrEchoTapsView(const EchoParameters* epar, const int selectedEch
 	m_finalDelay = m_epar->finalDelay;
 	setBackgroundColor(Qt::black);
 	//setBackgroundMode(QWidget::FixedColor);
-	setFrameStyle(QFrame::Box | QFrame::Raised);
+	setFrameStyle(Q3Frame::Box | Q3Frame::Raised);
 	setLineWidth(1);
 	setMidLineWidth(1);
 	setMargin(0);
@@ -68,7 +70,7 @@ void CrEchoTapsView::drawContents(QPainter* painter)
 void CrEchoTapsView::transformPainter(QPainter* painter)
 {
 	painter->setWindow(-20, -10, 1040, 120);
-	const QWMatrix matrix(1, 0, 0, -1, 0, 100);
+	const QMatrix matrix(1, 0, 0, -1, 0, 100);
 	painter->setWorldMatrix(matrix);
 }
 

@@ -23,6 +23,9 @@
 
 #include <qevent.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <QCustomEvent>
+#include <QTimerEvent>
 #include <kmainwindow.h>
 #include <kdockwidget.h>
 

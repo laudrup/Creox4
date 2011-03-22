@@ -3,12 +3,18 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3Frame>
+#include <QLabel>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QCheckBox;
-class QFrame;
+class Q3Frame;
 class QLabel;
 class QLineEdit;
 class QPushButton;
@@ -19,10 +25,10 @@ class CrNewPresetFolderDialog : public QDialog
 
 public:
 	CrNewPresetFolderDialog(QWidget* parent = 0, const char* name = 0,
-							bool modal = FALSE, WFlags fl = 0 );
+							bool modal = FALSE, Qt::WFlags fl = 0 );
 	~CrNewPresetFolderDialog();
 
-	QFrame* m_mainFrame;
+	Q3Frame* m_mainFrame;
 	QLabel* m_textLabel;
 	QLineEdit* m_folderNameLineEdit;
 	QCheckBox* m_rootFolderCheckBox;
@@ -30,9 +36,9 @@ public:
 	QPushButton* m_cancelButton;
 
 protected:
-	QVBoxLayout* CrNewPresetFolderDialogLayout;
-	QVBoxLayout* m_mainFrameLayout;
-	QHBoxLayout* m_buttonLayout;
+	Q3VBoxLayout* CrNewPresetFolderDialogLayout;
+	Q3VBoxLayout* m_mainFrameLayout;
+	Q3HBoxLayout* m_buttonLayout;
 };
 
 #endif // CRNEWPRESETFOLDERDIALOG_H

@@ -19,6 +19,8 @@
 #include <qapplication.h>
 #include <qstring.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QLabel>
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -27,10 +29,10 @@
 CrSplashScreen* CrSplashScreen::s_this = 0;
 
 CrSplashScreen::CrSplashScreen(const QString& strPixmapName, const char *name )
-		: QLabel(0, name, WStyle_Customize | WStyle_NoBorder | WStyle_Tool
-							| WStyle_StaysOnTop | WX11BypassWM | WRepaintNoErase | WResizeNoErase)
+		: QLabel(0, name, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_Tool
+							| Qt::WStyle_StaysOnTop | Qt::WX11BypassWM | Qt::WNoAutoErase | Qt::WResizeNoErase)
 {
-	setBackgroundMode(QWidget::NoBackground);
+	setBackgroundMode(Qt::NoBackground);
 
 	KConfig* const conf = KGlobal::config();
 	conf->setGroup(QString::fromLatin1("Splash_Screen"));

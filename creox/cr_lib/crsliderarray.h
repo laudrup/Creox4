@@ -18,9 +18,12 @@
 #define CRSLIDERARRAY_H
 
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QLabel>
 
 class SoundProcessor;
-class QGridLayout;
+class Q3GridLayout;
 class QString;
 class QSlider;
 class QLabel;
@@ -55,7 +58,7 @@ class CrSliderArray : public QWidget  {
 		int m_entryCount;
 		int m_spinBoxWidth;
 		SoundProcessor* m_processor;
-		QGridLayout* m_layout;
+		Q3GridLayout* m_layout;
 		CrSliderEntry** m_sliderArray;
 		int m_leftColWidth;
 		QLabel* m_firstNameLabel;

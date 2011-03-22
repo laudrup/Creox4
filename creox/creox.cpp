@@ -17,7 +17,10 @@
 #include "control.h"
 #include <iostream>
 #include <qstring.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <QCustomEvent>
+#include <QTimerEvent>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kmessagebox.h>
@@ -58,18 +61,18 @@ Creox::Creox(QWidget *parent, const char *name)
 	// create actions
 	KStdAction::quit(kapp, SLOT(closeAllWindows()), actionCollection());
 	m_playAction = new KToggleAction(i18n("&Play"), QString::fromLatin1("run"),
-									 Key_Space, this,
+									 Qt::Key_Space, this,
 									 SLOT(slotStartStopEffector()),
 									 actionCollection(), "playAction");
 	m_optionsAction = new KAction(i18n("&Options..."),
 								  QString::fromLatin1("configure"),
-								  CTRL+Key_O, this, SLOT(slotOptions()),
+								  Qt::CTRL+Qt::Key_O, this, SLOT(slotOptions()),
 								  actionCollection(), "optionsAction");
 
 	const QString saveNewPresetString(i18n("&Save New Preset..."));
 	m_savePresetAction = new KAction(saveNewPresetString,
 									 QString::fromLatin1("filesave"),
-									 CTRL+Key_S, this, SLOT(slotSaveNewPreset()),
+									 Qt::CTRL+Qt::Key_S, this, SLOT(slotSaveNewPreset()),
 									 actionCollection(), "saveNewPresetAction");
 	KActionMenu* const presetActionMenu =
 						new KActionMenu(saveNewPresetString,
@@ -78,7 +81,7 @@ Creox::Creox(QWidget *parent, const char *name)
 
 	m_newPresetFolderAction = new KAction(i18n("&New Preset Folder..."),
 										  QString::fromLatin1("folder_new"),
-										  CTRL+Key_N, this,
+										  Qt::CTRL+Qt::Key_N, this,
 										  SLOT(slotNewPresetFolder()),
 										  actionCollection(),
 										  "newPresetFolderAction");
@@ -308,14 +311,14 @@ void Creox::slotNewPresetFolder()
 void Creox::fixEffectsWidth()
 {
 	int minWidth = 0;
-	for(QPtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
+	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
 	effectIterator.current(); ++effectIterator){
 		const int curWidth = effectIterator.current()->sizeHint().width();
 		if(curWidth > minWidth){
 			minWidth = curWidth;
 		}
 	}
-	for(QPtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
+	for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
 	effectIterator.current(); ++effectIterator){
 		effectIterator.current()->setMinimumWidth(minWidth);
 	}
