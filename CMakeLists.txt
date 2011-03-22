@@ -5,19 +5,9 @@ add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
 include(KDE4Defaults)
 
-include(MacroLibrary)
-
-include(ConvenienceLibs.cmake)
-
-include(ManualStuff.cmake)
-
-include(ConfigureChecks.cmake)
-
 include_directories(${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
-
-message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}: skipped subdir $(TOPSUBDIRS)")
+add_subdirectory(creox)
 
 ########### install files ###############
 
