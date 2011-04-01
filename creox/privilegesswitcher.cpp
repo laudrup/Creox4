@@ -31,7 +31,7 @@ PrivilegesSwitcher::PrivilegesSwitcher()
 	s_switcher = this;
 }
 
-void PrivilegesSwitcher::releasePrivileges() throw(Cr::CrException_runtimeError )
+void PrivilegesSwitcher::releasePrivileges()
 {
 	int status;
 #ifdef _POSIX_SAVED_IDS
@@ -44,7 +44,7 @@ void PrivilegesSwitcher::releasePrivileges() throw(Cr::CrException_runtimeError 
 	}
 }
 
-void PrivilegesSwitcher::getPrivileges() throw(Cr::CrException_runtimeError)
+void PrivilegesSwitcher::getPrivileges()
 {
 	int status;
 #ifdef _POSIX_SAVED_IDS

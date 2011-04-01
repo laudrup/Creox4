@@ -20,7 +20,6 @@
 #include <pthread.h>
 #include <string>
 #include <jack/jack.h>
-#include "crexception.h"
 
 class SoundProcessor;
 
@@ -37,8 +36,8 @@ public:
 
 	enum EffectorStatus{status_Run, status_Stop};
 
-	void run() throw(Cr::CrException_runtimeError);
-	void stop() throw(Cr::CrException_runtimeError);
+	void run();
+	void stop();
 
 	void updateGain(const float inputGain, const float outputGain);
 	void updateInputGain(const float inputGain);

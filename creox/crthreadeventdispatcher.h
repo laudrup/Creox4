@@ -20,7 +20,6 @@
 #include <pthread.h>
 #include <QObject>
 #include <QEvent>
-#include "crexception.h"
 
 class QApplication;
 class QSocketNotifier;
@@ -34,18 +33,18 @@ class QSocketNotifier;
 class CrThreadEventDispatcher : public QObject  {
 	Q_OBJECT
 public:
-	CrThreadEventDispatcher(QApplication* app, const char* name = 0) throw(Cr::CrException_runtimeError);
-	~CrThreadEventDispatcher();
-	void postEvent(QObject* receiver, QEvent* event);
+  CrThreadEventDispatcher(QApplication* app, const char* name = 0);
+  ~CrThreadEventDispatcher();
+  void postEvent(QObject* receiver, QEvent* event);
 protected slots:
-	void eventHandler();
+  void eventHandler();
 private:
-	QApplication* m_ptrApp;
-	QSocketNotifier* m_notifier;
-	int m_fds[2];
-	pthread_mutex_t m_eventLock;
-	volatile QObject* m_ptrReceiver;
-	volatile QEvent* m_ptrEvent;
+  QApplication* m_ptrApp;
+  QSocketNotifier* m_notifier;
+  int m_fds[2];
+  pthread_mutex_t m_eventLock;
+  volatile QObject* m_ptrReceiver;
+  volatile QEvent* m_ptrEvent;
 };
 
 #endif

@@ -21,24 +21,24 @@
 #include <QLabel>
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class CrSplashScreen : public QLabel  {
-	 Q_OBJECT
+  Q_OBJECT
 public:
-	CrSplashScreen(const QString& strPixmapName, const char *name=0);
-	~CrSplashScreen();
+  CrSplashScreen(const QString& strPixmapName, const char *name=0);
+  ~CrSplashScreen();
 
-	static void setLoadOnStartup(const bool bLoad);
-	static CrSplashScreen* getInstance() { return s_this; }
-	static void removeSplashScreen() { if(s_this){ s_this->hide(); delete s_this; } }
+  static void setLoadOnStartup(const bool bLoad);
+  static CrSplashScreen* getInstance() { return s_this; }
+  static void removeSplashScreen() { if(s_this){ s_this->hide(); delete s_this; } }
 
 public slots:
-	virtual void show();
+  virtual void show();
 
 private:
-	bool m_bLoadOnStartup;
-	static CrSplashScreen* s_this;
+  bool m_bLoadOnStartup;
+  static CrSplashScreen* s_this;
 };
 
 #endif

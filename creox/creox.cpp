@@ -42,7 +42,6 @@
 #include "crnewpresetfolderdialogimpl.h"
 #include "crsavenewpresetdialog.h"
 #include "crthreadeventdispatcher.h"
-#include "crexception.h"
 #include "croptionsdialog.h"
 #include "crsplashscreen.h"
 #include "creox.h"

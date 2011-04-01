@@ -22,22 +22,11 @@
 #include <q3listview.h>
 #include <q3valuelist.h>
 #include <QStringList>
-#include "crexception.h"
 
 class EffectKeeper;
 class QString;
 class QDataStream;
 class QPoint;
-
-/**
-	*@author Jozef Kosoru
-	*/
-namespace Cr {
-class CrException_presetDataFileError : public CrException_runtimeError {
-public:
-	CrException_presetDataFileError(const QString& what_arg): CrException_runtimeError(what_arg) { }
-};
-}
 
 /**
 	*@author Jozef Kosoru
@@ -64,8 +53,8 @@ class CrPresetView : public Q3ListView  {
 public:
 	CrPresetView(EffectKeeper* effectKeeper, QWidget *parent=0, const char *name=0);
 	~CrPresetView();
-	void loadPresets() throw(Cr::CrException_presetDataFileError,std::bad_alloc);
-	void savePresets() throw(Cr::CrException_presetDataFileError,std::bad_alloc);
+	void loadPresets();
+	void savePresets();
 public slots:
 	void slotApplyPreset(Q3ListViewItem* preset);
 private slots:

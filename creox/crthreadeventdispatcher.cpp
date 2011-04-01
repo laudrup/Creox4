@@ -27,7 +27,7 @@
 #include <klocale.h>
 #include "crthreadeventdispatcher.h"
 
-CrThreadEventDispatcher::CrThreadEventDispatcher(QApplication* app, const char* name) throw(Cr::CrException_runtimeError)
+CrThreadEventDispatcher::CrThreadEventDispatcher(QApplication* app, const char* name)
 	: QObject(app, name), m_ptrApp(app)
 {
 	if(::pipe(m_fds) == -1){

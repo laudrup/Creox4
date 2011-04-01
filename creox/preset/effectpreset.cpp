@@ -51,7 +51,7 @@ EffectPreset::EffectPreset(const EffectPresetSaveRequest& saveRequest, const Eff
 	assert(saveRequest.m_processorIdList.size() == m_presetUnitList.size());
 }
 
-EffectPreset::EffectPreset(QDataStream& dataStream) throw(Cr::CrException_presetDataError,std::bad_alloc)
+EffectPreset::EffectPreset(QDataStream& dataStream)
 {
 	quint32 magic;
 	dataStream >> magic;
@@ -209,7 +209,7 @@ EffectPreset::EffectPresetUnit::EffectPresetUnit(const SoundProcessor* processor
 #endif
 }
 
-EffectPreset::EffectPresetUnit::EffectPresetUnit(QDataStream& dataStream) throw(Cr::CrException_presetDataError,std::bad_alloc)
+EffectPreset::EffectPresetUnit::EffectPresetUnit(QDataStream& dataStream)
 	: m_processorId(0), m_processorVersion(0), m_data(0), m_size(0)
 {
 	quint32 magic;

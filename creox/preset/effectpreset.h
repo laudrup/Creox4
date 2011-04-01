@@ -19,21 +19,10 @@
 
 #include <new>
 #include <vector>
-#include "crexception.h"
 
 class EffectKeeper;
 class SoundProcessor;
 class QDataStream;
-
-/**
-	*@author Jozef Kosoru
-	*/
-namespace Cr {
-class CrException_presetDataError : public CrException_runtimeError {
-public:
-	CrException_presetDataError(const QString& what_arg): CrException_runtimeError(what_arg) { }
-};
-}
 
 /**
 	*@author Jozef Kosoru
@@ -50,7 +39,7 @@ struct EffectPresetSaveRequest {
 class EffectPreset {
 public:
 	EffectPreset(const EffectPresetSaveRequest& saveRequest, const EffectKeeper* effectKeeper);
-	EffectPreset(QDataStream& dataStream) throw(Cr::CrException_presetDataError,std::bad_alloc);
+	EffectPreset(QDataStream& dataStream);
 	~EffectPreset();
 	void loadEffect(EffectKeeper* effectKeeper);
 	void saveEffect(QDataStream& dataStream) const;
@@ -70,7 +59,7 @@ protected:
 class EffectPreset::EffectPresetUnit {
 public:
 	EffectPresetUnit(const SoundProcessor* processor);
-	EffectPresetUnit(QDataStream& dataStream) throw(Cr::CrException_presetDataError,std::bad_alloc);
+	EffectPresetUnit(QDataStream& dataStream);
 	~EffectPresetUnit();
 	void loadEffectUnit(SoundProcessor* processor);
 	void saveEffectUnit(QDataStream& dataStream) const;

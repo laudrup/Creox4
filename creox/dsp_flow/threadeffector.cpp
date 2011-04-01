@@ -376,7 +376,7 @@ void ThreadEffector::run() //throw(Cr::CrException_runtimeError)
 	m_status = status_Run;
 }
 
-void ThreadEffector::stop() throw(Cr::CrException_runtimeError)
+void ThreadEffector::stop()
 {
 	if (m_pJackClient)
 	{

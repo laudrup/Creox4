@@ -124,7 +124,7 @@ void CrPresetView::slotApplyPreset(Q3ListViewItem* preset)
 	}
 }
 
-void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::bad_alloc)
+void CrPresetView::loadPresets()
 {
 	clear();
 	const KStandardDirs* const stdDirs = KGlobal::dirs();
@@ -217,7 +217,7 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 	}
 }
 
-void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::bad_alloc)
+void CrPresetView::savePresets()
 {
 	setSorting(0, false);
 	sort();

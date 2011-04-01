@@ -18,21 +18,20 @@
 #define PRIVILEGESSWITCHER_H
 
 #include <sys/types.h>
-#include "crexception.h"
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class PrivilegesSwitcher {
-	public:
-		PrivilegesSwitcher();
-		void releasePrivileges() throw(Cr::CrException_runtimeError);
-		void getPrivileges() throw(Cr::CrException_runtimeError);
-		static PrivilegesSwitcher* getInstance() { return s_switcher; }
+ public:
+  PrivilegesSwitcher();
+  void releasePrivileges();
+  void getPrivileges();
+  static PrivilegesSwitcher* getInstance() { return s_switcher; }
 
-		uid_t m_euid;
-		uid_t m_ruid;
-		static PrivilegesSwitcher* s_switcher;
+  uid_t m_euid;
+  uid_t m_ruid;
+  static PrivilegesSwitcher* s_switcher;
 };
 
 #endif
