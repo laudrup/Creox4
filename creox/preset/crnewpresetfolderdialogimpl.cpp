@@ -18,9 +18,9 @@
 #include <cassert>
 #include <typeinfo>
 #include <iostream>
-#include <qlineedit.h>
-#include <qcheckbox.h>
-#include <qstring.h>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QString>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include "crpresetview.h"
@@ -47,7 +47,7 @@ CrNewPresetFolderDialogImpl::~CrNewPresetFolderDialogImpl()
 
 void CrNewPresetFolderDialogImpl::accept()
 {
-	const QString folderName(m_folderNameLineEdit->text().simplifyWhiteSpace());
+	const QString folderName(m_folderNameLineEdit->text().simplified());
 	if(folderName.isEmpty()){
 		KMessageBox::sorry(this, i18n("You have to specify a folder name!"));
 		return;

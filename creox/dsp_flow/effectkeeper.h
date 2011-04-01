@@ -17,7 +17,7 @@
 #ifndef EFFECTKEEPER_H
 #define EFFECTKEEPER_H
 
-#include <qobject.h>
+#include <QObject>
 #include <QList>
 #include "creffectgui.h"
 

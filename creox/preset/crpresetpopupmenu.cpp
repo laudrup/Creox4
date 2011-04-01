@@ -18,7 +18,7 @@
 #include <cassert>
 #include <iostream>
 #include <typeinfo>
-#include <qstring.h>
+#include <QString>
 #include <kiconloader.h>
 #include <kglobal.h>
 #include <klocale.h>
@@ -31,12 +31,12 @@
 #include "creox.h"
 #include "crpresetpopupmenu.h"
 
-CrPresetPopupMenu::CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget* const parent, const char* const name)
+CrPresetPopupMenu::CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget* const parent, const char* const)
 	: KMenu(parent), m_selectedItem(selectedItem)
 {
   //XXX!! Set name
-	Creox* const creox = dynamic_cast<Creox*>(kapp->mainWidget());
-	KIconLoader* const iconLoader = KIconLoader::global();
+  //Creox* const creox = dynamic_cast<Creox*>(kapp->mainWidget());
+  //KIconLoader* const iconLoader = KIconLoader::global();
 
         // XXX!
 	//insertTitle(*(selectedItem->pixmap(0)), selectedItem->text(0));
@@ -47,7 +47,7 @@ CrPresetPopupMenu::CrPresetPopupMenu(Q3ListViewItem* const selectedItem, QWidget
 	//insertItem(iconLoader->loadIcon(creox->m_savePresetAction->icon(), KIcon::Small), creox->m_savePresetAction->text(), creox, SLOT(slotSaveNewPreset()));
 	//insertItem(iconLoader->loadIcon(creox->m_newPresetFolderAction->icon(), KIcon::Small), creox->m_newPresetFolderAction->text(), creox, SLOT(slotNewPresetFolder()));
 	//insertSeparator();
-	//insertItem(iconLoader->loadIcon(QString::fromLatin1("remove"), KIcon::Small), i18n("&Delete"), this, SLOT(slotDeleteItem()));
+	//insertItem(iconLoader->loadIcon(QString::fromLatin1("list-remove"), KIcon::Small), i18n("&Delete"), this, SLOT(slotDeleteItem()));
 }
 
 void CrPresetPopupMenu::slotLoadPreset()

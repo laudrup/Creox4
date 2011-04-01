@@ -19,9 +19,9 @@
 #include <cstdio>
 #include <unistd.h>
 #include <iostream>
-#include <qstring.h>
-#include <qsocketnotifier.h>
-#include <qapplication.h>
+#include <QString>
+#include <QSocketNotifier>
+#include <QApplication>
 //Added by qt3to4:
 #include <QEvent>
 #include <klocale.h>

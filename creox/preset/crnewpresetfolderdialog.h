@@ -1,8 +1,8 @@
 #ifndef CRNEWPRESETFOLDERDIALOG_H
 #define CRNEWPRESETFOLDERDIALOG_H
 
-#include <qvariant.h>
-#include <qdialog.h>
+#include <QVariant>
+#include <QDialog>
 //Added by qt3to4:
 #include <Q3GridLayout>
 #include <Q3Frame>

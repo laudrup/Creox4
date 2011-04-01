@@ -17,12 +17,12 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qlayout.h>
+#include <QLayout>
 #include <q3vgroupbox.h>
 #include <qspinbox.h>
-#include <qlabel.h>
+#include <QLabel>
 //#include <qvbox.h>
-#include <qstringlist.h>
+#include <QStringList>
 #include <q3listbox.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>

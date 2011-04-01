@@ -19,12 +19,12 @@
 #include <iostream>
 #include <typeinfo>
 #include <q3frame.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qvariant.h>
-#include <qtooltip.h>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLayout>
+#include <QVariant>
+#include <QToolTip>
 #include <q3whatsthis.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
@@ -179,7 +179,7 @@ CrSaveNewPresetDialog::CrSaveNewPresetDialog(EffectKeeper* const effectKeeper, C
 
 void CrSaveNewPresetDialog::accept()
 {
-	const QString folderName(m_presetNameLineEdit->text().simplifyWhiteSpace());
+	const QString folderName(m_presetNameLineEdit->text().simplified());
 	Q3ListViewItem* newPresetParent;
 
 	// check whether a preset name is unique

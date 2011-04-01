@@ -17,11 +17,11 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qlayout.h>
+#include <QLayout>
 #include <q3vgroupbox.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qstringlist.h>
+#include <QLabel>
+#include <QComboBox>
+#include <QStringList>
 //Added by qt3to4:
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>

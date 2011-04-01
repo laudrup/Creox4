@@ -17,7 +17,7 @@
 #ifndef CRECHO_H
 #define CRECHO_H
 
-#include <qstringlist.h>
+#include <QStringList>
 #include "creffectgui.h"
 #include "echoprocessor.h"
 

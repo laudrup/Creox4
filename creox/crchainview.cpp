@@ -17,8 +17,8 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qevent.h>
-#include <qsize.h>
+#include <QEvent>
+#include <QSize>
 //Added by qt3to4:
 #include <QResizeEvent>
 #include <Q3Frame>
@@ -26,6 +26,10 @@
 #include "effectkeeper.h"
 #include "crchainview.h"
 #include "crchainbutton.h"
+
+#include <QDebug>
+
+#include <QVBoxLayout>
 
 CrChainView::CrChainView(EffectKeeper* effectKeeper, QWidget *parent, const char *name ) :
 	Q3Frame(parent,name), m_effectKeeper(effectKeeper), m_threadEffector(0),
@@ -57,9 +61,11 @@ void CrChainView::activate()
 
 	m_chainButtonArray = new CrChainButton*[m_threadEffector->getProcessorChainSize()];
 
+
 	//create chainButtons
 	int maxWidth = 0, maxHeight = 2*frameWidth();
 	for(QListIterator<CrEffectGui*> effectIterator(m_effectKeeper->effectList()) ; effectIterator.hasNext();){
+          qDebug() << "Add button";
 		CrChainButton* chainButton = new CrChainButton(effectIterator.next(), this);
 		m_chainButtonList.append(chainButton);
 		//compute sizeHint
@@ -72,7 +78,6 @@ void CrChainView::activate()
 	maxWidth += 2*frameWidth();
 	m_sizeHint.setWidth(maxWidth);
 	m_sizeHint.setHeight(maxHeight);
-
 	syncChainButtons();
 }
 
@@ -83,8 +88,8 @@ void CrChainView::resizeEvent(QResizeEvent*)
 
 void CrChainView::synchronize()
 {
-	syncChainButtons();
-	reorderChainButtons();
+  syncChainButtons();
+  reorderChainButtons();
 }
 
 /** Set an order and the size of the chain buttons. */
@@ -106,18 +111,19 @@ void CrChainView::reorderChainButtons()
 /** Synchronize m_chainButtonArray according the m_threadEffector processor order. */
 void CrChainView::syncChainButtons()
 {
-	const int chainSize = m_threadEffector->getProcessorChainSize();
-	for(int count=0; count<chainSize; count++){
-		const int effectId = m_threadEffector->getProcessorChain()[count]->getId();
+  const int chainSize = m_threadEffector->getProcessorChainSize();
+  qDebug() << "syncedChainButtons: " << chainSize;
+  for(int count=0; count<chainSize; count++){
+    const int effectId = m_threadEffector->getProcessorChain()[count]->getId();
 
-		for(Q3PtrListIterator<CrChainButton> chainButtonIterator(m_chainButtonList) ; chainButtonIterator.current(); ++chainButtonIterator ){
-			if(chainButtonIterator.current()->getEffect()->getProcessor()->getId() == effectId){
-				(m_chainButtonArray[count] = chainButtonIterator.current())->synchronize();
-				break;
-			}
-		}
-	}
-
+    for(Q3PtrListIterator<CrChainButton> chainButtonIterator(m_chainButtonList) ; chainButtonIterator.current(); ++chainButtonIterator ){
+      if(chainButtonIterator.current()->getEffect()->getProcessor()->getId() == effectId){
+        qDebug() << "Setting chainButton: " << effectId;
+        (m_chainButtonArray[count] = chainButtonIterator.current())->synchronize();
+        break;
+      }
+    }
+  }
 }
 
 void CrChainView::moveUp(const CrChainButton* button)

@@ -53,13 +53,13 @@ EffectPreset::EffectPreset(const EffectPresetSaveRequest& saveRequest, const Eff
 
 EffectPreset::EffectPreset(QDataStream& dataStream) throw(Cr::CrException_presetDataError,std::bad_alloc)
 {
-	Q_UINT32 magic;
+	quint32 magic;
 	dataStream >> magic;
 	if(magic != EFFECT_PRESET_START){
           //throw(Cr::CrException_presetDataError(i18n("Error loading preset!")));
 	}
-	Q_INT8 tmpVar;
-	Q_INT32 chainSize;
+	qint8 tmpVar;
+	qint32 chainSize;
 	dataStream >> m_presetName >> tmpVar >> chainSize;
 	m_saveChain = static_cast<bool>(tmpVar);
 
@@ -183,10 +183,10 @@ void EffectPreset::loadEffect(EffectKeeper* effectKeeper)
 
 void EffectPreset::saveEffect(QDataStream& dataStream) const
 {
-	dataStream << static_cast<Q_UINT32>(EFFECT_PRESET_START)
+	dataStream << static_cast<quint32>(EFFECT_PRESET_START)
 						 << m_presetName
-						 << static_cast<Q_INT8>(m_saveChain)
-						 << static_cast<Q_INT32>(m_presetUnitList.size());
+						 << static_cast<qint8>(m_saveChain)
+						 << static_cast<qint32>(m_presetUnitList.size());
 
 	for(std::vector<EffectPresetUnit*>::const_iterator unitIterator = m_presetUnitList.begin();
 			unitIterator != m_presetUnitList.end(); unitIterator++){
@@ -212,21 +212,21 @@ EffectPreset::EffectPresetUnit::EffectPresetUnit(const SoundProcessor* processor
 EffectPreset::EffectPresetUnit::EffectPresetUnit(QDataStream& dataStream) throw(Cr::CrException_presetDataError,std::bad_alloc)
 	: m_processorId(0), m_processorVersion(0), m_data(0), m_size(0)
 {
-	Q_UINT32 magic;
+	quint32 magic;
 	dataStream >> magic;
 	if(magic != EFFECT_PRESET_UNIT_START){
           //throw(Cr::CrException_presetDataError(i18n("Error loading preset unit!")));
 	}
 
-	Q_INT32 tmpVar;
+	qint32 tmpVar;
 	dataStream >> tmpVar;
 	m_processorId = static_cast<int>(tmpVar);
 	dataStream >> m_processorVersion >> tmpVar;
 	m_size = static_cast<int>(tmpVar);
 	m_data = new char[m_size];
 
-	for(Q_INT8* value = reinterpret_cast<Q_INT8*>(m_data);
-			value < reinterpret_cast<Q_INT8*>(m_data+m_size); value++){
+	for(qint8* value = reinterpret_cast<qint8*>(m_data);
+			value < reinterpret_cast<qint8*>(m_data+m_size); value++){
 		dataStream >> (*value);
 	}
 }
@@ -246,13 +246,13 @@ void EffectPreset::EffectPresetUnit::loadEffectUnit(SoundProcessor* processor)
 
 void EffectPreset::EffectPresetUnit::saveEffectUnit(QDataStream& dataStream) const
 {
-	dataStream << static_cast<Q_UINT32>(EFFECT_PRESET_UNIT_START)
-						 << static_cast<Q_UINT32>(m_processorId)
+	dataStream << static_cast<quint32>(EFFECT_PRESET_UNIT_START)
+						 << static_cast<quint32>(m_processorId)
 						 << m_processorVersion
-						 << static_cast<Q_UINT32>(m_size);
+						 << static_cast<quint32>(m_size);
 
-	for(Q_INT8* value = reinterpret_cast<Q_INT8*>(m_data);
-			value < reinterpret_cast<Q_INT8*>(m_data+m_size); value++){
+	for(qint8* value = reinterpret_cast<qint8*>(m_data);
+			value < reinterpret_cast<qint8*>(m_data+m_size); value++){
 		dataStream << (*value);
 	}
 

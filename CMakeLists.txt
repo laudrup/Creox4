@@ -10,7 +10,9 @@ find_package(Threads)
 
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
-add_definitions (-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
+add_definitions(-DQT3_SUPPORT)
+
+# -DQT3_SUPPORT_WARNINGS)
 
 include(KDE4Defaults)
 
@@ -21,7 +23,7 @@ include_directories(${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} ${QT_QT3
 add_subdirectory(creox)
 
 ########### install files ###############
-
+#install(FILES testui.rc DESTINATION ${DATA_INSTALL_DIR}/appname)
 
 
 

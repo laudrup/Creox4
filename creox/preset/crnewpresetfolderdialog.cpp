@@ -1,11 +1,11 @@
-#include <qcheckbox.h>
+#include <QCheckBox>
 #include <q3frame.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qvariant.h>
-#include <qtooltip.h>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QLayout>
+#include <QVariant>
+#include <QToolTip>
 #include <q3whatsthis.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>

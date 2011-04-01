@@ -22,13 +22,13 @@
 #include <algorithm>
 #include <iostream>
 #include <jack/jack.h>
-#include <qstring.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qstring.h>
+#include <QString>
+#include <QComboBox>
+#include <QLabel>
+#include <QLayout>
+#include <QString>
 #include <q3whatsthis.h>
-#include <qcheckbox.h>
+#include <QCheckBox>
 #include <q3vgroupbox.h>
 //Added by qt3to4:
 #include <Q3GridLayout>
@@ -46,7 +46,7 @@ const char* const CrOptionsDialog::DEFAULT_RIGHT_INPUT_PORT = "alsa_pcm:playback
 const char* const CrOptionsDialog::DEFAULT_LEFT_OUTPUT_PORT = "alsa_pcm:capture_1";
 const char* const CrOptionsDialog::DEFAULT_RIGHT_OUTPUT_PORT = "alsa_pcm:capture_2";
 
-CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
+CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *)
   : KPageDialog(parent)
 {
 
@@ -70,14 +70,14 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
     														       2, 2, 0, spacingHint());
 	QLabel* const leftInputChannelLabel = new QLabel(i18n("Left:"), inputGroupBoxHelper);
         // XXX!
-	//leftInputChannelLabel->setAlignment(AlignVCenter | AlignRight);
+	//leftInputChannelLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
 	leftInputChannelLabel->setMinimumWidth(leftInputChannelLabel->sizeHint().width() * 2);
 	inputGroupBoxHelperLayout->addWidget(leftInputChannelLabel, 0, 0);
 	m_pLeftInputPort = new QComboBox(false, inputGroupBoxHelper);
 	inputGroupBoxHelperLayout->addWidget(m_pLeftInputPort, 0, 1);
 
 	QLabel* const rightInputChannelLabel = new QLabel(i18n("Right:"), inputGroupBoxHelper);
-	rightInputChannelLabel->setAlignment(AlignVCenter | AlignRight);
+	rightInputChannelLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
 	rightInputChannelLabel->setMinimumWidth(rightInputChannelLabel->sizeHint().width() * 2);
 	inputGroupBoxHelperLayout->addWidget(rightInputChannelLabel, 1, 0);
 	m_pRightInputPort = new QComboBox(false, inputGroupBoxHelper);
@@ -104,14 +104,14 @@ CrOptionsDialog::CrOptionsDialog(QWidget *parent, const char *name )
     Q3GridLayout* const outputGroupBoxHelperLayout = new Q3GridLayout(outputGroupBoxHelper,
     														       2, 2, 0, spacingHint());
 	QLabel* const leftOutputChannelLabel = new QLabel(i18n("Left:"), outputGroupBoxHelper);
-	leftOutputChannelLabel->setAlignment(AlignVCenter | AlignRight);
+	leftOutputChannelLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
 	leftOutputChannelLabel->setMinimumWidth(leftOutputChannelLabel->sizeHint().width() * 2);
 	outputGroupBoxHelperLayout->addWidget(leftOutputChannelLabel, 0, 0);
 	m_pLeftOutputPort = new QComboBox(false, outputGroupBoxHelper);
 	outputGroupBoxHelperLayout->addWidget(m_pLeftOutputPort, 0, 1);
 
 	QLabel* const rightOutputChannelLabel = new QLabel(i18n("Right:"), outputGroupBoxHelper);
-	rightOutputChannelLabel->setAlignment(AlignVCenter | AlignRight);
+	rightOutputChannelLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
 	rightOutputChannelLabel->setMinimumWidth(rightOutputChannelLabel->sizeHint().width() * 2);
 	outputGroupBoxHelperLayout->addWidget(rightOutputChannelLabel, 1, 0);
 	m_pRightOutputPort = new QComboBox(false, outputGroupBoxHelper);

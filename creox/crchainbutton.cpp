@@ -17,10 +17,10 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qstring.h>
-#include <qevent.h>
+#include <QString>
+#include <QEvent>
 #include <qpoint.h>
-#include <qcursor.h>
+#include <QCursor>
 //Added by qt3to4:
 #include <QMouseEvent>
 #include "creffectgui.h"
@@ -29,10 +29,15 @@
 #include "crchainpopupmenu.h"
 #include "crchainbutton.h"
 
+#include <KIcon>
+
+#include <QDebug>
+
 CrChainButton::CrChainButton(CrEffectGui* effect, QWidget *parent, const char *name ) :
 	CrButton(parent,name), m_effect(effect)
 {
-	m_parentChainView = dynamic_cast<CrChainView*>(parent);
+  m_parentChainView = dynamic_cast<CrChainView*>(parent);
+    qDebug() << "Setting name " << m_effect->effectName();
 	setText(m_effect->effectName());
 	setIcon(QString::fromLatin1(m_effect->getProcessor()->getName()));
 	synchronize();
@@ -48,12 +53,12 @@ CrChainButton::~CrChainButton()
 
 void CrChainButton::toggleEffect(bool on)
 {
-	if(on){
-		m_effect->getProcessor()->setMode(SoundProcessor::enabled);
-	}
-	else{
-		m_effect->getProcessor()->setMode(SoundProcessor::disabled);
-	}
+  if(on) {
+    m_effect->getProcessor()->setMode(SoundProcessor::enabled);
+  }
+  else {
+    m_effect->getProcessor()->setMode(SoundProcessor::disabled);
+  }
 }
 
 void CrChainButton::synchronize()
@@ -77,6 +82,7 @@ void CrChainButton::mouseMoveEvent(QMouseEvent* mouseEvent)
 
 void CrChainButton::mousePressEvent(QMouseEvent* mouseEvent)
 {
+
 	if(mouseEvent->button() == Qt::LeftButton){
 		CrButton::mousePressEvent(mouseEvent);
 	}
@@ -85,7 +91,7 @@ void CrChainButton::mousePressEvent(QMouseEvent* mouseEvent)
 		popupMenu.exec(QCursor::pos() - QPoint(3,3));
 	}
 	else if(mouseEvent->button() == Qt::MidButton){
-		setCursor(Qt::sizeVerCursor);
+		setCursor(Qt::SizeVerCursor);
 		setIntermediateState(true);
 	}
 }

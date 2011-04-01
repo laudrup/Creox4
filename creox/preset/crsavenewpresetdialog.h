@@ -17,10 +17,10 @@
 #ifndef CRSAVENEWPRESETDIALOG_H
 #define CRSAVENEWPRESETDIALOG_H
 
-#include <qvariant.h>
+#include <QVariant>
 #include <q3ptrlist.h>
-#include <qdialog.h>
-#include <qcheckbox.h>
+#include <QDialog>
+#include <QCheckBox>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <Q3Frame>

@@ -19,7 +19,7 @@
 
 #include <qwidget.h>
 #include <QAbstractButton>
-#include <qsizepolicy.h>
+#include <QSizePolicy>
 
 class QPainter;
 class QSize;
@@ -40,6 +40,7 @@ public:
 
 protected:
 	void setIntermediateState(const bool on);
+        virtual void paintEvent(QPaintEvent* event);
 	virtual void drawButton(QPainter* painter);
 	virtual void drawButtonLabel(QPainter* painter);
 

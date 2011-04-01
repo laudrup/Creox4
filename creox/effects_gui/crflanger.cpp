@@ -17,13 +17,13 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qlayout.h>
+#include <QLayout>
 #include <q3vgroupbox.h>
 #include <q3vbox.h>
-//#include <qhbox.h>
+//#include <Q3HBox>
 #include <q3buttongroup.h>
-#include <qradiobutton.h>
-#include <qcheckbox.h>
+#include <QRadioButton>
+#include <QCheckBox>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>

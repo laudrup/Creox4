@@ -16,9 +16,9 @@
 
 #include "control.h"
 #include <iostream>
-#include <qapplication.h>
-#include <qstring.h>
-#include <qpixmap.h>
+#include <QApplication>
+#include <QString>
+#include <QPixmap>
 //Added by qt3to4:
 #include <QLabel>
 #include <kconfig.h>

@@ -17,7 +17,7 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qlayout.h>
+#include <QLayout>
 #include <q3vgroupbox.h>
 #include <q3vbox.h>
 //Added by qt3to4:

@@ -21,17 +21,19 @@
 #include <config.h>
 #endif
 
-#include <qevent.h>
+#include <QEvent>
 #include <qwidget.h>
 //Added by qt3to4:
 #include <QCustomEvent>
 #include <QTimerEvent>
-#include <kmainwindow.h>
+
+#include <KXmlGuiWindow>
+
 #include <ksystemtrayicon.h>
 
 class QString;
 class QTimerEvent;
-class KToggleAction;
+//class KToggleAction;
 class KAction;
 class EffectKeeper;
 class CrChainView;
@@ -57,13 +59,13 @@ class CrMessageEvent : public QCustomEvent {
 /**
 	*@author Jozef Kosoru
 	*/
-class Creox : public KMainWindow {
+class Creox : public KXmlGuiWindow {
 
   // KDocMainWindow
 
 		Q_OBJECT
 	public:
-		Creox(QWidget *parent=0, const char *name=0);
+		Creox(QWidget *parent=0);
 		~Creox();
 		CrThreadEventDispatcher* getEventDispatcher() const { return m_ptrEventDispatcher; }
 	private:
@@ -75,7 +77,7 @@ class Creox : public KMainWindow {
 
 		friend class CrPresetPopupMenu;
 
-		KToggleAction* m_playAction;
+		KAction* m_playAction;
 		KAction* m_savePresetAction;
 		KAction* m_newPresetFolderAction;
 		KAction* m_optionsAction;
@@ -98,7 +100,7 @@ public slots: // Public slots
 
 protected:
 	/** process custom events, especially CrMessageEvent */
-	virtual void customEvent(QCustomEvent* event);
+	virtual void customEvent(QEvent* event);
 	virtual void timerEvent(QTimerEvent*);
 };
 

@@ -20,7 +20,7 @@
 #include <qwidget.h>
 #include <q3frame.h>
 #include <q3ptrlist.h>
-#include <qsizepolicy.h>
+#include <QSizePolicy>
 //Added by qt3to4:
 #include <QResizeEvent>
 #include "threadeffector.h"

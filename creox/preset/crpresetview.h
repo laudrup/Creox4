@@ -21,7 +21,7 @@
 #include <qwidget.h>
 #include <q3listview.h>
 #include <q3valuelist.h>
-#include <qstringlist.h>
+#include <QStringList>
 #include "crexception.h"
 
 class EffectKeeper;

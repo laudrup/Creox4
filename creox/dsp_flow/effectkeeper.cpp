@@ -18,7 +18,7 @@
 #include <cassert>
 #include <iostream>
 #include <q3valuelist.h>
-#include <qstring.h>
+#include <QString>
 #include <kglobal.h>
 #include <kconfig.h>
 #include "effectkeeper.h"

@@ -19,8 +19,8 @@
 
 #include <qwidget.h>
 #include <q3frame.h>
-#include <qsizepolicy.h>
-#include <qsize.h>
+#include <QSizePolicy>
+#include <QSize>
 #include "echoprocessor.h"
 
 class QPainter;

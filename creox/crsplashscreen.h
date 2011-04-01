@@ -18,7 +18,7 @@
 #define CRSPLASHSCREEN_H
 
 #include <qwidget.h>
-#include <qlabel.h>
+#include <QLabel>
 
 /**
 	*@author Jozef Kosoru

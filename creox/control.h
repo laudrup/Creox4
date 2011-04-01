@@ -17,6 +17,8 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
+#if 0
+
 #ifndef _DEBUG
 	#undef DEBUG
 	#undef QT_DEBUG
@@ -37,6 +39,8 @@
 	#define QT_CHECK_MATH
 	#define QT_CHECK_NULL
 #endif // _DEBUG
+
+#endif
 
 #endif // CONTROL_H
 

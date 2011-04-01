@@ -17,7 +17,7 @@
 #ifndef CREXCEPTION_H
 #define CREXCEPTION_H
 
-#include <qstring.h>
+#include <QString>
 
 namespace Cr {
 

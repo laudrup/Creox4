@@ -1,3 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gui name="creox"
+     version="1"
+     xmlns="http://www.kde.org/standards/kxmlgui/1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
+                         http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd" >
+ 
+  <MenuBar>
+    <Menu name="Effector">
+      <text>&amp;Effector</text>
+      <Action name="playAction" />
+      <Separator/>
+      <Action name="optionsAction"/>
+    </Menu>
+    <Menu name="Preset">
+      <text>&amp;Preset</text>
+      <Action name="saveNewPresetAction"/>
+      <Action name="newPresetFolderAction"/>
+    </Menu>
+  </MenuBar>
+ 
+  <ToolBar name="mainToolBar" >
+    <Action name="playAction"/>
+    <Separator/>
+    <Action name="presetActionMenu"/>
+  </ToolBar>
+ 
+</gui>
+
+<!--
 <!DOCTYPE kpartgui>
 <kpartgui name="creox">
 <MenuBar>
@@ -17,3 +48,4 @@
   <Action name="presetActionMenu"/>
 </Toolbar>
 </kpartgui>
+-->

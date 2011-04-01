@@ -49,7 +49,7 @@ public:
 	float getOutputGain() const { return mr_outputGain; }
 
 	void updateProcessorChain();
-	SoundProcessor** const getProcessorChain() const { return m_ppOutsideProcessorChain; }
+	SoundProcessor** getProcessorChain() const { return m_ppOutsideProcessorChain; }
 	SoundProcessor*& operator[](const int procNum) const { return m_ppOutsideProcessorChain[procNum]; }
 			 // look! ^^^ this is a reference to a pointer
 	void setProcessorChainSize(const int size) { m_outsideProcessorChainSize=size; }

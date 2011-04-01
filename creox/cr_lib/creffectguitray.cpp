@@ -17,7 +17,7 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qlayout.h>
+#include <QLayout>
 //Added by qt3to4:
 #include <Q3Frame>
 #include <Q3HBoxLayout>

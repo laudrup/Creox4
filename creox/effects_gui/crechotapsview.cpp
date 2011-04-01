@@ -18,14 +18,14 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
-#include <qpainter.h>
-#include <qpalette.h>
-#include <qpen.h>
-#include <qcolor.h>
-#include <qmatrix.h>
+#include <QPainter>
+#include <QPalette>
+#include <QPen>
+#include <QColor>
+#include <QMatrix>
 #include <qfont.h>
-#include <qfontmetrics.h>
-#include <qapplication.h>
+#include <QFontMetrics>
+#include <QApplication>
 //Added by qt3to4:
 #include <Q3Frame>
 #include "crechotapsview.h"

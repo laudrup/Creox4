@@ -18,8 +18,8 @@
 #define CRTHREADEVENTDISPATCHER_H
 
 #include <pthread.h>
-#include <qobject.h>
-#include <qevent.h>
+#include <QObject>
+#include <QEvent>
 #include "crexception.h"
 
 class QApplication;

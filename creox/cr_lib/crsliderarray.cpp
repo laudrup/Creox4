@@ -17,11 +17,11 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qlayout.h>
-#include <qstring.h>
-#include <qslider.h>
-#include <qlabel.h>
-#include <qfontmetrics.h>
+#include <QLayout>
+#include <QString>
+#include <QSlider>
+#include <QLabel>
+#include <QFontMetrics>
 //Added by qt3to4:
 #include <Q3GridLayout>
 #include "crfloatspinbox.h"

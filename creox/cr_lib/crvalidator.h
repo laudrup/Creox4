@@ -18,7 +18,7 @@
 #define CRVALIDATOR_H
 
 #include <qwidget.h>
-#include <qvalidator.h>
+#include <QValidator>
 
 #define VALIDATOR_RESOLUTION 100000
 

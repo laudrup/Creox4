@@ -17,7 +17,7 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qstring.h>
+#include <QString>
 #include <kglobal.h>
 #include <kiconloader.h>
 #include "crpresetviewitem.h"
@@ -57,7 +57,7 @@ CrPresetViewItem::~CrPresetViewItem()
 
 void CrPresetViewItem::init()
 {
-	KIconLoader* iconLoader = KIconLoader::global();
-	//setPixmap(0, iconLoader->loadIcon(QString::fromLatin1((m_saveChain)? "preset_chain" : "preset_nochain"), KIcon::Small));
-	setText(0, m_presetName);
+  //KIconLoader* iconLoader = KIconLoader::global();
+  //setPixmap(0, iconLoader->loadIcon(QString::fromLatin1((m_saveChain)? "preset_chain" : "preset_nochain"), KIcon::Small));
+  setText(0, m_presetName);
 }

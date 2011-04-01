@@ -20,9 +20,9 @@
 #include <iostream>
 #include <typeinfo>
 #include <q3header.h>
-#include <qstring.h>
-#include <qfile.h>
-#include <qcursor.h>
+#include <QString>
+#include <QFile>
+#include <QCursor>
 #include <qpoint.h>
 #include <qdatastream.h>
 //Added by qt3to4:
@@ -52,9 +52,9 @@
 
 void CrPresetViewDir::init()
 {
-	KIconLoader* iconLoader = KIconLoader::global();
-	//setPixmap(0, iconLoader->loadIcon(QString::fromLatin1("folder"), KIcon::Small));
-	//setExpandable(true);
+  //KIconLoader* iconLoader = KIconLoader::global();
+  //setPixmap(0, iconLoader->loadIcon(QString::fromLatin1("folder"), KIcon::Small));
+  //setExpandable(true);
 }
 
 bool CrPresetViewGlobal::checkUniqueName(const Q3ListViewItem* item, const QString& folderName)
@@ -141,7 +141,7 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 			QDataStream presetDataStream(&presetDataFile);
 
 			char* beginString;
-			Q_INT32 magicNumber;
+			qint32 magicNumber;
 			float version;
 			presetDataStream >> beginString >> magicNumber >> version;
 
@@ -173,7 +173,7 @@ void CrPresetView::loadPresets() throw(Cr::CrException_presetDataFileError,std::
 			}
 
 			while(!presetDataStream.atEnd()){
-				Q_INT32 itemType;
+				qint32 itemType;
 				presetDataStream >> itemType;
 				switch(static_cast<int>(itemType)){
 					case CR_PRESET_DATA_FILE_PRESET_BEGIN:
@@ -231,7 +231,7 @@ void CrPresetView::savePresets() throw(Cr::CrException_presetDataFileError,std::
 		std::cerr << "CrPresetView::savePresets - saving: " << dataFileName.latin1() << "\n";
 #endif
 	QDataStream presetDataStream(&presetDataFile);
-	presetDataStream << CR_PRESET_DATA_FILE_BEGIN_STRING << static_cast<Q_INT32>(CR_PRESET_DATA_FILE_BEGIN) << static_cast<float>(CR_PRESET_DATA_FILE_VERSION);
+	presetDataStream << CR_PRESET_DATA_FILE_BEGIN_STRING << static_cast<qint32>(CR_PRESET_DATA_FILE_BEGIN) << static_cast<float>(CR_PRESET_DATA_FILE_VERSION);
 
 	m_pDirIsOpenMap = new QList<int>;
 	m_pDirNamesMap = new QStringList;
@@ -293,7 +293,7 @@ void CrPresetView::saveDir(QDataStream& dataStream, Q3ListViewItem* const parent
 void CrPresetView::loadDir(QDataStream& dataStream, Q3ListViewItem* const parent)
 {
 	while(true){
-		Q_INT32 itemType;
+		qint32 itemType;
 		dataStream >> itemType;
 		switch(static_cast<int>(itemType)){
 			case CR_PRESET_DATA_FILE_PRESET_BEGIN:

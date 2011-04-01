@@ -17,8 +17,8 @@
 #include "control.h"
 #include <cassert>
 #include <iostream>
-#include <qvalidator.h>
-#include <qstring.h>
+#include <QValidator>
+#include <QString>
 #include "crvalidator.h"
 #include "crfloatspinbox.h"
 
