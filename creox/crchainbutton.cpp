@@ -14,22 +14,19 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cassert>
-#include <iostream>
 #include <QString>
 #include <QEvent>
-#include <qpoint.h>
+#include <QPoint>
 #include <QCursor>
-//Added by qt3to4:
 #include <QMouseEvent>
+
+#include <KIcon>
+
 #include "creffectgui.h"
 #include "crchainview.h"
 #include "soundprocessor.h"
 #include "crchainpopupmenu.h"
 #include "crchainbutton.h"
-
-#include <KIcon>
 
 #include <QDebug>
 
@@ -37,73 +34,63 @@ CrChainButton::CrChainButton(CrEffectGui* effect, QWidget *parent, const char *n
 	CrButton(parent,name), m_effect(effect)
 {
   m_parentChainView = dynamic_cast<CrChainView*>(parent);
-    qDebug() << "Setting name " << m_effect->effectName();
-	setText(m_effect->effectName());
-	setIcon(QString::fromLatin1(m_effect->getProcessor()->getName()));
-	synchronize();
-	connect(this, SIGNAL(toggled(bool)), SLOT(toggleEffect(bool)));
+  setText(m_effect->effectName());
+  setIcon(QString::fromLatin1(m_effect->getProcessor()->getName()));
+  synchronize();
+  connect(this, SIGNAL(toggled(bool)), SLOT(toggleEffect(bool)));
 }
 
 CrChainButton::~CrChainButton()
 {
-#ifdef _DEBUG
-	std::cerr << "CrChainButton deleted...\n";
-#endif
 }
 
 void CrChainButton::toggleEffect(bool on)
 {
   if(on) {
     m_effect->getProcessor()->setMode(SoundProcessor::enabled);
-  }
-  else {
+  } else {
     m_effect->getProcessor()->setMode(SoundProcessor::disabled);
   }
 }
 
 void CrChainButton::synchronize()
 {
-	blockSignals(true);
-	setOn( (m_effect->getProcessor()->mode() == SoundProcessor::enabled) ? true : false );
-	blockSignals(false);
+  blockSignals(true);
+  setOn( (m_effect->getProcessor()->mode() == SoundProcessor::enabled) ? true : false );
+  blockSignals(false);
 }
 
 void CrChainButton::mouseMoveEvent(QMouseEvent* mouseEvent)
 {
-	//std::cerr << "PosX:" << mouseEvent->x() << " PosY:" << mouseEvent->y() << "\n";
-	const int yPos =  mouseEvent->y();
-	if(yPos<0 && mouseEvent->state()==Qt::MidButton){
-		m_parentChainView->moveUp(this);
-	}
-	else if(yPos>height() && mouseEvent->state()==Qt::MidButton){
-		m_parentChainView->moveDown(this);
-	}
+  const int yPos =  mouseEvent->y();
+  if(yPos<0 && mouseEvent->state()==Qt::MidButton) {
+    m_parentChainView->moveUp(this);
+  } else if(yPos>height() && mouseEvent->state()==Qt::MidButton) {
+    m_parentChainView->moveDown(this);
+  }
 }
 
 void CrChainButton::mousePressEvent(QMouseEvent* mouseEvent)
 {
-
-	if(mouseEvent->button() == Qt::LeftButton){
-		CrButton::mousePressEvent(mouseEvent);
-	}
-	else if(mouseEvent->button() == Qt::RightButton && !(mouseEvent->state() & (Qt::MidButton | Qt::LeftButton) )){
-		CrChainPopupMenu popupMenu(this);
-		popupMenu.exec(QCursor::pos() - QPoint(3,3));
-	}
-	else if(mouseEvent->button() == Qt::MidButton){
-		setCursor(Qt::SizeVerCursor);
-		setIntermediateState(true);
-	}
+  qDebug() << "mousePressEvent";
+  if(mouseEvent->button() == Qt::LeftButton){
+    CrButton::mousePressEvent(mouseEvent);
+  } else if(mouseEvent->button() == Qt::RightButton && !(mouseEvent->state() & (Qt::MidButton | Qt::LeftButton) )){
+    CrChainPopupMenu popupMenu(this);
+    popupMenu.exec(QCursor::pos() - QPoint(3,3));
+  } else if(mouseEvent->button() == Qt::MidButton){
+    setCursor(Qt::SizeVerCursor);
+    setIntermediateState(true);
+  }
 }
 
 void CrChainButton::mouseReleaseEvent(QMouseEvent* mouseEvent)
 {
-	if(mouseEvent->button() == Qt::MidButton){
-		unsetCursor();
-		setIntermediateState(false);
-	}
-	else{
-		CrButton::mouseReleaseEvent(mouseEvent);
-	}
+  if(mouseEvent->button() == Qt::MidButton){
+    unsetCursor();
+    setIntermediateState(false);
+  } else {
+    CrButton::mouseReleaseEvent(mouseEvent);
+  }
 }
 

@@ -17,36 +17,37 @@
 #ifndef CRCHAINBUTTON_H
 #define CRCHAINBUTTON_H
 
-#include <qwidget.h>
-//Added by qt3to4:
+#include <QWidget>
 #include <QMouseEvent>
+
 #include "crbutton.h"
 
 class CrEffectGui;
 class CrChainView;
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class CrChainButton : public CrButton  {
-	 Q_OBJECT
+  Q_OBJECT
 public:
-	CrChainButton(CrEffectGui* effect, QWidget *parent=0, const char *name=0);
-	~CrChainButton();
-	void synchronize();
-	CrEffectGui* getEffect() const { return m_effect; }
-	CrChainView* getParentChainView() const { return m_parentChainView; }
+  CrChainButton(CrEffectGui* effect, QWidget *parent=0, const char *name=0);
+  ~CrChainButton();
+  void synchronize();
+  CrEffectGui* getEffect() const { return m_effect; }
+  CrChainView* getParentChainView() const { return m_parentChainView; }
 
 protected:
-	virtual void mouseMoveEvent(QMouseEvent* mouseEvent);
-	virtual void mousePressEvent(QMouseEvent* mouseEvent);
-	virtual void mouseReleaseEvent(QMouseEvent* mouseEvent);
+  virtual void mouseMoveEvent(QMouseEvent* mouseEvent);
+  virtual void mousePressEvent(QMouseEvent* mouseEvent);
+  virtual void mouseReleaseEvent(QMouseEvent* mouseEvent);
 
 private:
-	CrEffectGui* m_effect;
-	CrChainView* m_parentChainView;
+  CrEffectGui* m_effect;
+  CrChainView* m_parentChainView;
+
 private slots:
-	void toggleEffect(bool on);
+  void toggleEffect(bool on);
 };
 
 #endif

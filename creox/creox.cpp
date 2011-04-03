@@ -14,21 +14,26 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <iostream>
 #include <QString>
-#include <q3ptrlist.h>
-//Added by qt3to4:
 #include <QCustomEvent>
-#include <QTimerEvent>
-#include <klocale.h>
-#include <kglobal.h>
-#include <kmessagebox.h>
-//#include <kconfig.h>
+#include <QDockWidget>
+#include <QTabWidget>
+#include <QTimer>
 
-#include <ktoolbar.h>
-#include <kmenubar.h>
-#include <kiconloader.h>
+
+#include <KApplication>
+#include <KAction>
+#include <KActionMenu>
+#include <KActionCollection>
+#include <KStandardAction>
+#include <KLocale>
+#include <KLocale>
+#include <KGlobal>
+#include <KMessageBox>
+#include <KToolBar>
+#include <KMenuBar>
+#include <KIconLoader>
+
 #include "crdistortion.h"
 #include "crphaser.h"
 #include "crflanger.h"
@@ -46,21 +51,9 @@
 #include "crsplashscreen.h"
 #include "creox.h"
 
-#include <KApplication>
-#include <KAction>
-#include <KActionMenu>
-#include <KLocale>
-#include <KActionCollection>
-#include <KStandardAction>
-
-#include <QDockWidget>
-#include <QTabWidget>
-
-#include <QProxyStyle>
-
 #include <QDebug>
 
-namespace{
+namespace {
   const int g_iSplashScreenTimeOut = 1000; //ms
 }
 
@@ -109,7 +102,7 @@ Creox::Creox(QWidget *parent)
   m_newPresetFolderAction->setShortcut(Qt::CTRL + Qt::Key_N);
   actionCollection()->addAction("newPresetFolderAction", m_newPresetFolderAction);
   //presetActionMenu->addAction(m_newPresetFolderAction);
-  connect(m_newPresetFolderAction, SIGNAL(activated()), SLOT(slotSaveNewPreset()));
+  connect(m_newPresetFolderAction, SIGNAL(activated()), SLOT(slotNewPresetFolder()));
 
   /*
     QString::fromLatin1("document-save"),
@@ -164,12 +157,15 @@ Creox::Creox(QWidget *parent)
     //!! preliminary fix !!
     fixEffectsWidth();
 
+    */
+
     // event dispatcher catches exceptions from the working dsp thread
     m_ptrEventDispatcher = new CrThreadEventDispatcher(kapp);
 
     // start timer to remove splashScreen
-    startTimer(g_iSplashScreenTimeOut);
+    QTimer::singleShot(g_iSplashScreenTimeOut, this, SLOT(removeSplashScreen()));
 
+    /*
     readDockConfig();
   */
 }
@@ -203,10 +199,8 @@ Creox::~Creox()
 #endif
 }
 
-void Creox::timerEvent(QTimerEvent*)
+void Creox::removeSplashScreen()
 {
-  // XXX!
-  //killTimers();
   CrSplashScreen::removeSplashScreen();
 }
 
@@ -407,16 +401,13 @@ void Creox::initEffectsGui()
 /** start / stop the effector engine */
 void Creox::slotStartStopEffector()
 {
-  /*
-    if(m_playAction->isChecked()){
+  if(m_playAction->isChecked()){
     m_optionsAction->setEnabled(false);
     m_effectKeeper->start();
-    }
-    else{
+  } else {
     m_effectKeeper->stop();
     m_optionsAction->setEnabled(true);
-    }
-  */
+  }
 }
 
 /** save a new preset */
@@ -435,8 +426,8 @@ void Creox::slotNewPresetFolder()
   //#ifdef _DEBUG
   qDebug() << "Creox::slotNewPresetFolder\n";
   //#endif
-  //CrNewPresetFolderDialogImpl newFolderDialog(m_presetView, this);
-  //newFolderDialog.exec();
+  CrNewPresetFolderDialogImpl newFolderDialog(m_presetView, this);
+  newFolderDialog.exec();
 }
 
 /** An ugly fix for min effects width */
@@ -471,8 +462,8 @@ void Creox::customEvent(QEvent* event)
 /** Options action. */
 void Creox::slotOptions()
 {
-  qDebug() << "Die MF";
-  //CrOptionsDialog optionsDialog(this, "optionsDialog");
-  //optionsDialog.exec();
+  qDebug() << "slotOptions";
+  CrOptionsDialog optionsDialog(this, "optionsDialog");
+  optionsDialog.exec();
 }
 

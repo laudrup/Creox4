@@ -47,9 +47,6 @@ CrChainView::CrChainView(EffectKeeper* effectKeeper, QWidget *parent, const char
 CrChainView::~CrChainView()
 {
 	delete[] m_chainButtonArray;
-#ifdef _DEBUG
-	std::cerr << "CrChainView deleted...\n";
-#endif
 }
 
 /** must be called after EffectKeeper activation! */
@@ -112,13 +109,11 @@ void CrChainView::reorderChainButtons()
 void CrChainView::syncChainButtons()
 {
   const int chainSize = m_threadEffector->getProcessorChainSize();
-  qDebug() << "syncedChainButtons: " << chainSize;
   for(int count=0; count<chainSize; count++){
     const int effectId = m_threadEffector->getProcessorChain()[count]->getId();
 
     for(Q3PtrListIterator<CrChainButton> chainButtonIterator(m_chainButtonList) ; chainButtonIterator.current(); ++chainButtonIterator ){
       if(chainButtonIterator.current()->getEffect()->getProcessor()->getId() == effectId){
-        qDebug() << "Setting chainButton: " << effectId;
         (m_chainButtonArray[count] = chainButtonIterator.current())->synchronize();
         break;
       }

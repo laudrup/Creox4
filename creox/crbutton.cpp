@@ -14,10 +14,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cassert>
 #include <QBrush>
-#include <iostream>
 #include <QSize>
 #include <QPainter>
 #include <QStyle>
@@ -26,16 +23,17 @@
 #include <QFontMetrics>
 #include <QString>
 #include <QPixmap>
-#include <qpoint.h>
+#include <QPoint>
 #include <QRect>
-#include <kiconloader.h>
-#include <kglobal.h>
-#include "crbutton.h"
+#include <QStyleOptionButton>
 
+#include <KIconLoader>
+#include <KGlobal>
 #include <KIcon>
 
+#include "crbutton.h"
+
 #include <QDebug>
-#include <QStyleOptionButton>
 
 #define ICON_VOFFSET 5
 #define ICON_HOFFSET 10
@@ -95,9 +93,6 @@ void CrButton::drawButton(QPainter* painter)
     buttonColorGroup.setColor(QColorGroup::Light, origColorGroup.dark());
     buttonColorGroup.setColor(QColorGroup::Dark, origColorGroup.light());
     buttonColorGroup.setColor(QColorGroup::Midlight, origColorGroup.mid());
-
-    qDebug() << "On";
-
   }
   else if(isOn() && isDown()){
     //#! Qt-3.2.x bug?
@@ -116,9 +111,6 @@ void CrButton::drawButton(QPainter* painter)
       buttonColorGroup.setColor(QColorGroup::Foreground, Qt::red);
       buttonColorGroup.setColor(QColorGroup::Base, Qt::blue);
     */
-
-    qDebug() << "On/Down";
-
   }
   else if(!isOn() && isDown()){
     //#! Qt-3.2.x bug?
@@ -128,9 +120,6 @@ void CrButton::drawButton(QPainter* painter)
     buttonColorGroup.setColor(QColorGroup::Midlight, origColorGroup.dark());
     buttonColorGroup.setColor(QColorGroup::Dark, origColorGroup.midlight());
     //!! The mistery of the black line !!
-
-    qDebug() << "Off/Down";
-
   }
   else{
     //#! Qt-3.2.x bug?
@@ -139,9 +128,6 @@ void CrButton::drawButton(QPainter* painter)
     buttonColorGroup.setColor(QColorGroup::Button, origColorGroup.mid());
     //!!d
     //painter->fillRect(rect(), Qt::red);
-
-    qDebug() << "Off";
-
     //return;
   }
 
@@ -158,7 +144,7 @@ void CrButton::drawButton(QPainter* painter)
   //QPainter painter(this);
   style()->drawControl(QStyle::CE_PushButton, &option, painter, this);
 
-        //const QRect newDrawRect = rect();
+  //const QRect newDrawRect = rect();
   //QApplication::style()->drawToolButton(painter, newDrawRect.x(), newDrawRect.y(), newDrawRect.width(), newDrawRect.height(), buttonColorGroup);
 
   //QApplication::style()->drawPrimitive(QStyle::PE_PanelButtonBevel, painter);//newDrawRect);//, buttonColorGroup);

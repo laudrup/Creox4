@@ -17,8 +17,8 @@
 #ifndef CROPTIONSDIALOG_H
 #define CROPTIONSDIALOG_H
 
-#include <qwidget.h>
-#include <kpagedialog.h>
+#include <QWidget>
+#include <KPageDialog>
 
 class QComboBox;
 class QCheckBox;
@@ -28,33 +28,33 @@ class QCheckBox;
  */
 class CrOptionsDialog : public KPageDialog
 {
-	 Q_OBJECT
+  Q_OBJECT
 
 public:
-	CrOptionsDialog(QWidget *parent=0, const char *name=0);
-	~CrOptionsDialog();
+  CrOptionsDialog(QWidget *parent=0, const char *name=0);
+  ~CrOptionsDialog();
 
 public slots:
-	virtual void slotOk();
+  virtual void slotOk();
 
 private:
-	void loadSettings();
+  void loadSettings();
 
 private:
-	// tab1 - JACK options
-	QComboBox* m_pLeftInputPort;
-	QComboBox* m_pRightInputPort;
-	QCheckBox* m_disconnectedInputCheckBox;
+  // tab1 - JACK options
+  QComboBox* m_pLeftInputPort;
+  QComboBox* m_pRightInputPort;
+  QCheckBox* m_disconnectedInputCheckBox;
 
-	QComboBox* m_pLeftOutputPort;
-	QComboBox* m_pRightOutputPort;
-	QCheckBox* m_disconnectedOutputCheckBox;
+  QComboBox* m_pLeftOutputPort;
+  QComboBox* m_pRightOutputPort;
+  QCheckBox* m_disconnectedOutputCheckBox;
 
 public:
-	static const char* const DEFAULT_LEFT_INPUT_PORT;
-	static const char* const DEFAULT_RIGHT_INPUT_PORT;
-	static const char* const DEFAULT_LEFT_OUTPUT_PORT;
-	static const char* const DEFAULT_RIGHT_OUTPUT_PORT;
+  static const char* const DEFAULT_LEFT_INPUT_PORT;
+  static const char* const DEFAULT_RIGHT_INPUT_PORT;
+  static const char* const DEFAULT_LEFT_OUTPUT_PORT;
+  static const char* const DEFAULT_RIGHT_OUTPUT_PORT;
 };
 
 #endif

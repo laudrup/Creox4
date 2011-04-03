@@ -17,23 +17,14 @@
 #ifndef CREOX_H
 #define CREOX_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <QEvent>
-#include <qwidget.h>
-//Added by qt3to4:
+#include <QWidget>
 #include <QCustomEvent>
-#include <QTimerEvent>
 
 #include <KXmlGuiWindow>
 
-#include <ksystemtrayicon.h>
-
 class QString;
 class QTimerEvent;
-//class KToggleAction;
 class KAction;
 class EffectKeeper;
 class CrChainView;
@@ -47,61 +38,62 @@ class CrThreadEventDispatcher;
  * @author Jozef Kosoru
  */
 class CrMessageEvent : public QCustomEvent {
-	public:
-		enum Type { ErrorMessageEvent = User + 31333 };
-		CrMessageEvent(const QString strMessage, const int type = ErrorMessageEvent)
-		 : QCustomEvent(type), m_strMessage(strMessage) { }
-		QString messageText() { return m_strMessage; }
-	private:
-		QString m_strMessage;
+ public:
+  enum Type { ErrorMessageEvent = User + 31333 };
+
+ CrMessageEvent(const QString strMessage, const int type = ErrorMessageEvent)
+   : QCustomEvent(type), m_strMessage(strMessage) { }
+
+  QString messageText() { return m_strMessage; }
+
+ private:
+  QString m_strMessage;
 };
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class Creox : public KXmlGuiWindow {
+  Q_OBJECT
 
-  // KDocMainWindow
+ public:
+  Creox(QWidget *parent=0);
+  ~Creox();
+  CrThreadEventDispatcher* getEventDispatcher() const { return m_ptrEventDispatcher; }
 
-		Q_OBJECT
-	public:
-		Creox(QWidget *parent=0);
-		~Creox();
-		CrThreadEventDispatcher* getEventDispatcher() const { return m_ptrEventDispatcher; }
-	private:
-		/** Creates the effects widgets. */
-		void initEffectsGui();
-		/** An ugly fix for min effects width */
-		void fixEffectsWidth();
-		//void timerEvent(QTimerEvent*);
+ private:
+  /** Creates the effects widgets. */
+  void initEffectsGui();
+  /** An ugly fix for min effects width */
+  void fixEffectsWidth();
 
-		friend class CrPresetPopupMenu;
+  friend class CrPresetPopupMenu;
 
-		KAction* m_playAction;
-		KAction* m_savePresetAction;
-		KAction* m_newPresetFolderAction;
-		KAction* m_optionsAction;
+  KAction* m_playAction;
+  KAction* m_savePresetAction;
+  KAction* m_newPresetFolderAction;
+  KAction* m_optionsAction;
 
-		EffectKeeper* m_effectKeeper;
-		CrChainView* m_chainView;
-		CrPresetView* m_presetView;
+  EffectKeeper* m_effectKeeper;
+  CrChainView* m_chainView;
+  CrPresetView* m_presetView;
 
-		CrThreadEventDispatcher* m_ptrEventDispatcher;
+  CrThreadEventDispatcher* m_ptrEventDispatcher;
 
-public slots: // Public slots
-	/** start / stop the effector engine */
-	void slotStartStopEffector();
-	/** save a new preset */
-	void slotSaveNewPreset();
-	/** create a new preset folder */
-	void slotNewPresetFolder();
-	/** Options action. */
-	void slotOptions();
+  public slots:
+  /** start / stop the effector engine */
+  void slotStartStopEffector();
+  /** save a new preset */
+  void slotSaveNewPreset();
+  /** create a new preset folder */
+  void slotNewPresetFolder();
+  /** Options action. */
+  void slotOptions();
+  void removeSplashScreen();
 
 protected:
-	/** process custom events, especially CrMessageEvent */
-	virtual void customEvent(QEvent* event);
-	virtual void timerEvent(QTimerEvent*);
+  /** process custom events, especially CrMessageEvent */
+  virtual void customEvent(QEvent* event);
 };
 
 #endif

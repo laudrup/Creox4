@@ -15,7 +15,6 @@
  ***************************************************************************/
 
 #include <QApplication>
-#include <QString>
 #include <QPixmap>
 #include <QDesktopWidget>
 #include <QLabel>
