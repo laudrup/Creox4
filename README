@@ -1,7 +1,7 @@
 creox - 0.2.2rc2 - The realtime sound effector.
 (c)2003 GPL-v2 Jozef Kosoru<jozef.kosoru@pobox.sk>
 
- Creox is a real-time sound processor. You can plug your electric guitar or any
+Creox is a real-time sound processor. You can plug your electric guitar or any
 other musical instrument directly to the PC's sound card and start
 experimenting with various sound effects. Creox has a nice user-friendly GUI, a
 preset support, a low-latency DSP engine and each effect parameter can be
@@ -13,11 +13,14 @@ As the creox is a JACK application, the output sound can be routed to the other
 JACK-aware applications and the input audio can be taken as the output
 from the other JACK client. 
  
- The simplest way to compile and install this application is:
+The simplest way to compile this application is:
 
- ./configure
- ./make
- su (log as root)
- ./make install
+mkdir build
+cd build
+cmake ../
+make
 
-Please report all bugs to <jozef.kosoru@pobox.sk>.
+And to run it:
+creox/creox
+
+Please report all bugs to <laudrup@stacktrace.dk>.
