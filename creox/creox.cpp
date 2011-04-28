@@ -20,7 +20,6 @@
 #include <QTabWidget>
 #include <QTimer>
 
-
 #include <KApplication>
 #include <KAction>
 #include <KActionMenu>
@@ -401,13 +400,15 @@ void Creox::initEffectsGui()
 /** start / stop the effector engine */
 void Creox::slotStartStopEffector()
 {
-  if(m_playAction->isChecked()){
+  //if(m_playAction->isChecked()){
+    qDebug() << "Is checked!";
     m_optionsAction->setEnabled(false);
     m_effectKeeper->start();
-  } else {
+    /*  } else {
+    qDebug() << "Not checked!";
     m_effectKeeper->stop();
     m_optionsAction->setEnabled(true);
-  }
+    } */
 }
 
 /** save a new preset */
@@ -423,8 +424,9 @@ void Creox::slotSaveNewPreset()
 /** create a new preset folder */
 void Creox::slotNewPresetFolder()
 {
-  //#ifdef _DEBUG
   qDebug() << "Creox::slotNewPresetFolder\n";
+  Q_ASSERT(false);
+  //#ifdef _DEBUG
   //#endif
   CrNewPresetFolderDialogImpl newFolderDialog(m_presetView, this);
   newFolderDialog.exec();
@@ -452,10 +454,10 @@ void Creox::fixEffectsWidth()
 void Creox::customEvent(QEvent* event)
 {
     if(static_cast<int>(event->type()) == CrMessageEvent::ErrorMessageEvent) {
-    KMessageBox::error(0, static_cast<CrMessageEvent*>(event)->messageText());
-    m_effectKeeper->stop();
-    m_playAction->setChecked(false);
-    m_optionsAction->setEnabled(true);
+      KMessageBox::error(0, static_cast<CrMessageEvent*>(event)->messageText());
+      m_effectKeeper->stop();
+      m_playAction->setChecked(false);
+      m_optionsAction->setEnabled(true);
     }
 }
 

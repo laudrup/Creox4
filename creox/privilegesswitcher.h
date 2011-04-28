@@ -4,7 +4,7 @@
 		begin                : Tue Apr 10 2001
 		copyright            : (C) 2001 by Jozef Kosoru
 		email                : jozef.kosoru@pobox.sk
- ***************************************************************************/
+***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -23,12 +23,14 @@
  *@author Jozef Kosoru
  */
 class PrivilegesSwitcher {
+
  public:
   PrivilegesSwitcher();
   void releasePrivileges();
   void getPrivileges();
   static PrivilegesSwitcher* getInstance() { return s_switcher; }
 
+ private:
   uid_t m_euid;
   uid_t m_ruid;
   static PrivilegesSwitcher* s_switcher;

@@ -14,11 +14,9 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cassert>
-#include <iostream>
 #include <QValidator>
 #include <QString>
+
 #include "crvalidator.h"
 #include "crfloatspinbox.h"
 
@@ -26,7 +24,7 @@ CrFloatSpinBox::CrFloatSpinBox(CrValidator* validator, QWidget* parent, const ch
   : QSpinBox(CrValidator::minValue(), CrValidator::maxValue(), 1, parent, name), m_validator(validator)
 {
   //setValidator(validator);
-	setLineStep(validator->getStep());
+  setLineStep(validator->getStep());
 }
 
 CrFloatSpinBox::~CrFloatSpinBox()
@@ -36,11 +34,11 @@ CrFloatSpinBox::~CrFloatSpinBox()
 
 QString CrFloatSpinBox::mapValueToText(const int value)
 {
-	return QString().setNum(m_validator->getFloatValue(value), 'f', 2);
+  return QString().setNum(m_validator->getFloatValue(value), 'f', 2);
 }
 
 int CrFloatSpinBox::mapTextToValue(bool* ok)
 {
-	return m_validator->getIntValue(text().toFloat(ok));
+  return m_validator->getIntValue(text().toFloat(ok));
 }
 

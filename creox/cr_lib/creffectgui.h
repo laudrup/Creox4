@@ -17,7 +17,7 @@
 #ifndef CREFFECTGUI_H
 #define CREFFECTGUI_H
 
-#include <qwidget.h>
+#include <QWidget>
 
 class SoundProcessor;
 class SoundParameters;
@@ -26,28 +26,29 @@ class QString;
 #define CR_FRAME_WIDTH (5)
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class CrEffectGui : public QWidget  {
-		Q_OBJECT
-	public:
-		CrEffectGui(QWidget *parent=0, const char *name=0);
-		virtual ~CrEffectGui();
+  Q_OBJECT
 
-		QString effectName() const { return m_effectName; }
+ public:
+  CrEffectGui(QWidget *parent=0, const char *name=0);
+  virtual ~CrEffectGui();
 
-		virtual SoundProcessor* getProcessor() const = 0;
-		virtual SoundParameters* getParameters() const = 0;
-		virtual void synchronize() = 0;
+  QString effectName() const { return m_effectName; }
 
-	protected:
-		void setEffectName(const QString& name) { m_effectName = name; }
+  virtual SoundProcessor* getProcessor() const = 0;
+  virtual SoundParameters* getParameters() const = 0;
+  virtual void synchronize() = 0;
 
-		virtual void restoreParameters() = 0;
-		virtual void saveParameters() = 0;
+ protected:
+  void setEffectName(const QString& name) { m_effectName = name; }
 
-	private:
-		QString m_effectName;
+  virtual void restoreParameters() = 0;
+  virtual void saveParameters() = 0;
+
+ private:
+  QString m_effectName;
 };
 
 #endif

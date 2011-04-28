@@ -17,24 +17,27 @@
 #ifndef CRCHAINPOPUPMENU_H
 #define CRCHAINPOPUPMENU_H
 
-#include <qwidget.h>
-#include <kmenu.h>
+#include <QWidget>
+#include <KMenu>
 
 class CrChainButton;
 
 /**
-	*@author Jozef Kosoru
-	*/
-class CrChainPopupMenu : public KMenu  {
-	 Q_OBJECT
+ *@author Jozef Kosoru
+ */
+class CrChainPopupMenu : public KMenu {
+  Q_OBJECT
+
 public:
-	CrChainPopupMenu(CrChainButton *parent=0, const char *name=0);
-	~CrChainPopupMenu();
+  CrChainPopupMenu(CrChainButton *parent=0, const char *name=0);
+  ~CrChainPopupMenu();
+
 private slots:
-	void slotMoveUp();
-	void slotMoveDown();
+  void slotMoveUp();
+  void slotMoveDown();
+
 private:
-	CrChainButton* m_parent;
+  CrChainButton* m_parent;
 };
 
 #endif

@@ -14,45 +14,45 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cstdio>
-#include <cstdlib>
+
 #include <unistd.h>
-#include <klocale.h>
+
+#include <KLocale>
+
 #include "privilegesswitcher.h"
 
 PrivilegesSwitcher* PrivilegesSwitcher::s_switcher = 0;
 
 PrivilegesSwitcher::PrivilegesSwitcher()
 {
-	// Remember the real and effective user IDs.
-	m_ruid = getuid();
-	m_euid = geteuid();
-	s_switcher = this;
+  // Remember the real and effective user IDs.
+  m_ruid = getuid();
+  m_euid = geteuid();
+  s_switcher = this;
 }
 
 void PrivilegesSwitcher::releasePrivileges()
 {
-	int status;
+  int status;
 #ifdef _POSIX_SAVED_IDS
-	status = seteuid(m_ruid);
+  status = seteuid(m_ruid);
 #else
-	status = setreuid(m_euid, m_ruid);
+  status = setreuid(m_euid, m_ruid);
 #endif
-	if(status < 0){
-          //throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
-	}
+  if(status < 0){
+    //throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
+  }
 }
 
 void PrivilegesSwitcher::getPrivileges()
 {
-	int status;
+  int status;
 #ifdef _POSIX_SAVED_IDS
-	status = seteuid(m_euid);
+  status = seteuid(m_euid);
 #else
-	status = setreuid(m_ruid, m_euid);
+  status = setreuid(m_ruid, m_euid);
 #endif
-	if(status < 0){
-          //throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
-	}
+  if(status < 0){
+    //throw(Cr::CrException_runtimeError(i18n("Couldn't set uid!")));
+  }
 }

@@ -14,20 +14,16 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <iostream>
-#include <klocale.h>
+#include <KLocale>
 #include "creffectgui.h"
 
 CrEffectGui::CrEffectGui(QWidget *parent, const char *name )
-		: QWidget(parent,name), m_effectName(i18n("unknown effect"))
+  : QWidget(parent,name), m_effectName(i18n("unknown effect"))
 {
 
 }
 
 CrEffectGui::~CrEffectGui()
 {
-#ifdef _DEBUG
-	std::cerr << "CrEffectGui deleted..." << "\n";
-#endif
+
 }

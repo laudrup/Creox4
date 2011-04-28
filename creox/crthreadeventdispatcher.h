@@ -18,26 +18,29 @@
 #define CRTHREADEVENTDISPATCHER_H
 
 #include <pthread.h>
+
 #include <QObject>
 #include <QEvent>
 
 class QApplication;
 class QSocketNotifier;
 
-/**Dispatches events between a working thread and the main GIU thread.
-	*This class implements roughly the same functionallity as
-	*QThread::postEvent(...) function, which is available in the
-	*multi-threaded version of the library only.
-	*@author Jozef Kosoru
-	*/
+/* Dispatches events between a working thread and the main GIU thread.
+ * This class implements roughly the same functionallity as
+ * QThread::postEvent(...) function, which is available in the
+ * multi-threaded version of the library only.
+ * @author Jozef Kosoru
+ */
 class CrThreadEventDispatcher : public QObject  {
 	Q_OBJECT
 public:
   CrThreadEventDispatcher(QApplication* app, const char* name = 0);
   ~CrThreadEventDispatcher();
   void postEvent(QObject* receiver, QEvent* event);
+
 protected slots:
   void eventHandler();
+
 private:
   QApplication* m_ptrApp;
   QSocketNotifier* m_notifier;

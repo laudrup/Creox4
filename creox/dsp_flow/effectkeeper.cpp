@@ -14,19 +14,18 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cassert>
-#include <iostream>
-#include <q3valuelist.h>
+#include <Q3ValueList>
 #include <QString>
-#include <kglobal.h>
-#include <kconfig.h>
+
+#include <KGlobal>
+#include <KConfig>
+#include <KConfigGroup>
+
 #include "effectkeeper.h"
 #include "threadeffector.h"
 #include "soundprocessor.h"
 
-#include <KConfig>
-#include <KConfigGroup>
+#include <QDebug>
 
 EffectKeeper::EffectKeeper(QObject *parent, const char *name ) :
  QObject(parent,name), m_threadEffector(0), m_chainView(0)
@@ -36,35 +35,31 @@ EffectKeeper::EffectKeeper(QObject *parent, const char *name ) :
 
 EffectKeeper::~EffectKeeper()
 {
-	assert(!m_threadEffector);
-
-#ifdef _DEBUG
-	std::cerr << "EffectKeeper deleted...\n";
-#endif
+  //assert(!m_threadEffector);
 }
 
 void EffectKeeper::shutdown()
 {
-	//save the effectChain order
-	KConfigGroup conf = KGlobal::config()->group("EffectKeeper");
-	QList<int> effectIdList;
-	const int chainSize = m_threadEffector->getProcessorChainSize();
-	for(int count=0; count<chainSize; count++){
-		conf.writeEntry(QString::fromLatin1((*m_threadEffector)[count]->getName()),
-						 (*m_threadEffector)[count]->mode());
-		effectIdList.append( (*m_threadEffector)[count]->getId() );
-	}
-	conf.writeEntry("effectChainOrder", effectIdList);
+  //save the effectChain order
+  KConfigGroup conf = KGlobal::config()->group("EffectKeeper");
+  QList<int> effectIdList;
+  const int chainSize = m_threadEffector->getProcessorChainSize();
+  for(int count=0; count<chainSize; count++){
+    conf.writeEntry(QString::fromLatin1((*m_threadEffector)[count]->getName()),
+                    (*m_threadEffector)[count]->mode());
+    effectIdList.append( (*m_threadEffector)[count]->getId() );
+  }
+  conf.writeEntry("effectChainOrder", effectIdList);
 
-	delete m_threadEffector; //must be deleted first!
-	m_threadEffector = 0;
+  delete m_threadEffector; //must be deleted first!
+  m_threadEffector = 0;
 }
 
 /** Add an effect to the chain. */
 int EffectKeeper::registerEffect(CrEffectGui* effect)
 {
-	m_effectList.append(effect);
-	return static_cast<int>(m_effectList.count());
+  m_effectList.append(effect);
+  return static_cast<int>(m_effectList.count());
 }
 
 void EffectKeeper::activate()
@@ -114,11 +109,12 @@ void EffectKeeper::activate()
 /** Start DSP processing. */
 void EffectKeeper::start()
 {
-	m_threadEffector->run();
+  qDebug() << "Start DSP processing";
+  m_threadEffector->run();
 }
 
 /** Stop DSP processing. */
 void EffectKeeper::stop()
 {
-	m_threadEffector->stop();
+  m_threadEffector->stop();
 }

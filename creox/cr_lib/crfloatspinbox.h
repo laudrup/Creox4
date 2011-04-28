@@ -17,25 +17,27 @@
 #ifndef CRFLOATSPINBOX_H
 #define CRFLOATSPINBOX_H
 
-#include <qwidget.h>
-#include <qspinbox.h>
+#include <QWidget>
+#include <QSpinBox>
 
 class CrValidator;
 class QStrign;
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class CrFloatSpinBox : public QSpinBox  {
-		 Q_OBJECT
-	public:
-		CrFloatSpinBox(CrValidator* validator, QWidget* parent=0, const char* name=0);
-		~CrFloatSpinBox();
-	protected:
-		virtual QString mapValueToText(const int value);
-		virtual int mapTextToValue(bool* ok);
-	private:
-		CrValidator* m_validator;
+  Q_OBJECT
+ public:
+  CrFloatSpinBox(CrValidator* validator, QWidget* parent=0, const char* name=0);
+  ~CrFloatSpinBox();
+
+ protected:
+  virtual QString mapValueToText(const int value);
+  virtual int mapTextToValue(bool* ok);
+
+ private:
+  CrValidator* m_validator;
 };
 
 #endif

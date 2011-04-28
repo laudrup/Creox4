@@ -14,17 +14,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cassert>
-#include <cstdio>
 #include <unistd.h>
-#include <iostream>
+
 #include <QString>
 #include <QSocketNotifier>
 #include <QApplication>
-//Added by qt3to4:
 #include <QEvent>
-#include <klocale.h>
+
+#include <KLocale>
+
 #include "crthreadeventdispatcher.h"
 
 CrThreadEventDispatcher::CrThreadEventDispatcher(QApplication* app, const char* name)
@@ -41,39 +39,36 @@ CrThreadEventDispatcher::CrThreadEventDispatcher(QApplication* app, const char* 
 
 CrThreadEventDispatcher::~CrThreadEventDispatcher()
 {
-	delete m_notifier;
-	(void)::close(m_fds[0]);
-	(void)::close(m_fds[1]);
-	(void)pthread_mutex_destroy(&m_eventLock);
-#ifdef _DEBUG
-	std::cerr << "CrThreadEventDispatcher deleted...\n";
-#endif
+  delete m_notifier;
+  (void)::close(m_fds[0]);
+  (void)::close(m_fds[1]);
+  (void)pthread_mutex_destroy(&m_eventLock);
 }
 
 void CrThreadEventDispatcher::postEvent(QObject* receiver, QEvent* event)
 {
-	static const char* buf = "";
+  static const char* buf = "";
 
-	pthread_mutex_lock(&m_eventLock);
-	m_ptrReceiver = receiver;
-	m_ptrEvent = event;
-	pthread_mutex_unlock(&m_eventLock);
+  pthread_mutex_lock(&m_eventLock);
+  m_ptrReceiver = receiver;
+  m_ptrEvent = event;
+  pthread_mutex_unlock(&m_eventLock);
 
-	if(::write(m_fds[1], buf, 1) == -1){
-		std::perror("Writing to pipe");
-		pthread_exit(0);
-	}
+  if(::write(m_fds[1], buf, 1) == -1){
+    //std::perror("Writing to pipe");
+    pthread_exit(0);
+  }
 }
 
 void CrThreadEventDispatcher::eventHandler()
 {
-	static char buf;
-	if(::read(m_fds[0], &buf, 1) == -1){
-          //throw(Cr::CrException_runtimeError(i18n("Unable to read from pipe!")));
-	}
+  static char buf;
+  if(::read(m_fds[0], &buf, 1) == -1){
+    //throw(Cr::CrException_runtimeError(i18n("Unable to read from pipe!")));
+  }
 
-	pthread_mutex_lock(&m_eventLock);
-	QApplication::postEvent(const_cast<QObject*>(m_ptrReceiver), const_cast<QEvent*>(m_ptrEvent));
-	pthread_mutex_unlock(&m_eventLock);
+  pthread_mutex_lock(&m_eventLock);
+  QApplication::postEvent(const_cast<QObject*>(m_ptrReceiver), const_cast<QEvent*>(m_ptrEvent));
+  pthread_mutex_unlock(&m_eventLock);
 }
 

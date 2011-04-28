@@ -17,27 +17,28 @@
 #ifndef CREFFECTGUITRAY_H
 #define CREFFECTGUITRAY_H
 
-#include <qwidget.h>
-#include <q3frame.h>
-//Added by qt3to4:
+#include <QWidget>
+#include <Q3Frame>
 #include <Q3HBoxLayout>
 
 class CrEffectGui;
 class Q3HBoxLayout;
 
 /**
-	*@author Jozef Kosoru
-	*/
+ *@author Jozef Kosoru
+ */
 class CrEffectGuiTray : public Q3Frame  {
-	 Q_OBJECT
-public:
-	CrEffectGuiTray(QWidget *parent=0, const char *name=0);
-	~CrEffectGuiTray();
-	/** insert CrEffectGui widget into space */
-	void insertEffectGuiWidget(CrEffectGui* effectGui);
-private: // Private attributes
-	/** main layout */
-	Q3HBoxLayout* m_layout;
+  Q_OBJECT
+
+ public:
+  CrEffectGuiTray(QWidget *parent=0, const char *name=0);
+  ~CrEffectGuiTray();
+  /** insert CrEffectGui widget into space */
+  void insertEffectGuiWidget(CrEffectGui* effectGui);
+
+ private: // Private attributes
+  /** main layout */
+  Q3HBoxLayout* m_layout;
 };
 
 #endif

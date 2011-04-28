@@ -14,13 +14,10 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
-#include <cassert>
-#include <iostream>
 #include <QLayout>
-//Added by qt3to4:
 #include <Q3Frame>
 #include <Q3HBoxLayout>
+
 #include "creffectguitray.h"
 #include "creffectgui.h"
 
@@ -39,14 +36,11 @@ CrEffectGuiTray::CrEffectGuiTray(QWidget *parent, const char *name ) :
 
 CrEffectGuiTray::~CrEffectGuiTray()
 {
-#ifdef _DEBUG
-	std::cerr << "CrEffectGuiTray deleted...\n";
-#endif
 }
 
 /** insert CrEffectGui widget into space */
 void CrEffectGuiTray::insertEffectGuiWidget(CrEffectGui* effectGui)
 {
-	assert(effectGui->parent() == this);
-	m_layout->addWidget(effectGui, 0, Qt::AlignVCenter);
+  //assert(effectGui->parent() == this);
+  m_layout->addWidget(effectGui, 0, Qt::AlignVCenter);
 }
