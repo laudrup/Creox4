@@ -165,6 +165,8 @@ int ThreadEffector::bufsize(jack_nframes_t nframes)
 
 int ThreadEffector::srate(jack_nframes_t nframes)
 {
+  // TODO: Not sure if this is needed
+  /*
   qDebug() << "srate";
   CrMessageEvent* errorEvent =
     new CrMessageEvent(i18n("The JACK sample rate has changed to %1 Hz."
@@ -173,6 +175,7 @@ int ThreadEffector::srate(jack_nframes_t nframes)
     getEventDispatcher()->
     postEvent(kapp->mainWidget(),
               errorEvent);
+  */
   return 0;
 }
 
@@ -388,7 +391,6 @@ void ThreadEffector::updateOutputGain(const float outputGain)
 
 int ThreadEffector::processCallback(jack_nframes_t nframes, void* p_effector)
 {
-  qDebug() << "processing";
   return static_cast<ThreadEffector*>(p_effector)->process(nframes);
 }
 
