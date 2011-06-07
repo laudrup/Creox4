@@ -34,9 +34,10 @@ int main(int argc, char *argv[])
                        QByteArray("0.3"), //VERSION, // XXX!
                        ki18n(description),
                        KAboutData::License_GPL,
-                       ki18n("(c) 2003, Jozef Kosoru"));
+                       ki18n("(c) 2003, Jozef Kosoru, (c) 2011, Kasper Laudrup"));
 
   aboutData.addAuthor(ki18n("Jozef Kosoru"), ki18n("Original author"), "jozef.kosoru@pobox.sk");
+  aboutData.addAuthor(ki18n("Kasper Laudrup"), ki18n("KDE 4 port"), "laudrup@stacktrace.dk");
   aboutData.addCredit(ki18n("Claus Bjerre Pedersen"), ki18n("Tester, bug-reporter"),
                       "claus.bjerre@altavista.net");
   KCmdLineArgs::init(argc, argv, &aboutData);
