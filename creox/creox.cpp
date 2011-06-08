@@ -229,7 +229,7 @@ void Creox::initEffectsGui()
                                                  i18n("Distortion"));
   */
 
-  QDockWidget* dockDistortion = new QDockWidget(this);
+  QDockWidget* dockDistortion = new QDockWidget(i18n("Distortion"), this);
   dockDistortion->setObjectName("distortion");
   /*
                                                  iconLoader->loadIcon("distortion",
