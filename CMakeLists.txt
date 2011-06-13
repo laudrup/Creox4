@@ -1,16 +1,22 @@
-project(creox)
+project(creox4)
 
+# XXX: Not sure if this is actually the minimum required version
+cmake_minimum_required(VERSION 2.8)
+
+set(VERSION_MAJOR 0)
+set(VERSION_MINOR 3)
+set(VERSION_PATCH 0)
+
+set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_package(JACK REQUIRED)
-
 find_package(KDE4 REQUIRED)
-
 find_package(Qt4 REQUIRED)
 
-find_package(Threads)
-
 add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS} ${JACK_DEFINITIONS})
+add_definitions(-DCREOX_VERSION="${VERSION}")
+include(${QT_USE_FILE})
 
 # The kde headers sets lots of unused variables, so disable that warning
 add_definitions(-Wno-unused-but-set-variable)
@@ -18,15 +24,25 @@ add_definitions(-Wno-unused-but-set-variable)
 # For now, we still need Qt3 supprt, should be disabled at some point
 add_definitions(-DQT3_SUPPORT)
 
-set( QT_USE_QT3SUPPORT TRUE )
-# -DQT3_SUPPORT_WARNINGS)
-
-include(KDE4Defaults)
-
-include(${QT_USE_FILE})
-
-include_directories(${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${JACK_INCLUDE_DIR} ${QT_INCLUDES} ${QT_QT3SUPPORT_INCLUDE_DIR})
-
-link_directories(${JACK_LIBRARIES})
-
+# The source files
 add_subdirectory(creox)
+
+# Rules for building packages
+set(CPACK_GENERATOR "DEB")
+
+set(CPACK_PACKAGE_DESCRIPTION "A real time sound effector for KDE 4")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${CPACK_PACKAGE_DESCRIPTION}\rCreox is a real-time sound processor. You can plug your electric\rguitar or any other musical instrument directly to the PC's sound card\rand start experimenting with various sound effects. Creox has a nice\ruser-friendly GUI, a preset support, a low-latency DSP engine and each\reffect parameter can be altered on the fly.")
+set(CPACK_PACKAGE_CONTACT "Kasper Laudrup <laudrup@stacktrace.dk>")
+set(CPACK_PACKAGE_VERSION_MAJOR ${VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION ${VERSION})
+set(VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
+set(CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION}-${CMAKE_SYSTEM_PROCESSOR}")
+
+# Debian specific package rules.
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "${CMAKE_SYSTEM_PROCESSOR}")
+# XXX: Make sure these are the needed dependencies and add version info. Maybe call dpkg-shlibdeps directly
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt4-qt3support, kdebase-runtime, libjack0")
+
+include(CPack)

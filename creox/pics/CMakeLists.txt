@@ -1,12 +1,6 @@
-
-include_directories(${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES} )
-
-
-########### install files ###############
+# XXX: Install gfx resources
 
 install(FILES  DESTINATION share/apps/creox/icons)
-
-
 
 #original Makefile.am contents follow:
 
