@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
   privilegesSwitcher.releasePrivileges();
 
   KAboutData aboutData("creox", 0, ki18n("creox"),
-                       QByteArray("0.3"), //VERSION, // XXX!
+                       QByteArray(CREOX_VERSION),
                        ki18n(description),
                        KAboutData::License_GPL,
                        ki18n("(c) 2003, Jozef Kosoru, (c) 2011, Kasper Laudrup"));
