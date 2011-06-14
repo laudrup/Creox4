@@ -180,9 +180,6 @@ CrOptionsDialog::~CrOptionsDialog()
 
 void CrOptionsDialog::loadSettings()
 {
-  // set error function to default one
-  jack_set_error_function(jack_error_callback);
-
   std::vector<QString> inputPortsList,
     outputPortsList;
 
