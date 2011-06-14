@@ -27,6 +27,12 @@ add_definitions(-DQT3_SUPPORT)
 # The source files
 add_subdirectory(creox)
 
+# The pictures
+add_subdirectory(pics)
+
+# The icons
+add_subdirectory(icons)
+
 # Rules for building packages
 set(CPACK_GENERATOR "DEB")
 
