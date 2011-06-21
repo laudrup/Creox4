@@ -5,7 +5,6 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/creox/dsp_flow
   ${CMAKE_SOURCE_DIR}/creox/preset
   ${CREOX4_BINARY_DIR}/creox
-  #${CREOX4_SOURCE_DIR}
   ${KDE4_INCLUDES}
   ${QT_INCLUDES}
   ${JACK_INCLUDES}
@@ -24,7 +23,6 @@ set(creox_SRCS
     privilegesswitcher.cpp
     crthreadeventdispatcher.cpp
     crsplashscreen.cpp
-    croptionsdialog.cpp
     crchainview.cpp
     crchainpopupmenu.cpp
     crchainbutton.cpp

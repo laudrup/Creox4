@@ -68,8 +68,6 @@ class Creox : public KXmlGuiWindow {
   void slotSaveNewPreset();
   /** create a new preset folder */
   void slotNewPresetFolder();
-  /** Options action. */
-  void slotOptions();
   void removeSplashScreen();
 
  private:
@@ -77,14 +75,12 @@ class Creox : public KXmlGuiWindow {
   void initEffectsGui();
   /** An ugly fix for min effects width */
   void fixEffectsWidth();
-  void setDefaultChannels();
 
   friend class CrPresetPopupMenu;
 
   KAction* m_playAction;
   KAction* m_savePresetAction;
   KAction* m_newPresetFolderAction;
-  KAction* m_optionsAction;
 
   EffectKeeper* m_effectKeeper;
   CrChainView* m_chainView;
