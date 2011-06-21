@@ -33,12 +33,10 @@ AudioPrefs::AudioPrefs(QWidget* parent)
           QString chanName = QString::fromLatin1(*ppPortCount);
           kcfg_leftInputChannel->addItem(chanName);
           kcfg_rightInputChannel->addItem(chanName);
-          if (chanName == Settings::leftInputChannel())
-            kcfg_leftInputChannel->setCurrentIndex(idx);
-          if (chanName == Settings::rightInputChannel())
-            kcfg_rightInputChannel->setCurrentIndex(idx);
         }
-        free(ppInputPortList);
+        kcfg_leftInputChannel->setCurrentIndex(Settings::leftInputChannel());
+        kcfg_rightInputChannel->setCurrentIndex(Settings::rightInputChannel());
+        jack_free(ppInputPortList);
       }
 
       const char** const ppOutputPortList = jack_get_ports(pJackClient, 0, 0, JackPortIsOutput);
@@ -48,12 +46,10 @@ AudioPrefs::AudioPrefs(QWidget* parent)
           QString chanName = QString::fromLatin1(*ppPortCount);
           kcfg_leftOutputChannel->addItem(chanName);
           kcfg_rightOutputChannel->addItem(chanName);
-          if (chanName == Settings::leftOutputChannel())
-            kcfg_leftOutputChannel->setCurrentIndex(idx);
-          if (chanName == Settings::rightOutputChannel())
-            kcfg_rightOutputChannel->setCurrentIndex(idx);
         }
-        free(ppOutputPortList);
+        kcfg_leftOutputChannel->setCurrentIndex(Settings::leftOutputChannel());
+        kcfg_rightOutputChannel->setCurrentIndex(Settings::rightOutputChannel());
+        jack_free(ppOutputPortList);
       }
       jack_client_close(pJackClient);
   }
