@@ -61,11 +61,23 @@ class Creox : public KXmlGuiWindow {
   ~Creox();
   CrThreadEventDispatcher* getEventDispatcher() const { return m_ptrEventDispatcher; }
 
+  public slots:
+  /** start / stop the effector engine */
+  void slotStartStopEffector();
+  /** save a new preset */
+  void slotSaveNewPreset();
+  /** create a new preset folder */
+  void slotNewPresetFolder();
+  /** Options action. */
+  void slotOptions();
+  void removeSplashScreen();
+
  private:
   /** Creates the effects widgets. */
   void initEffectsGui();
   /** An ugly fix for min effects width */
   void fixEffectsWidth();
+  void setDefaultChannels();
 
   friend class CrPresetPopupMenu;
 
@@ -80,16 +92,8 @@ class Creox : public KXmlGuiWindow {
 
   CrThreadEventDispatcher* m_ptrEventDispatcher;
 
-  public slots:
-  /** start / stop the effector engine */
-  void slotStartStopEffector();
-  /** save a new preset */
-  void slotSaveNewPreset();
-  /** create a new preset folder */
-  void slotNewPresetFolder();
-  /** Options action. */
-  void slotOptions();
-  void removeSplashScreen();
+ private slots:
+  void showPrefDialog();
 
 protected:
   /** process custom events, especially CrMessageEvent */

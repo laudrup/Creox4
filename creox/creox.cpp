@@ -32,6 +32,7 @@
 #include <KToolBar>
 #include <KMenuBar>
 #include <KIconLoader>
+#include <KConfigDialog>
 
 #include "crdistortion.h"
 #include "crphaser.h"
@@ -48,6 +49,8 @@
 #include "crthreadeventdispatcher.h"
 #include "croptionsdialog.h"
 #include "crsplashscreen.h"
+#include "settings.h"
+#include "audioprefs.h"
 #include "creox.h"
 
 #include <QDebug>
@@ -63,6 +66,7 @@ Creox::Creox(QWidget *parent)
 
   // create actions
   KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
+  KStandardAction::preferences(this, SLOT(showPrefDialog()), actionCollection());
 
   m_playAction = new KAction(KIcon("media-playback-start"), i18n("&Play"), this);
 
@@ -113,7 +117,6 @@ Creox::Creox(QWidget *parent)
   actionCollection()->addAction("presetActionMenu", presetActionMenu);
   connect(presetActionMenu, SIGNAL(activated()), SLOT(slotSaveNewPreset()));
 
-
   /*
     QString::fromLatin1("document-save"),
     actionCollection(), "presetActionMenu");
@@ -145,6 +148,8 @@ Creox::Creox(QWidget *parent)
     //try{
     m_presetView->loadPresets();
 
+
+    setDefaultChannels();
     /*
     }catch(Cr::CrException_presetDataFileError& error){
     KMessageBox::error(0, error.what());
@@ -181,6 +186,7 @@ Creox::~Creox()
 
   m_presetView->savePresets();
   m_effectKeeper->shutdown();
+  Settings::self()->writeConfig();
   /*	}
 	catch(Cr::CrException_presetDataFileError& error){
         KMessageBox::error(0, error.what());
@@ -469,3 +475,45 @@ void Creox::slotOptions()
   optionsDialog.exec();
 }
 
+void Creox::showPrefDialog()
+{
+  if(KConfigDialog::showDialog("settings"))
+    return;
+  KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
+  dialog->setFaceType(KPageDialog::List);
+  AudioPrefs* audioPrefs = new AudioPrefs(0);
+  dialog->addPage(audioPrefs, i18n("Jack audio configuration"));
+  // XXX: Connect this signal to restart sound service
+  //connect(dialog, SIGNAL(settingsChanged(const QString&)), audioPrefs, SLOT(loadSettings()));
+  dialog->show();
+}
+
+void Creox::setDefaultChannels()
+{
+  jack_client_t* pJackClient = 0;
+  if (Settings::leftInputChannel() == "-1" && Settings::rightInputChannel() == "-1") {
+    if ((pJackClient = jack_client_open("creox_options", JackNullOption, 0)) != 0) {
+      const char** const ppInputPortList = jack_get_ports(pJackClient, 0, 0, JackPortIsInput);
+      if (ppInputPortList && ppInputPortList[0]) {
+        Settings::setLeftInputChannel(ppInputPortList[0]);
+        Settings::setRightInputChannel(ppInputPortList[0]);
+      }
+      free(ppInputPortList);
+    }
+  }
+
+  if (Settings::leftOutputChannel() == "-1" && Settings::rightOutputChannel() == "-1") {
+    if (!pJackClient)
+      pJackClient = jack_client_open("creox_options", JackNullOption, 0);
+    if (pJackClient) {
+      const char** const ppOutputPortList = jack_get_ports(pJackClient, 0, 0, JackPortIsOutput);
+      if (ppOutputPortList && ppOutputPortList[0]) {
+        Settings::setLeftOutputChannel(ppOutputPortList[0]);
+        Settings::setRightOutputChannel(ppOutputPortList[0]);
+      }
+      free(ppOutputPortList);
+    }
+  }
+  if (pJackClient)
+    jack_client_close(pJackClient);
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+<kcfg>
+  <kcfgfile name="kjotsrc"/>
+  <include>kglobalsettings.h</include>
+  <group name="kjots">
+    <entry name="leftInputChannel" type="String">
+      <label>Left input channel</label>
+    </entry>
+    <entry name="rightInputChannel" type="String">
+      <label>Right input channel</label>
+    </entry>
+    <entry name="leaveInputDisconnected" type="Bool">
+      <label>Leave input disconnected</label>
+      <default>false</default>
+    </entry>
+    <entry name="leftOutputChannel" type="String">
+      <label>Left output channel</label>
+    </entry>
+    <entry name="rightOutputChannel" type="String">
+      <label>Right output channel</label>
+    </entry>
+    <entry name="leaveOutputDisconnected" type="Bool">
+      <label>Leave output disconnected</label>
+      <default>false</default>
+    </entry>
+  </group>
+</kcfg>
