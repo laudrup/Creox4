@@ -69,18 +69,10 @@ Creox::Creox(QWidget *parent)
 
   m_playAction = new KAction(KIcon("media-playback-start"), i18n("&Play"), this);
 
-  //m_playAction->setIcon(KIcon("document-new"));
   m_playAction->setShortcut(Qt::Key_Space);
   actionCollection()->addAction("playAction", m_playAction);
   connect(m_playAction, SIGNAL(triggered(bool)),
           SLOT(slotStartStopEffector()));
-
-  /*
-    QString::fromLatin1("system-run"),
-    Qt::Key_Space, this,
-    SLOT(slotStartStopEffector()),
-    actionCollection(), "playAction");
-  */
 
   const QString saveNewPresetString(i18n("&Save New Preset..."));
   m_savePresetAction = new KAction(KIcon("document-save"), saveNewPresetString, this);
@@ -91,102 +83,38 @@ Creox::Creox(QWidget *parent)
   m_newPresetFolderAction = new KAction(KIcon("document-new"), i18n("&New Preset Folder..."), this);
   m_newPresetFolderAction->setShortcut(Qt::CTRL + Qt::Key_N);
   actionCollection()->addAction("newPresetFolderAction", m_newPresetFolderAction);
-  //presetActionMenu->addAction(m_newPresetFolderAction);
   connect(m_newPresetFolderAction, SIGNAL(activated()), SLOT(slotNewPresetFolder()));
-
-  /*
-    QString::fromLatin1("document-save"),
-    Qt::CTRL+Qt::Key_S, this, SLOT(slotSaveNewPreset()),
-    actionCollection(), "saveNewPresetAction");
-  */
 
   KActionMenu* const presetActionMenu = new KActionMenu(KIcon("document-save"), saveNewPresetString, this);
   actionCollection()->addAction("presetActionMenu", presetActionMenu);
   connect(presetActionMenu, SIGNAL(activated()), SLOT(slotSaveNewPreset()));
 
-  /*
-    QString::fromLatin1("document-save"),
-    actionCollection(), "presetActionMenu");
-  */
-
-    /*
-    QString::fromLatin1("folder-new"),
-    Qt::CTRL+Qt::Key_N, this,
-    SLOT(slotNewPresetFolder()),
-    actionCollection(),
-    "newPresetFolderAction");
-    presetActionMenu->insert(m_newPresetFolderAction);
-    connect(presetActionMenu, SIGNAL(activated()), this,
-    SLOT(slotSaveNewPreset()));
-  */
   setupGUI();
 
-  /*
-    menuBar()->insertItem(i18n("&View"), dockHideShowMenu(), -1, 1);
-  */
+  m_effectKeeper = new EffectKeeper(this, "m_effectKeeper");
 
-    m_effectKeeper = new EffectKeeper(this, "m_effectKeeper");
+  initEffectsGui();
 
-    initEffectsGui();
+  m_effectKeeper->activate();
+  m_chainView->activate();
+  m_presetView->loadPresets();
 
-    m_effectKeeper->activate();
-    m_chainView->activate();
+  // event dispatcher catches exceptions from the working dsp thread
+  m_ptrEventDispatcher = new CrThreadEventDispatcher(kapp);
 
-    //try{
-    m_presetView->loadPresets();
-
-    /*
-    }catch(Cr::CrException_presetDataFileError& error){
-    KMessageBox::error(0, error.what());
-    #ifdef _DEBUG
-    std::cerr << error.what().latin1() << "\n";
-    #endif
-    }
-
-    //!! preliminary fix !!
-    fixEffectsWidth();
-
-    */
-
-    // event dispatcher catches exceptions from the working dsp thread
-    m_ptrEventDispatcher = new CrThreadEventDispatcher(kapp);
-
-    // start timer to remove splashScreen
-    QTimer::singleShot(g_iSplashScreenTimeOut, this, SLOT(removeSplashScreen()));
-
-    /*
-    readDockConfig();
-  */
+  // start timer to remove splashScreen
+  QTimer::singleShot(g_iSplashScreenTimeOut, this, SLOT(removeSplashScreen()));
 }
 
 Creox::~Creox()
 {
-  //try {
-
-  if (m_effectKeeper->threadEffector()->getStatus() ==
-      ThreadEffector::status_Run)
-    {
-      m_effectKeeper->stop();
-    }
+  if (m_effectKeeper->threadEffector()->getStatus() == ThreadEffector::status_Run) {
+    m_effectKeeper->stop();
+  }
 
   m_presetView->savePresets();
   m_effectKeeper->shutdown();
   Settings::self()->writeConfig();
-  /*	}
-	catch(Cr::CrException_presetDataFileError& error){
-        KMessageBox::error(0, error.what());
-        #ifdef _DEBUG
-        std::cerr << error.what().latin1() << "\n";
-        #endif
-        } */
-
-  // there are so many bugs in the kdelibs dock implementation,
-  // that I can't set this option on
-  // XXX!
-  //writeDockConfig();
-#ifdef _DEBUG
-  std::cerr << "Creox deleted..." << "\n";
-#endif
 }
 
 void Creox::removeSplashScreen()
@@ -428,7 +356,7 @@ void Creox::showPrefDialog()
   KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
   dialog->setFaceType(KPageDialog::List);
   AudioPrefs* audioPrefs = new AudioPrefs(0);
-  dialog->addPage(audioPrefs, i18n("Jack audio configuration"));
+  dialog->addPage(audioPrefs, i18n("Jack audio configuration"), "audio-card");
   // XXX: Connect this signal to restart sound service
   //connect(dialog, SIGNAL(settingsChanged(const QString&)), audioPrefs, SLOT(loadSettings()));
   dialog->show();
