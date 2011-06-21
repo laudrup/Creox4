@@ -1,4 +1,4 @@
-project(creox4)
+project(CREOX4)
 
 # XXX: Not sure if this is actually the minimum required version
 cmake_minimum_required(VERSION 2.8)
