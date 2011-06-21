@@ -48,3 +48,4 @@ target_link_libraries(creox
 install(TARGETS creox ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES creoxui.rc DESTINATION ${DATA_INSTALL_DIR}/creox)
 install(FILES creox4.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(PROGRAMS creox.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
