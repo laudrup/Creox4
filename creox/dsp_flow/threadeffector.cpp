@@ -17,7 +17,6 @@
 #include <cassert>
 #include <cmath>
 #include <cstring>
-//#include <iostream>
 
 #include <klocale.h>
 #include <kapplication.h>
@@ -27,8 +26,8 @@
 #include "soundprocessor.h"
 #include "threadeffector.h"
 #include "crthreadeventdispatcher.h"
-#include "croptionsdialog.h"
 #include "creox.h"
+#include "settings.h"
 
 #include <cerrno>
 
@@ -179,30 +178,8 @@ int ThreadEffector::srate(jack_nframes_t nframes)
   return 0;
 }
 
-void ThreadEffector::run() //throw(Cr::CrException_runtimeError)
+void ThreadEffector::run()
 {
-  qDebug() << "Running";
-  // get the pointer to the config object
-  KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Jack_Options"));
-
-  m_sLeftInputPortName = conf.readEntry("LeftOutputPort",
-                                        QString::fromLatin1(CrOptionsDialog::
-                                                            DEFAULT_LEFT_INPUT_PORT)).
-    latin1();
-  m_sRightInputPortName = conf.readEntry("RightOutputPort",
-                                         QString::fromLatin1(CrOptionsDialog::
-                                                             DEFAULT_RIGHT_INPUT_PORT)).
-    latin1();
-
-  m_sLeftOutputPortName = conf.readEntry("LeftInputPort",
-                                         QString::fromLatin1(CrOptionsDialog::
-                                                             DEFAULT_LEFT_OUTPUT_PORT)).
-    latin1();
-  m_sRightOutputPortName = conf.readEntry("RightInputPort",
-                                          QString::fromLatin1(CrOptionsDialog::
-                                                              DEFAULT_RIGHT_OUTPUT_PORT)).
-    latin1();
-
   updateProcessorChain();
   mr_newParameters = false;
 
@@ -210,15 +187,9 @@ void ThreadEffector::run() //throw(Cr::CrException_runtimeError)
   jack_set_error_function(errorCallback);
 
   // connect to JACK server
-  //if ((m_pJackClient = jack_client_new("creox")) == 0) {
   if ((m_pJackClient = jack_client_open("creox", JackNullOption, 0)) == 0) {
-    qDebug() << "jack_client_new";
-    CrMessageEvent* errorEvent
-      = new CrMessageEvent(i18n("Error: %1").arg(QString::fromLatin1(s_sErrorMessageString.c_str())));
-    static_cast<Creox*>(kapp->mainWidget())->
-      getEventDispatcher()->
-      postEvent(kapp->mainWidget(),
-                errorEvent);
+    CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Error: %1").arg(QString::fromLatin1(s_sErrorMessageString.c_str())));
+    static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
     return;
   }
 
@@ -227,22 +198,58 @@ void ThreadEffector::run() //throw(Cr::CrException_runtimeError)
   jack_set_buffer_size_callback(m_pJackClient, bufsizeCallback, this);
   jack_set_sample_rate_callback(m_pJackClient, srateCallback, this);
 
+  // Get input port names
+  const char** const ppInputPortList = jack_get_ports(m_pJackClient, 0, 0, JackPortIsInput);
+  if (!ppInputPortList || !ppInputPortList[0]) {
+    CrMessageEvent* errorEvent = new CrMessageEvent(i18n("No jack input ports available"));
+    static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+    return;
+  }
+  QStringList inputPortList;
+  for (const char** ppPortCount = ppInputPortList; *ppPortCount; ++ppPortCount) {
+    inputPortList << QString::fromLatin1(*ppPortCount);
+  }
+  jack_free(ppInputPortList);
+
+  if (inputPortList.size() <= Settings::leftInputChannel()
+      || inputPortList.size() <= Settings::rightInputChannel()) {
+    CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Selected jack input ports no longer available"));
+    static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+    return;
+  }
+  QString leftInputPortName = inputPortList[Settings::leftInputChannel()];
+  QString rightInputPortName = inputPortList[Settings::rightInputChannel()];
+
+  // Get output port names
+  const char** const ppOutputPortList = jack_get_ports(m_pJackClient, 0, 0, JackPortIsOutput);
+  if (!ppOutputPortList || !ppOutputPortList[0]) {
+    CrMessageEvent* errorEvent = new CrMessageEvent(i18n("No jack output ports available"));
+    static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+    return;
+  }
+  QStringList outputPortList;
+  for (const char** ppPortCount = ppOutputPortList; *ppPortCount; ++ppPortCount) {
+    outputPortList << QString::fromLatin1(*ppPortCount);
+  }
+  jack_free(ppOutputPortList);
+
+  if (outputPortList.size() <= Settings::leftOutputChannel()
+      || outputPortList.size() <= Settings::rightOutputChannel()) {
+    CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Selected jack output ports no longer available"));
+    static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+    return;
+  }
+  QString leftOutputPortName = outputPortList[Settings::leftOutputChannel()];
+  QString rightOutputPortName = outputPortList[Settings::rightOutputChannel()];
+
   // register ports
-  m_pInputPort1 = jack_port_register(m_pJackClient, "input_1",
-                                     JACK_DEFAULT_AUDIO_TYPE,
-                                     JackPortIsInput, 0);
+  m_pInputPort1 = jack_port_register(m_pJackClient, "input_1", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
   assert(m_pInputPort1);
-  m_pInputPort2 = jack_port_register(m_pJackClient, "input_2",
-                                     JACK_DEFAULT_AUDIO_TYPE,
-                                     JackPortIsInput, 0);
+  m_pInputPort2 = jack_port_register(m_pJackClient, "input_2", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
   assert(m_pInputPort2);
-  m_pOutputPort1 = jack_port_register(m_pJackClient, "output_1",
-                                      JACK_DEFAULT_AUDIO_TYPE,
-                                      JackPortIsOutput, 0);
+  m_pOutputPort1 = jack_port_register(m_pJackClient, "output_1", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
   assert(m_pOutputPort1);
-  m_pOutputPort2 = jack_port_register(m_pJackClient, "output_2",
-                                      JACK_DEFAULT_AUDIO_TYPE,
-                                      JackPortIsOutput, 0);
+  m_pOutputPort2 = jack_port_register(m_pJackClient, "output_2", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
   assert(m_pOutputPort2);
 
   m_processorChainSize = mr_processorChainSize;
@@ -275,81 +282,48 @@ void ThreadEffector::run() //throw(Cr::CrException_runtimeError)
     }
 
   // activate jack processing thread
-  if (jack_activate(m_pJackClient))
-    {
-      qDebug() << "jack_activate";
-      CrMessageEvent* errorEvent
-        = new CrMessageEvent(i18n("Error: %1")
-                             .arg(QString::fromLatin1(s_sErrorMessageString.c_str())));
-      static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->
-        postEvent(kapp->mainWidget(), errorEvent);
-      return;
-    }
+  if (jack_activate(m_pJackClient)) {
+    CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Error: %1")
+                                                    .arg(QString::fromLatin1(s_sErrorMessageString.c_str())));
+    static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+    return;
+  }
 
   m_ppChainEnd = m_ppInsideProcessorChain + m_processorChainSize;
 
   /* connect ports */
   // input ports
-  if (!conf.readEntry("DisconnectedInput", false))
-    {
-      if (jack_connect(m_pJackClient, m_sLeftOutputPortName.c_str(),
-                       jack_port_name(m_pInputPort1)))
-    	{
-          CrMessageEvent* errorEvent =
-            new CrMessageEvent(i18n("Error! Cannot connect output port: %1\n").
-                               arg(QString::fromLatin1(m_sLeftInputPortName.c_str()))
-                               + QString::fromLatin1(s_sErrorMessageString.c_str()));
-          static_cast<Creox*>(kapp->mainWidget())->
-            getEventDispatcher()->
-            postEvent(kapp->mainWidget(),
-                      errorEvent);
-          return;
-    	}
-      if (jack_connect(m_pJackClient, m_sRightOutputPortName.c_str(),
-                       jack_port_name(m_pInputPort2)))
-        {
-          CrMessageEvent* errorEvent =
-            new CrMessageEvent(i18n("Error! Cannot connect output port: %1\n").
-                               arg(QString::fromLatin1(m_sRightInputPortName.c_str()))
-                               + QString::fromLatin1(s_sErrorMessageString.c_str()));
-          static_cast<Creox*>(kapp->mainWidget())->
-            getEventDispatcher()->
-            postEvent(kapp->mainWidget(),
-                      errorEvent);
-          return;
-    	}
+
+  if (!Settings::leaveInputDisconnected()) {
+    if (jack_connect(m_pJackClient, leftOutputPortName.toLatin1(), jack_port_name(m_pInputPort1))) {
+      CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Error! Cannot connect output port: %1\n").
+                                                      arg(leftInputPortName));
+      static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+      return;
     }
+    if (jack_connect(m_pJackClient, rightOutputPortName.toLatin1(), jack_port_name(m_pInputPort2))) {
+      CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Error! Cannot connect output port: %1\n").
+                                                      arg(rightInputPortName));
+      static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+      return;
+    }
+  }
 
   // output ports
-  if (!conf.readEntry("DisconnectedOutput", false))
-    {
-      if (jack_connect(m_pJackClient, jack_port_name(m_pOutputPort1),
-                       m_sLeftInputPortName.c_str()))
-    	{
-          CrMessageEvent* errorEvent =
-            new CrMessageEvent(i18n("Error! Cannot connect input port: %1").
-                               arg(QString::fromLatin1(m_sLeftOutputPortName.c_str()))
-                               + QString::fromLatin1(s_sErrorMessageString.c_str()));
-          static_cast<Creox*>(kapp->mainWidget())->
-            getEventDispatcher()->
-            postEvent(kapp->mainWidget(),
-                      errorEvent);
-          return;
-    	}
-      if (jack_connect(m_pJackClient, jack_port_name(m_pOutputPort2),
-                       m_sRightInputPortName.c_str()))
-    	{
-          CrMessageEvent* errorEvent =
-            new CrMessageEvent(i18n("Error! Cannot connect input port: %1").
-                               arg(QString::fromLatin1(m_sRightOutputPortName.c_str()))
-                               + QString::fromLatin1(s_sErrorMessageString.c_str()));
-          static_cast<Creox*>(kapp->mainWidget())->
-            getEventDispatcher()->
-            postEvent(kapp->mainWidget(),
-                      errorEvent);
-          return;
-    	}
+  if (!Settings::leaveOutputDisconnected()) {
+    if (jack_connect(m_pJackClient, jack_port_name(m_pOutputPort1), leftInputPortName.toLatin1())) {
+      CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Error! Cannot connect input port: %1").
+                                                      arg(leftOutputPortName));
+      static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+      return;
     }
+    if (jack_connect(m_pJackClient, jack_port_name(m_pOutputPort2), rightInputPortName.toLatin1())) {
+      CrMessageEvent* errorEvent = new CrMessageEvent(i18n("Error! Cannot connect input port: %1").
+                                                      arg(rightOutputPortName));
+      static_cast<Creox*>(kapp->mainWidget())->getEventDispatcher()->postEvent(kapp->mainWidget(), errorEvent);
+      return;
+    }
+  }
 
   m_status = status_Run;
 }

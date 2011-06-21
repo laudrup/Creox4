@@ -32,6 +32,7 @@
 #include <KToolBar>
 #include <KMenuBar>
 #include <KIconLoader>
+#include <KConfigDialog>
 
 #include "crdistortion.h"
 #include "crphaser.h"
@@ -46,8 +47,9 @@
 #include "crnewpresetfolderdialogimpl.h"
 #include "crsavenewpresetdialog.h"
 #include "crthreadeventdispatcher.h"
-#include "croptionsdialog.h"
 #include "crsplashscreen.h"
+#include "settings.h"
+#include "audioprefs.h"
 #include "creox.h"
 
 #include <QDebug>
@@ -63,6 +65,7 @@ Creox::Creox(QWidget *parent)
 
   // create actions
   KStandardAction::quit(kapp, SLOT(quit()), actionCollection());
+  KStandardAction::preferences(this, SLOT(showPrefDialog()), actionCollection());
 
   m_playAction = new KAction(KIcon("media-playback-start"), i18n("&Play"), this);
 
@@ -77,18 +80,6 @@ Creox::Creox(QWidget *parent)
     Qt::Key_Space, this,
     SLOT(slotStartStopEffector()),
     actionCollection(), "playAction");
-  */
-
-  m_optionsAction = new KAction(i18n("&Options..."), this);
-  m_optionsAction->setShortcut(Qt::CTRL+Qt::Key_O);
-  actionCollection()->addAction("optionsAction", m_optionsAction);
-  connect(m_optionsAction, SIGNAL(triggered()),
-          SLOT(slotOptions()));
-
-  /*
-    QString::fromLatin1("configure"),
-    Qt::CTRL+Qt::Key_O, this, SLOT(slotOptions()),
-    actionCollection(), "optionsAction");
   */
 
   const QString saveNewPresetString(i18n("&Save New Preset..."));
@@ -112,7 +103,6 @@ Creox::Creox(QWidget *parent)
   KActionMenu* const presetActionMenu = new KActionMenu(KIcon("document-save"), saveNewPresetString, this);
   actionCollection()->addAction("presetActionMenu", presetActionMenu);
   connect(presetActionMenu, SIGNAL(activated()), SLOT(slotSaveNewPreset()));
-
 
   /*
     QString::fromLatin1("document-save"),
@@ -181,6 +171,7 @@ Creox::~Creox()
 
   m_presetView->savePresets();
   m_effectKeeper->shutdown();
+  Settings::self()->writeConfig();
   /*	}
 	catch(Cr::CrException_presetDataFileError& error){
         KMessageBox::error(0, error.what());
@@ -401,22 +392,15 @@ void Creox::initEffectsGui()
 void Creox::slotStartStopEffector()
 {
   //if(m_playAction->isChecked()){
-    qDebug() << "Is checked!";
-    m_optionsAction->setEnabled(false);
     m_effectKeeper->start();
     /*  } else {
-    qDebug() << "Not checked!";
     m_effectKeeper->stop();
-    m_optionsAction->setEnabled(true);
     } */
 }
 
 /** save a new preset */
 void Creox::slotSaveNewPreset()
 {
-  //#ifdef _DEBUG
-  qDebug() << "Creox::slotSaveNewPreset\n";
-  //#endif
   CrSaveNewPresetDialog newPresetDialog(m_effectKeeper, m_presetView, this);
   newPresetDialog.exec();
 }
@@ -424,31 +408,8 @@ void Creox::slotSaveNewPreset()
 /** create a new preset folder */
 void Creox::slotNewPresetFolder()
 {
-  qDebug() << "Creox::slotNewPresetFolder\n";
-  Q_ASSERT(false);
-  //#ifdef _DEBUG
-  //#endif
   CrNewPresetFolderDialogImpl newFolderDialog(m_presetView, this);
   newFolderDialog.exec();
-}
-
-/** An ugly fix for min effects width */
-void Creox::fixEffectsWidth()
-{
-  /*
-    int minWidth = 0;
-    for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
-    effectIterator.current(); ++effectIterator){
-    const int curWidth = effectIterator.current()->sizeHint().width();
-    if(curWidth > minWidth){
-    minWidth = curWidth;
-    }
-    }
-    for(Q3PtrListIterator<CrEffectGui> effectIterator(m_effectKeeper->effectList());
-    effectIterator.current(); ++effectIterator){
-    effectIterator.current()->setMinimumWidth(minWidth);
-    }
-  */
 }
 
 void Creox::customEvent(QEvent* event)
@@ -457,15 +418,18 @@ void Creox::customEvent(QEvent* event)
       KMessageBox::error(0, static_cast<CrMessageEvent*>(event)->messageText());
       m_effectKeeper->stop();
       m_playAction->setChecked(false);
-      m_optionsAction->setEnabled(true);
     }
 }
 
-/** Options action. */
-void Creox::slotOptions()
+void Creox::showPrefDialog()
 {
-  qDebug() << "slotOptions";
-  CrOptionsDialog optionsDialog(this, "optionsDialog");
-  optionsDialog.exec();
+  if(KConfigDialog::showDialog("settings"))
+    return;
+  KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
+  dialog->setFaceType(KPageDialog::List);
+  AudioPrefs* audioPrefs = new AudioPrefs(0);
+  dialog->addPage(audioPrefs, i18n("Jack audio configuration"));
+  // XXX: Connect this signal to restart sound service
+  //connect(dialog, SIGNAL(settingsChanged(const QString&)), audioPrefs, SLOT(loadSettings()));
+  dialog->show();
 }
-

@@ -93,11 +93,6 @@ class ThreadEffector {
 
   pthread_mutex_t m_mutex;
 
-  std::string m_sLeftInputPortName;
-  std::string m_sRightInputPortName;
-  std::string m_sLeftOutputPortName;
-  std::string m_sRightOutputPortName;
-
   float* m_pAudioBuffer_f;	// if creox will support stereo,
   //		audio buffer won't be needed
   std::size_t m_iAudioBufferSize;
