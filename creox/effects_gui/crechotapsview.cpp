@@ -238,7 +238,7 @@ void CrEchoTapsView::slotChangeSelectedTap(int echoTapNum)
 
 void CrEchoTapsView::slotUpdateSelectedTap()
 {
-	assert(m_selectedEchoTap! = -1);
+	assert(m_selectedEchoTap != -1);
 	QPainter painter(this);
 	transformPainter(&painter);
 	drawEchoTap(m_parallelEcho[m_selectedEchoTap].delay,
