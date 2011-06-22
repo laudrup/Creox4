@@ -1,4 +1,4 @@
-creox - 0.2.2rc2 - The realtime sound effector.
+creox - 0.3.0 - The realtime sound effector.
 (c)2003 GPL-v2 Jozef Kosoru<jozef.kosoru@pobox.sk>
 (c)2011 GPL-v2 Kasper Laudrup<laudrup@stacktrace.dk>
 
@@ -13,15 +13,6 @@ It requires JACK sound server (http://jackit.sf.net/).
 As the creox is a JACK application, the output sound can be routed to the other
 JACK-aware applications and the input audio can be taken as the output
 from the other JACK client. 
- 
-The simplest way to compile this application is:
 
-mkdir build
-cd build
-cmake ../
-make
+Please report bugs via https://github.com/laudrup/Creox4/issues
 
-And to run it:
-creox/creox
-
-Please report all bugs to <laudrup@stacktrace.dk>.

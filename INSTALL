@@ -1,0 +1,7 @@
+Make sure you have the jack development headers installed, then the
+simplest way to build and install this application is:
+
+mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` ..
+make
+sudo make install
