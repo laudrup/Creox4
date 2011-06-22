@@ -3,6 +3,7 @@
 						 -------------------
 		begin                : Mon Jan 1 2001
 		copyright            : (C) 2001 by Jozef Kosoru
+                                     : (C) 2011 by Kasper Laudrup
 		email                : jozef.kosoru@pobox.sk
  ***************************************************************************/
 
