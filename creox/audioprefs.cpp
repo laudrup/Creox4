@@ -5,6 +5,7 @@
 		copyright            : (C) 2011 by Kasper Laudrup
                                      : (C) 2011 by Kasper Laudrup
 		email                : laudrup@stacktrace.dk
+                                     : laudrup@stacktrace.dk
  ***************************************************************************/
 
 /***************************************************************************
