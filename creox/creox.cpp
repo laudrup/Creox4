@@ -356,7 +356,7 @@ void Creox::showPrefDialog()
   KConfigDialog *dialog = new KConfigDialog(this, "settings", Settings::self());
   dialog->setFaceType(KPageDialog::List);
   AudioPrefs* audioPrefs = new AudioPrefs(0);
-  dialog->addPage(audioPrefs, i18n("Jack audio configuration"), "audio-card");
+  dialog->addPage(audioPrefs, i18n("Jack audio configuration"), "sound_card_properties");
   // XXX: Connect this signal to restart sound service
   //connect(dialog, SIGNAL(settingsChanged(const QString&)), audioPrefs, SLOT(loadSettings()));
   dialog->show();
