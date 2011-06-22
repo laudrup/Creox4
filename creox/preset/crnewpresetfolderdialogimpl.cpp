@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
+
 #include <cassert>
 #include <typeinfo>
 #include <iostream>

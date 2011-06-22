@@ -16,7 +16,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "control.h"
 #include <cassert>
 #include <iostream>
 #include <qdatastream.h>
