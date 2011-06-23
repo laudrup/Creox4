@@ -170,9 +170,9 @@ void EffectPreset::loadEffect(EffectKeeper* effectKeeper)
 	//synchronize an effect GUI
 	for( QListIterator<CrEffectGui*> effectIterator(effectKeeper->effectList());
              effectIterator.hasNext();){
+          CrEffectGui* effect = effectIterator.next();
           for(std::vector<SoundProcessor*>::const_iterator activeIterator = activeProcessors.begin();
               activeIterator != activeProcessors.end(); activeIterator++){
-            CrEffectGui* effect = effectIterator.next();
             if(effect->getProcessor()->getId() == (*activeIterator)->getId()){
               effect->synchronize();
               break;
