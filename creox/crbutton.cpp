@@ -139,9 +139,7 @@ void CrButton::drawButton(QPainter* painter)
   //if (isOn())
   //  option.features |= QStyleOptionButton::DefaultButton;
   option.text = text();
-  KIconLoader* const iconLoader = KIconLoader::global();
-  option.icon = iconLoader->loadIcon(m_iconName, KIconLoader::NoGroup, KIconLoader::SizeSmall,
-                                     KIconLoader::DefaultState);
+  option.icon = KIcon(m_iconName);
 
   //QPainter painter(this);
   style()->drawControl(QStyle::CE_PushButton, &option, painter, this);
@@ -152,25 +150,6 @@ void CrButton::drawButton(QPainter* painter)
   //QApplication::style()->drawPrimitive(QStyle::PE_PanelButtonBevel, painter);//newDrawRect);//, buttonColorGroup);
 
   //drawButtonLabel(painter);
-}
-
-void CrButton::drawButtonLabel(QPainter* painter)
-{
-  //drawIcon
-  if(!m_iconName.isNull()){
-    KIconLoader* const iconLoader = KIconLoader::global();
-    const int state = (isOn()) ? KIconLoader::DefaultState : KIconLoader::DisabledState;
-    const QPixmap icon = iconLoader->loadIcon(m_iconName, KIconLoader::NoGroup,
-                                              KIconLoader::SizeSmall, state);
-    const QPoint point(ICON_HOFFSET, (height() - icon.height())/2);
-    painter->drawPixmap(point, icon);
-  }
-  if(!text().isNull()){
-    const int hOffset = ICON_HOFFSET + m_iconWidth + TEXT_HOFFSET ;
-    const QRect textRect(hOffset, 0, width() - hOffset - ICON_HOFFSET, height());
-    painter->setPen(colorGroup().buttonText());
-    painter->drawText(textRect, Qt::AlignLeft|Qt::AlignVCenter, text());
-  }
 }
 
 void CrButton::setIcon(const QString& iconName)

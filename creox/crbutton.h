@@ -44,7 +44,6 @@ protected:
   void setIntermediateState(const bool on);
   virtual void paintEvent(QPaintEvent* event);
   virtual void drawButton(QPainter* painter);
-  virtual void drawButtonLabel(QPainter* painter);
 
 private:
   QString m_iconName;
