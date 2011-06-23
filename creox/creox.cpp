@@ -165,7 +165,7 @@ void Creox::initEffectsGui()
   dockDistortion->setWidget(trayDistortion);
   dockDistortion->setWindowTitle(distortion->effectName());
 
-  //dockDistortion->setWindowIcon(KIcon("media-playback-start"));//, iconLoader));
+  dockDistortion->setWindowIcon(KIcon("media-playback-start"));//, iconLoader));
 
   // dockDistortion->setFeatures(QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable |
   //                             QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetVerticalTitleBar);
