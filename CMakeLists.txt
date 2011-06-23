@@ -22,3 +22,6 @@ add_subdirectory(pics)
 
 # The icons
 add_subdirectory(icons)
+
+# The documentation
+add_subdirectory(doc)
