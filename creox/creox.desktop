@@ -3,7 +3,7 @@
 Name=Creox
 GenericName=Realtime sound processor
 Type=Application
-Categories=Qt;KDE;Music;
+Categories=Audio;AudioVideo;Qt;KDE;Music;
 Exec=creox -caption "%c" %i %m  
 Icon=creox
 Comment=The Realtime Sound Effector
