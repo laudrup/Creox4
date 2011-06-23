@@ -1,12 +1,10 @@
 # KDE Config File  
 [Desktop Entry]
-BinaryPattern=creox;
+Name=Creox
+GenericName=Realtime sound processor
 Type=Application
-Category=Audio;Music;
+Categories=Qt;KDE;Audio;Music;
 Exec=creox -caption "%c" %i %m  
-Icon=creox.png
-MiniIcon=creox.png
-DocPath=creox/index.html
+Icon=creox
 Comment=The Realtime Sound Effector
 Terminal=0
-Name=creox
