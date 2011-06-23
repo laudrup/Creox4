@@ -35,6 +35,11 @@
 
 #include <QDebug>
 
+// Hack for older jack versions
+#ifndef jack_free
+# define jack_free(p) free(p)
+#endif
+
 const int ThreadEffector::s_maxProcessors;
 std::string ThreadEffector::s_sErrorMessageString;
 
