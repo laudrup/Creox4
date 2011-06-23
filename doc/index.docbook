@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!DOCTYPE article PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN"
+"dtd/kdex.dtd" [
+<!ENTITY creox "<application>Creox</application>">
+<!ENTITY % addindex "IGNORE">
+<!ENTITY % English "INCLUDE">
+]>
+<article lang="&language;">
+  <title>Creox</title>
+  <articleinfo>
+    <authorgroup>
+      <author><firstname>Kasper</firstname>
+      <surname>Laudrup</surname>
+      <affiliation>
+        <address><email>laudrup@stacktrace.dk</email></address>
+      </affiliation>
+      </author>
+    </authorgroup>
+    <date>2011-06-23</date>
+    <releaseinfo>0.3</releaseinfo>
+</articleinfo>
+
+<para>
+  Creox is a real-time sound processor. You can plug your electric guitar or any
+  other musical instrument directly to the PC's sound card and start
+  experimenting with various sound effects. Creox has a nice user-friendly GUI, a
+  preset support, a low-latency DSP engine and each effect parameter can be
+  altered "on the fly".
+</para>
+
+<itemizedlist>
+  <title>Online Resources</title>
+  <listitem><para>
+    <ulink url="http://kde-apps.org/content/show.php/Creox+4?content=142906">Creox on KDE-Apps.org</ulink>
+  </para></listitem>
+  <listitem>
+    <para><ulink url="https://github.com/laudrup/Creox4/issues">Creox Issue Tracker</ulink></para>
+  </listitem>
+  <listitem><para>
+    <ulink url="https://github.com/laudrup/Creox4">Creox Repository</ulink>
+  </para></listitem>
+</itemizedlist>
+</article>
