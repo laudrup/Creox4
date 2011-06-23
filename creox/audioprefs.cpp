@@ -21,11 +21,6 @@
 #include "settings.h"
 #include <QStringList>
 
-// Hack for older jack versions
-#ifndef jack_free
-# define jack_free(p) free(p)
-#endif
-
 AudioPrefs::AudioPrefs(QWidget* parent)
   : QWidget(parent)
 {
