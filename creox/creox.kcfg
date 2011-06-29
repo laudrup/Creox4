@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
 <kcfg>
-  <kcfgfile name="kjotsrc"/>
+  <kcfgfile name="creox"/>
   <include>kglobalsettings.h</include>
-  <group name="kjots">
+<group name="general">
+  <entry name="showSplashScreen" type="Bool">
+    <label>Show splash screen at start up</label>
+    <default>true</default>
+  </entry>
+</group>
+  <group name="jack">
     <entry name="leftInputChannel" type="Int">
       <label>Left input channel</label>
       <default>0</default>

@@ -23,12 +23,9 @@
 
 #include <KGlobal>
 #include <KStandardDirs>
-#include <KConfig>
-#include <KConfigGroup>
 
+#include "settings.h"
 #include "crsplashscreen.h"
-
-#include <QDebug>
 
 CrSplashScreen* CrSplashScreen::s_this = 0;
 
@@ -38,10 +35,7 @@ CrSplashScreen::CrSplashScreen(const QString& strPixmapName, const char *name )
 {
   setBackgroundMode(Qt::NoBackground);
 
-  KConfigGroup conf = KGlobal::config()->group(QString::fromLatin1("Splash_Screen"));
-  m_bLoadOnStartup = conf.readEntry("loadOnStartup", true);
-
-  if(m_bLoadOnStartup){
+  if(Settings::showSplashScreen()){
     const KStandardDirs* const stdDirs = KGlobal::dirs();
     const QString strFileName(stdDirs->findResource("appdata", QString::fromLatin1("pics/") + strPixmapName));
 

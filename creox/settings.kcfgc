@@ -1,4 +1,4 @@
-File=creox4.kcfg
+File=creox.kcfg
 ClassName=Settings
 Singleton=true
 Mutators=true
