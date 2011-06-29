@@ -6,7 +6,7 @@
                                      : (C) 2011 by Kasper Laudrup
 		email                : jozef.kosoru@pobox.sk
                                      : laudrup@stacktrace.dk
- ***************************************************************************/
+***************************************************************************/
 
 /***************************************************************************
  *                                                                         *
@@ -32,61 +32,61 @@ class QPainter;
  */
 class CrEchoTapsView : public Q3Frame
 {
-	Q_OBJECT
+  Q_OBJECT
 
-public:
-	CrEchoTapsView(const EchoParameters* epar, const int selectedEchoTap = -1, QWidget *parent = 0,
-				   const char *name = 0);
+    public:
+  CrEchoTapsView(const EchoParameters* epar, const int selectedEchoTap = -1, QWidget *parent = 0,
+                 const char *name = 0);
 
-	~CrEchoTapsView();
+  ~CrEchoTapsView();
 
-	virtual QSizePolicy sizePolicy() const
-	{
-		return QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-	}
+  virtual QSizePolicy sizePolicy() const
+  {
+    return QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+  }
 
-	virtual QSize sizeHint() const;
+  virtual QSize sizeHint() const;
 
-	//void setSelectedEchoTap(const int echoTapNum, const bool repaint=true);
+  //void setSelectedEchoTap(const int echoTapNum, const bool repaint=true);
 
-public slots:
-	void slotChangeSelectedTap(int echoTapNum);
-	void slotUpdateSelectedTap();
-	void slotUpdateFinalTap();
+  public slots:
+  void slotChangeSelectedTap(int echoTapNum);
+  void slotUpdateSelectedTap();
+  void slotUpdateFinalTap();
 
-protected:
-	virtual void drawContents(QPainter* painter);
+ protected:
+  virtual void drawContents(QPainter* painter);
 
-private:
-	enum TapType { tap_normal, tap_selected, tap_deleted, tap_final, tap_finalDeleted };
-	const EchoParameters* m_epar;
-	EchoParameters::ParallelEcho m_parallelEcho[10];
-	float m_finalFeedback;
-	float m_finalDelay;
-	int m_selectedEchoTap;
+ private:
+  enum TapType { tap_normal, tap_selected, tap_deleted, tap_final, tap_finalDeleted };
+  const EchoParameters* m_epar;
+  EchoParameters::ParallelEcho m_parallelEcho[10];
+  float m_finalFeedback;
+  float m_finalDelay;
+  int m_selectedEchoTap;
 
-	void redrawAllTaps(QPainter* painter);
+  void redrawAllTaps(QPainter* painter);
 
-	static void transformPainter(QPainter* painter);
-	static void drawGrid(QPainter* painter);
-	void drawEchoTap(const float delay, const float decay, const TapType type,
-					 QPainter* painter) const;
+  static void transformPainter(QPainter* painter);
+  static void drawGrid(QPainter* painter);
+  void drawEchoTap(const float delay, const float decay, const TapType type,
+                   QPainter* painter) const;
 
-	static inline int roundToInt(float f)
-	{
-		int sign=1;
-		if(f<0.0f){
-			f=-f;
-			sign=-1;
-		}
-		const int fi = static_cast<int>(f);
-		if((f-static_cast<float>(fi))>=0.5f){
-			return (fi+1)*sign;
-		}
-		else{
-			return fi*sign;
-		}
-	}
+  static inline int roundToInt(float f)
+  {
+    int sign=1;
+    if(f<0.0f){
+      f=-f;
+      sign=-1;
+    }
+    const int fi = static_cast<int>(f);
+    if((f-static_cast<float>(fi))>=0.5f){
+      return (fi+1)*sign;
+    }
+    else{
+      return fi*sign;
+    }
+  }
 };
 
 #endif
