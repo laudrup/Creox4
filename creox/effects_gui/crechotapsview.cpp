@@ -177,13 +177,13 @@ void CrEchoTapsView::drawEchoTap(const float delay, const float decay, const Tap
 		pen.setWidth(0);
 		painter->setPen(pen);
 	}
-        // XXX!
-        /*
-	painter->moveTo(arrowPos);
-	painter->lineTo(arrowPos.x() - 2, arrowPos.y() - 2);
-	painter->lineTo(arrowPos.x() + 2, arrowPos.y() - 2);
-	painter->lineTo(arrowPos);
-        */
+        QPainterPath path;
+	path.moveTo(arrowPos);
+	path.lineTo(arrowPos.x() - 2, arrowPos.y() - 2);
+	path.lineTo(arrowPos.x() + 2, arrowPos.y() - 2);
+	path.lineTo(arrowPos);
+        painter->drawPath(path);
+
 	painter->restore();
 }
 
