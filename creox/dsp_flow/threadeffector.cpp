@@ -164,22 +164,6 @@ int ThreadEffector::bufsize(jack_nframes_t nframes)
   return 0;
 }
 
-int ThreadEffector::srate(jack_nframes_t nframes)
-{
-  // TODO: Not sure if this is needed
-  /*
-  qDebug() << "srate";
-  CrMessageEvent* errorEvent =
-    new CrMessageEvent(i18n("The JACK sample rate has changed to %1 Hz."
-                            " Restart the sound processing.").arg(nframes));
-  static_cast<Creox*>(kapp->mainWidget())->
-    getEventDispatcher()->
-    postEvent(kapp->mainWidget(),
-              errorEvent);
-  */
-  return 0;
-}
-
 void ThreadEffector::run()
 {
   updateProcessorChain();
@@ -198,7 +182,6 @@ void ThreadEffector::run()
   // register callbacks
   jack_set_process_callback(m_pJackClient, processCallback, this);
   jack_set_buffer_size_callback(m_pJackClient, bufsizeCallback, this);
-  jack_set_sample_rate_callback(m_pJackClient, srateCallback, this);
 
   // Get input port names
   const char** const ppInputPortList = jack_get_ports(m_pJackClient, 0, 0, JackPortIsInput);
@@ -373,11 +356,6 @@ int ThreadEffector::processCallback(jack_nframes_t nframes, void* p_effector)
 int ThreadEffector::bufsizeCallback(jack_nframes_t nframes, void* p_effector)
 {
   return static_cast<ThreadEffector*>(p_effector)->bufsize(nframes);
-}
-
-int ThreadEffector::srateCallback(jack_nframes_t nframes, void* p_effector)
-{
-  return static_cast<ThreadEffector*>(p_effector)->srate(nframes);
 }
 
 void ThreadEffector::errorCallback(const char* p_msg)

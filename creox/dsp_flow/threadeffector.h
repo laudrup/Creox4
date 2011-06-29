@@ -66,11 +66,9 @@ class ThreadEffector {
 
   int process(jack_nframes_t nframes);
   int bufsize(jack_nframes_t nframes);
-  int srate(jack_nframes_t nframes);
 
   static int processCallback(jack_nframes_t nframes, void* p_effector);
   static int bufsizeCallback(jack_nframes_t nframes, void* p_effector);
-  static int srateCallback(jack_nframes_t nframes, void* p_effector);
   static void errorCallback(const char* p_msg);
 
  private:
