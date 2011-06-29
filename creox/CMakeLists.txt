@@ -5,11 +5,16 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/creox/dsp_flow
   ${CMAKE_SOURCE_DIR}/creox/preset
   ${CREOX4_BINARY_DIR}/creox
+)
+
+include_directories(
+  SYSTEM
   ${KDE4_INCLUDES}
   ${QT_INCLUDES}
   ${JACK_INCLUDES}
   ${QT_QT3SUPPORT_INCLUDE_DIR}
   )
+
 
 add_subdirectory(cr_lib)
 add_subdirectory(dsp_flow)
