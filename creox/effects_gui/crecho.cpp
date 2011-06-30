@@ -99,10 +99,10 @@ CrEcho::CrEcho(QWidget *parent, const char *name )
 	(void)m_voiceArray->addSlider(i18n("Delay"), i18n("ms"), delayValid, &m_epar->parallelEcho[m_visibleVoice].delay, true, true);
 	(void)m_voiceArray->addSlider(i18n("Decay"), "%", mixValid, &m_epar->parallelEcho[m_visibleVoice].decay, true, true);
 	(void)m_voiceArray->addSlider(i18n("Feedback"), "%", mixValid, &m_epar->parallelEcho[m_visibleVoice].feedback);
-	connect(m_voiceArray->getSliderEntry(0), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(slotUpdateSelectedTap()));
-	connect(m_voiceArray->getSliderEntry(1), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(slotUpdateSelectedTap()));
-	connect(m_finalEchoArray->getSliderEntry(0), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(slotUpdateFinalTap()));
-	connect(m_finalEchoArray->getSliderEntry(1), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(slotUpdateFinalTap()));
+	connect(m_voiceArray->getSliderEntry(0), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(update()));
+	connect(m_voiceArray->getSliderEntry(1), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(update()));
+	connect(m_finalEchoArray->getSliderEntry(0), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(update()));
+	connect(m_finalEchoArray->getSliderEntry(1), SIGNAL(valueChanged(float)), m_echoTapsView, SLOT(update()));
 
 	updateVoicesListBox();
 	m_voicesListBox->setFixedWidth(m_voicesListBox->sizeHint().width());
