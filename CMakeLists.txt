@@ -12,7 +12,7 @@ add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS} ${JACK_DEFINITIONS})
 include(${QT_USE_FILE})
 
 # For now, we still need Qt3 supprt, should be disabled at some point
-add_definitions(-DQT3_SUPPORT)
+add_definitions(-DQT3_SUPPORT -DQT3_SUPPORT_WARNINGS)
 
 # The source files
 add_subdirectory(creox)
