@@ -25,3 +25,8 @@ add_subdirectory(icons)
 
 # The documentation
 add_subdirectory(doc)
+
+# Translations
+find_package(Msgfmt REQUIRED)
+find_package(Gettext REQUIRED)
+add_subdirectory(po)
