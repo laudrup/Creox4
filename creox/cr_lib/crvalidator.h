@@ -30,7 +30,7 @@
 class CrValidator : public QDoubleValidator  {
   Q_OBJECT
  public:
-  CrValidator(const float bottom, const float top, const float slope=0.5f, QWidget *parent=0, const char *name=0);
+  CrValidator(const float bottom, const float top, const float slope=0.5f, QWidget *parent=0);
   ~CrValidator();
 
   int getIntValue(const float variable) const;
@@ -72,10 +72,9 @@ class CrValidator : public QDoubleValidator  {
       sign=-1;
     }
     const int fi = static_cast<int>(f);
-    if((f-static_cast<double>(fi)) > 0.0){
+    if((f-static_cast<double>(fi)) > 0.0) {
       return (fi+1)*sign;
-    }
-    else{
+    } else {
       return fi*sign;
     }
   }
@@ -88,10 +87,9 @@ class CrValidator : public QDoubleValidator  {
       sign=-1;
     }
     const int fi = static_cast<int>(f);
-    if((f-static_cast<double>(fi))>=0.5){
+    if((f-static_cast<double>(fi))>=0.5) {
       return (fi+1)*sign;
-    }
-    else{
+    } else{
       return fi*sign;
     }
   }

@@ -24,13 +24,11 @@
 const int CrValidator::s_validatorResolution = VALIDATOR_RESOLUTION;
 const double CrValidator::s_validatorResolution_d = VALIDATOR_RESOLUTION;
 
-CrValidator::CrValidator(const float bottom, const float top, const float slope, QWidget *parent, const char *name)
-  : QDoubleValidator(static_cast<double>(bottom), static_cast<double>(top), 3, parent,name),
+CrValidator::CrValidator(const float bottom, const float top, const float slope, QWidget *parent)
+  : QDoubleValidator(static_cast<double>(bottom), static_cast<double>(top), 3, parent),
     m_bottom(bottom), m_top(top)
 {
-  //assert(top>bottom && slope>0.0f && slope<1.0f);
-
-  if(slope == 0.5f){
+  if(slope == 0.5f) {
     m_linear = true;
     m_m1 = s_validatorResolution_d / static_cast<double>(m_top - m_bottom);
     m_s1 = (static_cast<double>(-m_bottom) * s_validatorResolution_d) / static_cast<double>(m_top - m_bottom);
@@ -40,7 +38,7 @@ CrValidator::CrValidator(const float bottom, const float top, const float slope,
 
     m_smallestVal = std::fabs( ((m_m2 * static_cast<double>(minValue())) + m_s2) -
                                ((m_m2 * (static_cast<double>(minValue())+0.9)) + m_s2) );
-  } else{
+  } else {
     m_linear = false;
     m_exponent = std::log(static_cast<double>(slope)) / std::log(0.5);
     m_oneDivExponent = 1.0/m_exponent;
@@ -52,11 +50,9 @@ CrValidator::CrValidator(const float bottom, const float top, const float slope,
     m_s2 = static_cast<double>(m_bottom);
 
     if(slope < 0.5f){
-      m_smallestVal = 0.0; //std::fabs( ((m_m2 * static_cast<double>(minValue())) + m_s2) -
-      //((m_m2 * (static_cast<double>(minValue())+0.9)) + m_s2) );
-    }
-    else{
-      m_smallestVal = 0.0; //std::fabs( ((m_m2 * static_cast<double>(minValue())) + m_s2) -
+      m_smallestVal = 0.0;
+    } else{
+      m_smallestVal = 0.0;
     }
   }
 
@@ -70,10 +66,9 @@ CrValidator::~CrValidator()
 
 int CrValidator::getIntValue(const float variable) const
 {
-  if(m_linear){
+  if(m_linear) {
     return roundToInt( (m_m1 * static_cast<double>(variable)) + m_s1 );
-  }
-  else{
+  } else {
     return roundToInt( std::pow((m_m1 * static_cast<double>(variable)) + m_s1, m_oneDivExponent) * s_validatorResolution_d );
   }
 
@@ -81,17 +76,16 @@ int CrValidator::getIntValue(const float variable) const
 
 float CrValidator::getFloatValue(const int value) const
 {
-  if(value != m_prevIntValue){
+  if(value != m_prevIntValue) {
     m_prevIntValue = value;
     if(m_linear){
       m_retFloatValue = (m_m2 * static_cast<double>(value)) + m_s2;
       if(std::fabs(m_retFloatValue)<m_smallestVal){
         m_retFloatValue = 0.0f;
       }
-    }
-    else{
+    } else {
       m_retFloatValue = (m_m2 * std::pow(static_cast<double>(value)/s_validatorResolution_d, m_exponent)) + m_s2;
-      if(std::fabs(m_retFloatValue)<m_smallestVal){
+      if(std::fabs(m_retFloatValue)<m_smallestVal) {
         m_retFloatValue = 0.0f;
       }
     }
@@ -101,7 +95,7 @@ float CrValidator::getFloatValue(const int value) const
 
 int CrValidator::getStep() const
 {
-  if(m_linear){
+  if(m_linear) {
     const double resolution = 0.01;
     double div = std::fabs( static_cast<double>(getFloatValue(minValue())) - static_cast<double>(getFloatValue(minValue()+1)) );
     if(!div){
@@ -109,8 +103,7 @@ int CrValidator::getStep() const
     }
     const int step = roundUpToInt( resolution / div );
     return (step>0) ? step : 1;
-  }
-  else{
+  } else {
     return s_validatorResolution/1000;
   }
 }
