@@ -1,1 +1,1 @@
-# XXX: Handle translations
+add_subdirectory(ru)
